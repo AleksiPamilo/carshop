@@ -1,37 +1,41 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState, useRef } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 export default function Login() {
+    const router = useRouter();
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const [showPassword, setShowPassword] = useState<boolean>(false);
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
 
     const submit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setLoading(true);
+        setError(null);
 
         try {
-            setLoading(true);
-            setError(null);
-
             const res = await signIn("credentials", {
                 email: emailRef.current?.value,
                 password: passwordRef.current?.value,
-                callbackUrl: "/",
+                redirect: false,
             });
 
             if (res?.error) {
-                setError(res.error);
+                setError("Invalid email or password");
                 setLoading(false);
                 return;
             }
 
+            router.push("/");
             clearForm();
-
         } catch (e: any) {
+            console.log(e.message)
             setError(e.message);
             setLoading(false);
         }
@@ -46,12 +50,12 @@ export default function Login() {
     }
 
     return (
-        <main className="w-screen h-screen flex items-center justify-center">
+        <main className="w-screen h-[50rem] flex items-center justify-center">
             <div className="bg-gray-800 w-[23rem] md:w-[30rem] p-4 rounded-md text-black dark:text-white">
                 <h1 className="text-2xl font-semibold uppercase">Login</h1>
 
                 {error && (
-                    <div className="flex items-center gap-2 mt-4">
+                    <div className="flex items-center justify-center gap-2 mt-4 bg-red-500 rounded-md p-3">
                         <span>{error}</span>
                     </div>
                 )}
@@ -65,17 +69,26 @@ export default function Login() {
                             placeholder="Email"
                             className="text-black border-2 rounded-md p-2 focus:outline-0 focus:border-blue-600"
                         />
-                        <input
-                            type="password"
-                            required
-                            ref={passwordRef}
-                            placeholder="Password"
-                            className="text-black border-2 rounded-md p-2 focus:outline-0 focus:border-blue-600"
-                        />
 
+                        <div className="relative">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                required
+                                ref={passwordRef}
+                                placeholder="Password"
+                                className="text-black w-full border-2 rounded-md p-2 focus:outline-0 focus:border-blue-600"
+                            />
+                            <button
+                                type="button"
+                                className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-700 text-xl"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                            </button>
+                        </div>
                     </div>
 
-                    <Link href="/login" className="text-blue-600">
+                    <Link href="/register" className="text-blue-600">
                         Don't have an account?
                     </Link>
 

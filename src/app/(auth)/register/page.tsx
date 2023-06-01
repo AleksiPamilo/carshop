@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { useState, useRef } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 export default function Register() {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const [showPassword, setShowPassword] = useState<{ password: boolean, confirmPassword: boolean }>({ password: false, confirmPassword: false });
     const emailRef = useRef<HTMLInputElement>(null);
     const nameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -51,12 +53,12 @@ export default function Register() {
     }
 
     return (
-        <main className="w-screen h-screen flex items-center justify-center">
+        <main className="w-screen h-[50rem] flex items-center justify-center">
             <div className="bg-gray-800 w-[23rem] md:w-[30rem] p-4 rounded-md text-black dark:text-white">
                 <h1 className="text-2xl font-semibold uppercase">Register</h1>
 
                 {error && (
-                    <div className="flex items-center gap-2 mt-4">
+                    <div className="flex items-center justify-center gap-2 mt-4 bg-red-500 rounded-md p-3">
                         <span>{error}</span>
                     </div>
                 )}
@@ -77,22 +79,38 @@ export default function Register() {
                             placeholder="Username"
                             className="text-black border-2 rounded-md p-2 focus:outline-0 focus:border-blue-600"
                         />
-                        <input
-                            type="password"
-                            required
-                            ref={passwordRef}
-                            placeholder="Password"
-                            autoComplete="new-password"
-                            className="text-black border-2 rounded-md p-2 focus:outline-0 focus:border-blue-600"
-                        />
-                        <input
-                            type="password"
-                            required
-                            ref={confirmPasswordRef}
-                            placeholder="Confirm Password"
-                            autoComplete="new-password"
-                            className="text-black border-2 rounded-md p-2 focus:outline-0 focus:border-blue-600"
-                        />
+                        <div className="relative">
+                            <input
+                                type={showPassword.password ? "text" : "password"}
+                                required
+                                ref={passwordRef}
+                                placeholder="Password"
+                                className="text-black w-full border-2 rounded-md p-2 focus:outline-0 focus:border-blue-600"
+                            />
+                            <button
+                                type="button"
+                                className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-700 text-xl"
+                                onClick={() => setShowPassword({ ...showPassword, password: !showPassword.password })}
+                            >
+                                {showPassword.password ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                            </button>
+                        </div>
+                        <div className="relative">
+                            <input
+                                type={showPassword.confirmPassword ? "text" : "password"}
+                                required
+                                ref={confirmPasswordRef}
+                                placeholder="Password"
+                                className="text-black w-full border-2 rounded-md p-2 focus:outline-0 focus:border-blue-600"
+                            />
+                            <button
+                                type="button"
+                                className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-700 text-xl"
+                                onClick={() => setShowPassword({ ...showPassword, confirmPassword: !showPassword.confirmPassword })}
+                            >
+                                {showPassword.confirmPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                            </button>
+                        </div>
                     </div>
 
                     <Link href="/login" className="text-blue-600">
