@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String    @unique
+  password      String
+  email         String    @unique
+  emailVerified DateTime? @map("email_verified")
+  createdAt     DateTime  @default(now())
+  vehicles      Vehicle[]
+
+  @@map("users")
+}
+
+model Vehicle {
+  id               Int       @id @default(autoincrement())
+  make             String
+  model            String
+  year             Int
+  price            Float
+  description      String
+  user             User      @relation(fields: [user_id], references: [id])
+  user_id          String
+  images           Image[]
+  category         Category  @relation(fields: [category_id], references: [id])
+  category_id      Int
+  location         Location  @relation(fields: [location_id], references: [id])
+  location_id      Int
+  listingCreatedAt DateTime  @default(now()) @map("listing_created_at")
+  listingUpdatedAt DateTime? @map("listing_updated_at")
+  soldAt           DateTime? @map("sold_at")
+
+  @@map("vehicles")
+}
+
+model Image {
+  id         Int     @id @default(autoincrement())
+  filename   String
+  vehicle    Vehicle @relation(fields: [vehicle_id], references: [id])
+  vehicle_id Int
+
+  @@map("images")
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  vehicles Vehicle[]
+
+  @@map("categories")
+}
+
+model Location {
+  id       Int       @id @default(autoincrement())
+  name     String
+  vehicles Vehicle[]
+
+  @@map("locations")
+}
