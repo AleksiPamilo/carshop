@@ -1,0 +1,39 @@
+{
+    "title": "Car Shop",
+    "loading": "Loading...",
+
+    "auth": {
+        "signin": "Sign In",
+        "signup": "Sign Up",
+        "signout": "Sign Out",
+        "username": "Username",
+        "password": "Password",
+        "email": "Email",
+        "dontHaveAccount": "Don't have an account?",
+        "alreadyHaveAccount": "Already have an account?",
+        "forgotPassword": "Forgot Password?",
+        "resetPassword": "Reset Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm Password",
+        "changePassword": "Change Password",
+        "errors": {
+            "username": "Username is required",
+            "password": "Password is required",
+            "email": "Email is required",
+            "emailInvalid": "Email is invalid",
+            "incorrectCredentials": "Incorrect username or password"
+        }
+    },
+
+    "navigation": [
+        {
+            "label": "Home",
+            "path": "/"
+        }
+    ],
+
+    "locales": {
+        "fi": "Finnish",
+        "en": "English"
+    }
+}

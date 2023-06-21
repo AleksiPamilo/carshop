@@ -13,6 +13,7 @@ export default function Register() {
     const passwordRef = useRef<HTMLInputElement>(null);
     const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
+
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(false);

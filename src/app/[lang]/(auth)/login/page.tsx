@@ -5,6 +5,10 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState, useRef } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Dictionary } from "@/types/dictionary";
+import { getDictionary } from "@/../get-dictionary";
+import { Locale, i18n } from "@/../i18n-config";
+
 
 export default function Login() {
     const router = useRouter();
@@ -27,7 +31,7 @@ export default function Login() {
             });
 
             if (res?.error) {
-                setError("Invalid email or password");
+                setError(res.error);
                 setLoading(false);
                 return;
             }
@@ -35,7 +39,6 @@ export default function Login() {
             router.push("/");
             clearForm();
         } catch (e: any) {
-            console.log(e.message)
             setError(e.message);
             setLoading(false);
         }
@@ -97,7 +100,7 @@ export default function Login() {
                         disabled={loading}
                         className="flex items-center justify-center px-4 py-2 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none hover:ring-2 hover:ring-indigo-500 disabled:cursor-not-allowed"
                     >
-                        Login
+                        {loading ? "Loading..." : "Login"}
                     </button>
                 </form>
             </div>
