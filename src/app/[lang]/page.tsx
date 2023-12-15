@@ -13,10 +13,7 @@ export default async function IndexPage({
         <div>
             <LocaleSwitcher dictionary={dictionary} />
             <p>Current locale: {lang}</p>
-            <p>
-                This text is rendered on the server:{' '}
-                {dictionary['navigation'][0].label}
-            </p>
+            <p>{dictionary.navigation[0].label}</p>
         </div>
     )
 }

@@ -4,7 +4,7 @@ import Navigation from '@components/Navigation';
 import { getDictionary } from '../../../get-dictionary';
 import { i18n, Locale } from '@/../i18n-config';
 import './globals.css';
-import { Dictionary } from '@/types/dictionary';
+import { IDictionary } from '@/interfaces/dictionary';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,7 +27,7 @@ export default async function RootLayout({
   children: React.ReactNode,
   params: { lang: Locale }
 }) {
-  const dictionary = await getDictionary(lang) as unknown as Dictionary;
+  const dictionary = await getDictionary(lang) as unknown as IDictionary;
 
   return (
     <html lang={lang}>

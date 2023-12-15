@@ -2,7 +2,6 @@
 const nextConfig = {
     experimental: {
         serverComponentsExternalPackages: ["@prisma/react", "bcryptjs"],
-        serverActions: true,
     }
 }
 

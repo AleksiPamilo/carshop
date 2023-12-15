@@ -1,10 +1,10 @@
-export type Dictionary = {
+export interface IDictionary {
     title: string,
     loading: string,
     auth: {
-        signin: string,
-        signup: string,
-        signout: string,
+        signIn: string,
+        signUp: string,
+        signOut: string,
         username: string,
         password: string,
         email: string,
@@ -16,10 +16,12 @@ export type Dictionary = {
         confirmPassword: string,
         errors: {
             username: string,
+            usernameTaken: string,
             password: string,
             email: string,
             emailInvalid: string,
             incorrectCredentials: string,
+            unknownError: string,
         }
     },
     navigation: {

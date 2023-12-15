@@ -3,20 +3,32 @@
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Dictionary } from "@/types/dictionary";
+import { IDictionary } from "@/interfaces/dictionary";
 import { getDictionary } from "@/../get-dictionary";
-import { Locale, i18n } from "@/../i18n-config";
+import type { Locale } from "@/../i18n-config";
 
 
-export default function Login() {
+export default function Login({
+    params: { lang },
+}: {
+    params: { lang: Locale }
+}) {
     const router = useRouter();
+    const [dictionary, setDictionary] = useState<IDictionary | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (lang)
+            getDictionary(lang)
+                .then(setDictionary)
+                .catch(() => setDictionary(null));
+    }, [lang]);
 
     const submit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -31,15 +43,15 @@ export default function Login() {
             });
 
             if (res?.error) {
-                setError(res.error);
+                setError(dictionary?.auth.errors.incorrectCredentials ?? res.error);
                 setLoading(false);
                 return;
             }
 
             router.push("/");
             clearForm();
-        } catch (e: any) {
-            setError(e.message);
+        } catch {
+            setError(dictionary?.auth.errors.unknownError ?? "Unknown error");
             setLoading(false);
         }
     }
@@ -55,7 +67,7 @@ export default function Login() {
     return (
         <main className="w-screen h-[50rem] flex items-center justify-center">
             <div className="bg-gray-800 w-[23rem] md:w-[30rem] p-4 rounded-md text-black dark:text-white">
-                <h1 className="text-2xl font-semibold uppercase">Login</h1>
+                <h1 className="text-2xl font-semibold uppercase">{dictionary?.auth.signIn}</h1>
 
                 {error && (
                     <div className="flex items-center justify-center gap-2 mt-4 bg-red-500 rounded-md p-3">
@@ -69,7 +81,7 @@ export default function Login() {
                             type="email"
                             required
                             ref={emailRef}
-                            placeholder="Email"
+                            placeholder={dictionary?.auth.email}
                             className="text-black border-2 rounded-md p-2 focus:outline-0 focus:border-blue-600"
                         />
 
@@ -78,7 +90,7 @@ export default function Login() {
                                 type={showPassword ? "text" : "password"}
                                 required
                                 ref={passwordRef}
-                                placeholder="Password"
+                                placeholder={dictionary?.auth.password}
                                 className="text-black w-full border-2 rounded-md p-2 focus:outline-0 focus:border-blue-600"
                             />
                             <button
@@ -92,7 +104,7 @@ export default function Login() {
                     </div>
 
                     <Link href="/register" className="text-blue-600">
-                        Don't have an account?
+                        {dictionary?.auth.dontHaveAccount}
                     </Link>
 
                     <button
@@ -100,7 +112,7 @@ export default function Login() {
                         disabled={loading}
                         className="flex items-center justify-center px-4 py-2 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none hover:ring-2 hover:ring-indigo-500 disabled:cursor-not-allowed"
                     >
-                        {loading ? "Loading..." : "Login"}
+                        {loading ? dictionary?.loading : dictionary?.auth.signIn}
                     </button>
                 </form>
             </div>

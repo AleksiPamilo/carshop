@@ -1,11 +1,10 @@
 {
     "title": "Autokauppa",
     "loading": "Ladataan...",
-
     "auth": {
-        "signin": "Kirjaudu sisään",
-        "signup": "Rekisteröidy",
-        "signout": "Kirjaudu ulos",
+        "signIn": "Kirjaudu sisään",
+        "signUp": "Rekisteröidy",
+        "signOut": "Kirjaudu ulos",
         "username": "Käyttäjänimi",
         "password": "Salasana",
         "email": "Sähköposti",
@@ -18,20 +17,20 @@
         "changePassword": "Vaihda salasana",
         "errors": {
             "username": "Käyttäjänimi on pakollinen",
+            "usernameTaken": "Käyttäjänimi on jo käytössä",
             "password": "Salasana on pakollinen",
             "email": "Sähköposti on pakollinen",
             "emailInvalid": "Sähköposti on virheellinen",
-            "incorrectCredentials": "Väärä käyttäjänimi tai salasana"
+            "incorrectCredentials": "Väärä käyttäjänimi tai salasana",
+            "unknownError": "Tapahtui odottamaton virhe"
         }
     },
-
     "navigation": [
         {
             "label": "Koti",
             "path": "/"
         }
     ],
-
     "locales": {
         "fi": "Suomi",
         "en": "Englanti"

@@ -7,10 +7,10 @@ import Button from "./Button";
 import FiIcon from "@/assets/fi.svg";
 import GbIcon from "@/assets/gb.svg";
 import Image from "next/image";
-import { Dictionary } from "@/types/dictionary";
+import { IDictionary } from "@/interfaces/dictionary";
 import { Locale } from "../../../../i18n-config";
 
-export default function SwitchLocale({ dictionary }: { dictionary: Dictionary }) {
+export default function SwitchLocale({ dictionary }: { dictionary: IDictionary }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
 

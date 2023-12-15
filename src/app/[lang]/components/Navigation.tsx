@@ -7,11 +7,11 @@ import Image from "next/image";
 import Logo from "@/assets/logo.svg";
 import { FaTimes, FaBars } from "react-icons/fa";
 import Button from "./Button";
-import { Dictionary } from "@/types/dictionary";
+import { IDictionary } from "@/interfaces/dictionary";
 import SwitchLocale from "./SwitchLocale";
 
 export default function Navigation({ dictionary }: {
-    dictionary: Dictionary
+    dictionary: IDictionary
 }) {
     const pathname = usePathname();
     const currentLocale = pathname.split("/")[1];
@@ -43,7 +43,7 @@ export default function Navigation({ dictionary }: {
 
                     <Link href="/login">
                         <span className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
-                            {dictionary.auth.signin}
+                            {dictionary.auth.signIn}
                         </span>
                     </Link>
                 </div>
@@ -71,7 +71,7 @@ export default function Navigation({ dictionary }: {
 
                     <Link href="/login" className="text-3xl mt-2" onClick={handleIsMenuOpen}>
                         <span className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
-                            {dictionary.auth.signin}
+                            {dictionary.auth.signIn}
                         </span>
                     </Link>
                 </div>
