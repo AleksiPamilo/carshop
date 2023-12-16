@@ -9,7 +9,6 @@ import { IDictionary } from "@/interfaces/dictionary";
 import { getDictionary } from "@/../get-dictionary";
 import type { Locale } from "@/../i18n-config";
 
-
 export default function Login({
     params: { lang },
 }: {

@@ -19,6 +19,8 @@
             "username": "Username is required",
             "usernameTaken": "Username is already taken",
             "password": "Password is required",
+            "passwordLength": "Password must be at least 6 characters long",
+            "passwordsDontMatch": "Passwords don't match",
             "email": "Email is required",
             "emailInvalid": "Email is invalid",
             "incorrectCredentials": "Incorrect username or password",

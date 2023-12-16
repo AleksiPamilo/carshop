@@ -1,10 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { getDictionary } from "@/../get-dictionary";
+import { IDictionary } from "@/interfaces/dictionary";
+import type { Locale } from "@/../i18n-config";
 
-export default function Register() {
+export default function Register({
+    params: { lang },
+}: {
+    params: { lang: Locale }
+}) {
+    const [dictionary, setDictionary] = useState<IDictionary | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState<{ password: boolean, confirmPassword: boolean }>({ password: false, confirmPassword: false });
@@ -13,6 +21,12 @@ export default function Register() {
     const passwordRef = useRef<HTMLInputElement>(null);
     const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
+    useEffect(() => {
+        if (lang)
+            getDictionary(lang)
+                .then(setDictionary)
+                .catch(() => setDictionary(null));
+    }, [lang]);
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -20,7 +34,13 @@ export default function Register() {
         setError(null);
 
         if (passwordRef.current?.value !== confirmPasswordRef.current?.value) {
-            setError("Passwords do not match");
+            setError(dictionary?.auth.errors.passwordsDontMatch ?? "Passwords don't match");
+            setLoading(false);
+            return;
+        }
+
+        if (passwordRef.current?.value && passwordRef.current.value.length < 6) {
+            setError(dictionary?.auth.errors.passwordLength ?? "Password too short");
             setLoading(false);
             return;
         }
@@ -37,8 +57,8 @@ export default function Register() {
             }),
         })
             .then(() => clearForm())
-            .catch((err) => {
-                setError(err.message);
+            .catch(() => {
+                setError(dictionary?.auth.errors.unknownError ?? "Unknown error");
                 setLoading(false);
             });
     }
@@ -56,7 +76,7 @@ export default function Register() {
     return (
         <main className="w-screen h-[50rem] flex items-center justify-center">
             <div className="bg-gray-800 w-[23rem] md:w-[30rem] p-4 rounded-md text-black dark:text-white">
-                <h1 className="text-2xl font-semibold uppercase">Register</h1>
+                <h1 className="text-2xl font-semibold uppercase">{dictionary?.auth.signUp}</h1>
 
                 {error && (
                     <div className="flex items-center justify-center gap-2 mt-4 bg-red-500 rounded-md p-3">
@@ -70,14 +90,14 @@ export default function Register() {
                             type="email"
                             required
                             ref={emailRef}
-                            placeholder="Email"
+                            placeholder={dictionary?.auth.email}
                             className="text-black border-2 rounded-md p-2 focus:outline-0 focus:border-blue-600"
                         />
                         <input
                             type="text"
                             required
                             ref={nameRef}
-                            placeholder="Username"
+                            placeholder={dictionary?.auth.username}
                             className="text-black border-2 rounded-md p-2 focus:outline-0 focus:border-blue-600"
                         />
                         <div className="relative">
@@ -85,7 +105,7 @@ export default function Register() {
                                 type={showPassword.password ? "text" : "password"}
                                 required
                                 ref={passwordRef}
-                                placeholder="Password"
+                                placeholder={dictionary?.auth.password}
                                 className="text-black w-full border-2 rounded-md p-2 focus:outline-0 focus:border-blue-600"
                             />
                             <button
@@ -101,7 +121,7 @@ export default function Register() {
                                 type={showPassword.confirmPassword ? "text" : "password"}
                                 required
                                 ref={confirmPasswordRef}
-                                placeholder="Password"
+                                placeholder={dictionary?.auth.confirmPassword}
                                 className="text-black w-full border-2 rounded-md p-2 focus:outline-0 focus:border-blue-600"
                             />
                             <button
@@ -115,7 +135,7 @@ export default function Register() {
                     </div>
 
                     <Link href="/login" className="text-blue-600">
-                        Already have an account?
+                        {dictionary?.auth.alreadyHaveAccount}
                     </Link>
 
                     <button
@@ -123,7 +143,7 @@ export default function Register() {
                         disabled={loading}
                         className="flex items-center justify-center px-4 py-2 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none hover:ring-2 hover:ring-indigo-500 disabled:cursor-not-allowed"
                     >
-                        Register
+                        {loading ? dictionary?.loading : dictionary?.auth.signUp}
                     </button>
                 </form>
             </div>

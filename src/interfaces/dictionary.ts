@@ -18,6 +18,8 @@ export interface IDictionary {
             username: string,
             usernameTaken: string,
             password: string,
+            passwordLength: string,
+            passwordsDontMatch: string,
             email: string,
             emailInvalid: string,
             incorrectCredentials: string,
