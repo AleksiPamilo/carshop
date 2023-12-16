@@ -141,7 +141,7 @@ export default function Register({
                     <button
                         type="submit"
                         disabled={loading}
-                        className="flex items-center justify-center px-4 py-2 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none hover:ring-2 hover:ring-indigo-500 disabled:cursor-not-allowed"
+                        className="flex items-center justify-center px-4 py-2 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-0 focus:ring-2 hover:ring-2 ring-indigo-500 disabled:cursor-not-allowed"
                     >
                         {loading ? dictionary?.loading : dictionary?.auth.signUp}
                     </button>
