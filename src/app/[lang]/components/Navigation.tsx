@@ -24,11 +24,11 @@ export default function Navigation({ dictionary }: {
     return (
         <>
             <nav className="max-md:hidden w-full flex justify-around items-center p-4 bg-light-primary dark:bg-dark-primary">
-                <Link href={`${currentLocale}/`} locale={false}>
+                <Link href={`/${currentLocale}/`} locale={false}>
                     <Image src={Logo} alt="Logo" className="w-10" />
                 </Link>
 
-                <div className="flex gap-6">
+                <div className="flex items-center justify-center gap-6">
                     <ul className="flex gap-5">
                         {
                             dictionary.navigation.map((item) => (
@@ -41,6 +41,8 @@ export default function Navigation({ dictionary }: {
                         }
                     </ul>
 
+                    <SwitchLocale dictionary={dictionary} />
+
                     <Link href="/login">
                         <span className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
                             {dictionary.auth.signIn}
@@ -50,7 +52,7 @@ export default function Navigation({ dictionary }: {
             </nav>
 
             <div className="md:hidden flex w-full p-3 fixed z-50 justify-between items-center">
-                <Link href={`${currentLocale}/`} locale={false}>
+                <Link href={`/${currentLocale}/`} locale={false}>
                     <Image src={Logo} alt="Logo" className="w-10" />
                 </Link>
 

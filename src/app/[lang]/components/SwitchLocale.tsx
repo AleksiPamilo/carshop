@@ -8,7 +8,6 @@ import FiIcon from "@/assets/fi.svg";
 import GbIcon from "@/assets/gb.svg";
 import Image from "next/image";
 import { IDictionary } from "@/interfaces/dictionary";
-import { Locale } from "../../../../i18n-config";
 
 export default function SwitchLocale({ dictionary }: { dictionary: IDictionary }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,31 +21,29 @@ export default function SwitchLocale({ dictionary }: { dictionary: IDictionary }
         return segments.join("/");
     }
 
-    // TODO:
-    const data = Object.keys(dictionary.locales).map((locale) => {
-        return {
-            locale,
-            localeName: dictionary.locales[locale as Locale],
-            path: redirectedPathName(locale),
-            icon: locale === "fi"
-                ? <Image src={FiIcon} alt="" width={20} height={20} />
-                : <Image src={GbIcon} alt="" width={20} height={20} />
-        }
-    });
+    const localeIcons: { [key: string]: JSX.Element } = {
+        fi: <Image src={FiIcon} alt="" width={20} height={20} />,
+        en: <Image src={GbIcon} alt="" width={20} height={20} />
+    }
+
+    const data = Object.keys(dictionary.locales).map((locale) => ({
+        locale,
+        path: redirectedPathName(locale),
+        icon: localeIcons[locale],
+    }));
 
     return (
-        <div className="">
-            <Button style="" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        <div>
+            <Button style="text-white font-bold shadow-[0_0_1px_1px_gray] py-2 px-4 rounded-md" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 {data.find(item => item.locale === currentLang)?.icon}
             </Button>
             {isMenuOpen && (
-                <div className="absolute w-screen h-screen z-20" onClick={() => setIsMenuOpen(false)}>
-                    <div className="max-w-[20rem] top-0 left-0 mt-12 bg-gray-800 rounded-md shadow-lg z-10" onClick={e => e.stopPropagation()}>
+                <div className="absolute mt-2 z-20" onClick={() => setIsMenuOpen(false)}>
+                    <div className="flex shadow-[0_0_1px_1px_gray] bg-gray-700 rounded-md" onClick={e => e.stopPropagation()}>
                         {
-                            data.map(item => (
-                                <Link href={item.path} key={item.locale} className="flex items-center p-4 py-2 hover:bg-gray-600 first:rounded-t-md last:rounded-b-md" onClick={() => setIsMenuOpen(false)}>
-                                    {item.icon}
-                                    <span className="ml-2">{item.localeName}</span>
+                            data.filter(lang => lang.locale !== currentLang).map(item => (
+                                <Link href={item.path} key={item.locale} className="py-2 px-4" onClick={() => setIsMenuOpen(false)}>
+                                    <span>{item.icon}</span>
                                 </Link>
                             ))
                         }

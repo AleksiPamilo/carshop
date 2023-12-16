@@ -2,14 +2,14 @@ import { NextAuthProvider } from '@components/context/SessionProvider';
 import { Inter } from 'next/font/google';
 import Navigation from '@components/Navigation';
 import { getDictionary } from '../../../get-dictionary';
-import { i18n, Locale } from '@/../i18n-config';
+import { localeConfig, Locale } from '../../../locale-config';
 import './globals.css';
 import { IDictionary } from '@/interfaces/dictionary';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }));
+  return localeConfig.locales.map((locale) => ({ lang: locale }));
 }
 
 export const metadata = {

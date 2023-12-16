@@ -1,6 +1,6 @@
 "use server";
 
-import { Locale } from "@/../i18n-config";
+import { Locale } from "./locale-config";
 
 const dictionaries = {
     fi: () => import("@/dictionaries/fi.json").then((module) => module.default),

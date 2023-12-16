@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { IDictionary } from "@/interfaces/dictionary";
 import { getDictionary } from "@/../get-dictionary";
-import type { Locale } from "@/../i18n-config";
+import type { Locale } from "../../../../../locale-config";
 
 export default function Login({
     params: { lang },

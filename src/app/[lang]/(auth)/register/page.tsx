@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { getDictionary } from "@/../get-dictionary";
 import { IDictionary } from "@/interfaces/dictionary";
-import type { Locale } from "@/../i18n-config";
+import type { Locale } from "../../../../../locale-config";
 
 export default function Register({
     params: { lang },
