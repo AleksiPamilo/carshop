@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Button from "./Button";
@@ -8,10 +8,13 @@ import FiIcon from "@/assets/fi.svg";
 import GbIcon from "@/assets/gb.svg";
 import Image from "next/image";
 import { IDictionary } from "@/interfaces/dictionary";
+import { useClickOutside } from "@/hooks";
 
 export default function SwitchLocale({ dictionary }: { dictionary: IDictionary }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    useClickOutside(dropdownRef, () => setIsMenuOpen(false));
 
     const currentLang = pathname.split("/")[1];
     const redirectedPathName = (locale: string) => {
@@ -33,7 +36,7 @@ export default function SwitchLocale({ dictionary }: { dictionary: IDictionary }
     }));
 
     return (
-        <div>
+        <div className="relative" ref={dropdownRef}>
             <Button style="text-white font-bold shadow-[0_0_1px_1px_gray] py-2 px-4 rounded-md" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 {data.find(item => item.locale === currentLang)?.icon}
             </Button>

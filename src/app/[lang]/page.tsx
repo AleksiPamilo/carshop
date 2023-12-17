@@ -1,5 +1,6 @@
 import { getDictionary } from '@/../get-dictionary';
 import { Locale } from '../../../locale-config';
+import SearchCar from './components/SearchCar';
 
 export default async function IndexPage({
     params: { lang },
@@ -10,8 +11,7 @@ export default async function IndexPage({
 
     return (
         <div>
-            <p>Current locale: {lang}</p>
-            <p>{dictionary.title}</p>
+            <SearchCar dictionary={dictionary} />
         </div>
     )
 }

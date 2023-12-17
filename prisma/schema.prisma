@@ -20,24 +20,40 @@ model User {
 }
 
 model Vehicle {
-  id               Int       @id @default(autoincrement())
-  make             String
-  model            String
-  year             Int
-  price            Float
-  description      String
-  user             User      @relation(fields: [user_id], references: [id])
-  user_id          String
-  images           Image[]
-  category         Category  @relation(fields: [category_id], references: [id])
-  category_id      Int
-  location         Location  @relation(fields: [location_id], references: [id])
-  location_id      Int
-  listingCreatedAt DateTime  @default(now()) @map("listing_created_at")
-  listingUpdatedAt DateTime? @map("listing_updated_at")
-  soldAt           DateTime? @map("sold_at")
+  id                  Int               @id @default(autoincrement())
+  make                String
+  model               String
+  year                Int
+  licensePlate        String            @map("license_plate")
+  vin                 String
+  odometer            Int
+  fuelType            String            @map("fuel_type")
+  fuelCapacity        Int               @map("fuel_capacity")
+  fuelConsumption     FuelConsumptions? @relation(fields: [fuel_consumption_id], references: [id])
+  fuel_consumption_id Int?              @unique
+  price               Float
+  description         String
+  user                User              @relation(fields: [user_id], references: [id])
+  user_id             String
+  images              Image[]
+  category            Category          @relation(fields: [category_id], references: [id])
+  category_id         Int
+  location            Location          @relation(fields: [location_id], references: [id])
+  location_id         Int
+  listingCreatedAt    DateTime          @default(now()) @map("listing_created_at")
+  listingUpdatedAt    DateTime?         @map("listing_updated_at")
+  soldAt              DateTime?         @map("sold_at")
 
   @@map("vehicles")
+}
+
+model FuelConsumptions {
+  id         Int      @id @default(autoincrement())
+  vehicle    Vehicle?
+  vehicle_id Int
+  city       Float
+  highway    Float
+  combined   Float
 }
 
 model Image {
@@ -63,4 +79,21 @@ model Location {
   vehicles Vehicle[]
 
   @@map("locations")
+}
+
+model Brand {
+  id     Int     @id @default(autoincrement())
+  name   String
+  models Model[]
+
+  @@map("brands")
+}
+
+model Model {
+  id       Int    @id @default(autoincrement())
+  name     String
+  brand    Brand  @relation(fields: [brand_id], references: [id])
+  brand_id Int
+
+  @@map("models")
 }

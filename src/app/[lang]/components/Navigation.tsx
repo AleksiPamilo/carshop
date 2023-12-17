@@ -40,7 +40,9 @@ export default function Navigation({ dictionary }: {
                             ))
                         }
                     </ul>
+                </div>
 
+                <div className="flex items-center gap-6">
                     <SwitchLocale dictionary={dictionary} />
 
                     <Link href="/login">

@@ -1,0 +1,16 @@
+.dropdown::-webkit-scrollbar {
+    width: 0.6rem;
+}
+
+.dropdown::-webkit-scrollbar-track {
+    background: #030712;
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+    background: #111827;
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+    height: 1rem;
+}
