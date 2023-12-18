@@ -1,6 +1,20 @@
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * This file defines the handler for the route / api / vehicles.
+ * The URL structure is / api / vehicles ? brand = <brand>& model=<model>& page=<page>& pageSize=<pageSize>.
+ * 
+ * Query parameters:
+ * - brand: The brand of the vehicle. This is a string. Multiple brands can be included, separated by commas.
+ * - model: The model of the vehicle. This is a string. Multiple models can be included, separated by commas.
+ * - page: The page number for pagination. This is a number. Default is 1.
+ * - pageSize: The number of items per page for pagination. This is a number. Default is 10.
+ * The handler supports GET requests and returns a list of vehicles that match the provided brand and model.
+ 
+    @param {NextRequest} req The incoming request object
+    @param {NextResponse} res The response object
+**/
 export async function GET(req: NextRequest, res: NextResponse) {
     try {
         const whereClause: Record<string, unknown> = {};
