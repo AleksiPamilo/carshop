@@ -1,12 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useDictionary } from "@/hooks";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { IDictionary } from "@/interfaces/dictionary";
-import { getDictionary } from "@/../get-dictionary";
 import type { Locale } from "@/../locale-config";
 
 export default function Login({
@@ -15,19 +15,12 @@ export default function Login({
     params: { lang: Locale }
 }) {
     const router = useRouter();
-    const [dictionary, setDictionary] = useState<IDictionary | null>(null);
+    const dictionary = useDictionary()
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-
-    useEffect(() => {
-        if (lang)
-            getDictionary(lang)
-                .then(setDictionary)
-                .catch(() => setDictionary(null));
-    }, [lang]);
 
     const submit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

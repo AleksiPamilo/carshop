@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Toaster, toast } from "sonner";
 import Button from "./Button";
 import Dropdown from "./Dropdown";
 import { IDictionary } from "@/interfaces/dictionary";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 interface IBrand {
     id: number,
@@ -16,6 +18,11 @@ interface IModel {
     id: number,
     name: string,
 }
+
+type QueryParams = {
+    year: string | null,
+    fuelType?: string | null,
+};
 
 export default function SearchCar({ dictionary }: {
     dictionary: IDictionary
@@ -55,7 +62,7 @@ export default function SearchCar({ dictionary }: {
         <div className="flex items-center justify-center">
             <div className="w-3/5 h-full bg-zinc-800 p-4 rounded-md shadow-md flex justify-between">
                 <div className="flex gap-3">
-                    <Dropdown label={dictionary.vehicles.make} selected={currentBrand?.name} options={
+                    <Dropdown label={dictionary.vehicles.brand} selected={currentBrand?.name} options={
                         brands.map((brand) => ({
                             label: brand.name,
                             onClick: () => handleMake(brand),
@@ -71,16 +78,15 @@ export default function SearchCar({ dictionary }: {
                 </div>
 
                 <Button onClick={() => {
-                    const queryParams = {
+                    if (!currentBrand) {
+                        return toast.warning(dictionary.vehicles.errors.brand)
+                    }
+                    const queryParams: QueryParams = {
                         year: year,
+                        fuelType: null,
                     };
 
-                    const nonEmptyParams = Object.entries(queryParams)
-                        .filter(([key, value]) => value !== "")
-                        .map(([key, value]) => `${key}=${value}`)
-                        .join('&');
-
-                    router.push(`/${currentBrand?.name}/${currentModel}?${nonEmptyParams}`);
+                    searchVehicles(currentBrand, currentModel, queryParams, router);
                 }} >
                     {dictionary.vehicles.search}
                 </Button>
@@ -88,3 +94,34 @@ export default function SearchCar({ dictionary }: {
         </div>
     );
 };
+
+
+/**
+ * This function sets the query parameters and navigates to the search page.
+ * @param currentBrand Currently selected brand
+ * @param currentModel Currently selected model
+ * @param queryParams Query parameters
+ * @param router Next.js router
+ */
+function searchVehicles(currentBrand: IBrand, currentModel: string | null, queryParams: QueryParams, router: AppRouterInstance) {
+    let path = `/${currentBrand?.name}`;
+    if (currentModel) {
+        path += `/${currentModel}`;
+    }
+
+    if (queryParams.fuelType) {
+        path += `/${queryParams.fuelType}`;
+        delete queryParams.fuelType;
+    }
+
+    const nonEmptyParams = Object.entries(queryParams)
+        .filter(([key, value]) => value !== "")
+        .map(([key, value]) => `${key}=${value}`)
+        .join('&');
+
+    if (nonEmptyParams) {
+        path += `?${nonEmptyParams}`;
+    }
+
+    router.push(path);
+}

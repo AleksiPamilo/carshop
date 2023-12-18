@@ -38,7 +38,7 @@
         "edit": "Muokkaa",
         "delete": "Poista",
         "search": "Hae ajoneuvoa",
-        "make": "Merkki",
+        "brand": "Merkki",
         "model": "Malli",
         "year": "Vuosi",
         "licensePlate": "Rekisterinumero",
@@ -46,6 +46,12 @@
         "odometer": "Matkamittari",
         "transmission": "Vaihteisto",
         "fuelType": "Polttoaineen tyyppi",
+        "fuelTypes": {
+            "petrol": "Bensiini",
+            "diesel": "Diesel",
+            "electric": "Sähkö",
+            "hybrid": "Hybridi"
+        },
         "fuelCapacity": "Polttoaineen tilavuus",
         "fuelConsumption": {
             "title": "Polttoaineen kulutus",
@@ -54,8 +60,8 @@
             "combined": "Yhdistetty"
         },
         "errors": {
-            "make": "Merkki on pakollinen",
-            "model": "Malli on pakollinen",
+            "brand": "Ajoneuvon merkki on pakollinen",
+            "model": "Ajoneuvon malli on pakollinen",
             "year": "Vuosi on pakollinen",
             "licensePlate": "Rekisterinumero on pakollinen",
             "vin": "Vin on pakollinen",

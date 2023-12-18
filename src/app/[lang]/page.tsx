@@ -1,13 +1,10 @@
-import { getDictionary } from '@/../get-dictionary';
-import { Locale } from '../../../locale-config';
+"use client";
+
+import { useDictionary } from '@/hooks';
 import SearchCar from './components/SearchCar';
 
-export default async function IndexPage({
-    params: { lang },
-}: {
-    params: { lang: Locale }
-}) {
-    const dictionary = await getDictionary(lang)
+export default async function IndexPage() {
+    const dictionary = useDictionary();
 
     return (
         <div>

@@ -1,11 +1,11 @@
+import { DictionaryProvider, useDictionary } from '@components/context/DictionaryContext';
 import { NextAuthProvider } from '@components/context/SessionProvider';
 import { Inter } from 'next/font/google';
 import Navigation from '@components/Navigation';
-import { getDictionary } from '../../../get-dictionary';
 import { localeConfig, Locale } from '../../../locale-config';
 import './globals.css';
-import { IDictionary } from '@/interfaces/dictionary';
-
+import { Toaster } from 'sonner';
+import { getDictionary } from '@/../get-dictionary';
 const inter = Inter({ subsets: ['latin'] });
 
 export async function generateStaticParams() {
@@ -27,14 +27,17 @@ export default async function RootLayout({
   children: React.ReactNode,
   params: { lang: Locale }
 }) {
-  const dictionary = await getDictionary(lang) as unknown as IDictionary;
+  const dictionary = await getDictionary(lang);
 
   return (
     <html lang={lang}>
       <body className={`${inter.className} bg-light-primary text-black dark:text-white dark:bg-dark-primary`}>
         <NextAuthProvider>
-          <Navigation dictionary={dictionary} />
-          {children}
+          <DictionaryProvider dictionary={dictionary}>
+            <Toaster richColors theme="dark" />
+            <Navigation dictionary={dictionary} />
+            {children}
+          </DictionaryProvider>
         </NextAuthProvider>
       </body>
     </html>

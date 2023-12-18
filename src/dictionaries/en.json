@@ -38,7 +38,7 @@
         "edit": "Edit",
         "delete": "Delete",
         "search": "Search for a car",
-        "make": "Make",
+        "brand": "Brand",
         "model": "Model",
         "year": "Year",
         "licensePlate": "License Plate",
@@ -46,6 +46,12 @@
         "odometer": "Odometer",
         "transmission": "Transmission",
         "fuelType": "Fuel Type",
+        "fuelTypes": {
+            "petrol": "Petrol",
+            "diesel": "Diesel",
+            "electric": "Electric",
+            "hybrid": "Hybrid"
+        },
         "fuelCapacity": "Fuel Capacity",
         "fuelConsumption": {
             "title": "Fuel Consumption",
@@ -54,8 +60,8 @@
             "combined": "Combined"
         },
         "errors": {
-            "make": "Make is required",
-            "model": "Model is required",
+            "brand": "Vehicle brand is required",
+            "model": "Vehicle Model is required",
             "year": "Year is required",
             "licensePlate": "License Plate is required",
             "vin": "Vin is required",

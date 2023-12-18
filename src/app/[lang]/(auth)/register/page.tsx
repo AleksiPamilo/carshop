@@ -1,18 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { getDictionary } from "@/../get-dictionary";
-import { IDictionary } from "@/interfaces/dictionary";
+import { useDictionary } from "@/hooks";
 import type { Locale } from "@/../locale-config";
 
-export default function Register({
-    params: { lang },
-}: {
-    params: { lang: Locale }
-}) {
-    const [dictionary, setDictionary] = useState<IDictionary | null>(null);
+export default function Register() {
+    const dictionary = useDictionary()
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState<{ password: boolean, confirmPassword: boolean }>({ password: false, confirmPassword: false });
@@ -20,13 +15,6 @@ export default function Register({
     const nameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
     const confirmPasswordRef = useRef<HTMLInputElement>(null);
-
-    useEffect(() => {
-        if (lang)
-            getDictionary(lang)
-                .then(setDictionary)
-                .catch(() => setDictionary(null));
-    }, [lang]);
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

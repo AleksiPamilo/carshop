@@ -2,13 +2,20 @@
 
 import { useState, useEffect } from 'react';
 import { IVehicle } from '@/interfaces/vehicle';
+import { useDictionary } from '@/hooks';
+import Vehicle from '../../components/cards/Vehicle';
+import Button from '../../components/Button';
+import type { Locale } from '@/../locale-config';
+import SearchCar from '../../components/SearchCar';
+import Loading from '../../components/Loading';
 
-const VehiclesPage = ({ params }: {
+export default function VehiclesPage({ params }: {
     params: {
-        lang: string,
+        lang: Locale,
         data: string[],
     }
-}) => {
+}) {
+    const dictionary = useDictionary();
     const [brand, model, fuelType] = params.data;
     const [vehicles, setVehicles] = useState<IVehicle[]>([]);
     const [page, setPage] = useState(1);
@@ -43,19 +50,24 @@ const VehiclesPage = ({ params }: {
         fetchVehicles();
     }, [page]);
 
+    if (!dictionary) {
+        return <Loading />;
+    }
+
     return (
         <div>
-            {vehicles.map(vehicle => (
-                <div key={vehicle.id}>
-                    <p>{vehicle.brand}</p>
-                    <p>{vehicle.model}</p>
-                </div>
-            ))}
-            <button onClick={() => setPage(prevPage => prevPage + 1)}>
-                Load More
-            </button>
+            <SearchCar dictionary={dictionary ?? require("@/dictionaries/fi.json")} />
+            <div className="flex">
+                {vehicles.map(vehicle => (
+                    <Vehicle key={vehicle.id} {...{ vehicle, dictionary }} />
+                ))}
+            </div>
+
+            <div>
+                <Button onClick={() => setPage(prevPage => prevPage + 1)}>
+                    Load More
+                </Button>
+            </div>
         </div>
     );
 };
-
-export default VehiclesPage;
