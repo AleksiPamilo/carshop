@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Button from "./Button";
 import Dropdown from "./Dropdown";
 import { IDictionary } from "@/interfaces/dictionary";
@@ -16,13 +17,12 @@ interface IModel {
     name: string,
 }
 
-export default function SearchCar({
-    dictionary,
-}: {
+export default function SearchCar({ dictionary }: {
     dictionary: IDictionary
 }) {
     const [brands, setBrands] = useState<IBrand[]>([]);
     const [models, setModels] = useState<IModel[]>([]);
+    const router = useRouter();
 
     useEffect(() => {
         fetch("/api/vehicles/brands")
@@ -32,10 +32,11 @@ export default function SearchCar({
 
     const [currentBrand, setCurrentBrand] = useState<IBrand | null>(null);
     const [currentModel, setCurrentModel] = useState<string | null>(null);
+    const [year, setYear] = useState<string | null>(null);
 
     useEffect(() => {
         if (currentBrand) {
-            fetch(`/api/vehicles/models/${currentBrand.id}`)
+            fetch(`/api/vehicles/models?id=${currentBrand.id}`)
                 .then((res) => res.json())
                 .then((json) => setModels(json.data));
         }
@@ -69,7 +70,18 @@ export default function SearchCar({
                     } />
                 </div>
 
-                <Button onClick={() => { }} >
+                <Button onClick={() => {
+                    const queryParams = {
+                        year: year,
+                    };
+
+                    const nonEmptyParams = Object.entries(queryParams)
+                        .filter(([key, value]) => value !== "")
+                        .map(([key, value]) => `${key}=${value}`)
+                        .join('&');
+
+                    router.push(`/${currentBrand?.name}/${currentModel}?${nonEmptyParams}`);
+                }} >
                     {dictionary.vehicles.search}
                 </Button>
             </div>

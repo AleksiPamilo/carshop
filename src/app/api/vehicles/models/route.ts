@@ -1,16 +1,15 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextResponse, context: any) {
-    const { id } = context.params;
+export async function GET(req: NextRequest, res: NextResponse) {
+    const searchParams = req.nextUrl.searchParams;
+    const id = searchParams.get('id') || undefined;
 
     try {
-        const whereClause = isNaN(id)
-            ? { name: id }
-            : { brand_id: parseInt(id) };
-
         const models = await prisma.model.findMany({
-            where: whereClause,
+            where: isNaN(parseInt(id ?? ""))
+                ? { name: id }
+                : { brand_id: parseInt(id ?? "") },
         });
 
         return new NextResponse(

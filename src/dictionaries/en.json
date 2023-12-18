@@ -44,6 +44,7 @@
         "licensePlate": "License Plate",
         "vin": "Vin",
         "odometer": "Odometer",
+        "transmission": "Transmission",
         "fuelType": "Fuel Type",
         "fuelCapacity": "Fuel Capacity",
         "fuelConsumption": {

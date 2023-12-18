@@ -1,19 +1,33 @@
 import { prisma } from "@/lib/prisma";
-import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
     try {
-        const models = await prisma.model.findMany({
-            include: {
-                brand: false,
-            },
+        const whereClause: Record<string, unknown> = {};
+        const paramsArray = Array.from(req.nextUrl.searchParams.entries());
+        const paramsObject = Object.fromEntries(paramsArray);
+
+        for (const [key, value] of Object.entries(paramsObject)) {
+            if (value && key !== 'page' && key !== 'pageSize') {
+                whereClause[key] = {
+                    in: String(value).split(','),
+                };
+            }
+        }
+
+        const page = Number(paramsObject.page) || 1;
+        const pageSize = Number(paramsObject.pageSize) || 10;
+
+        const vehicles = await prisma.vehicle.findMany({
+            where: whereClause,
+            take: pageSize,
+            skip: (page - 1) * pageSize,
         });
 
         return new NextResponse(
             JSON.stringify({
                 status: "success",
-                data: models,
+                data: vehicles,
             })
         );
     } catch (e) {
