@@ -8,6 +8,8 @@ export interface IDictionary {
         edit: string,
         add: string,
         search: string,
+        min: string,
+        max: string,
         close: string,
         confirm: string,
         yes: string,
@@ -45,6 +47,7 @@ export interface IDictionary {
         vin: string,
         odometer: string,
         transmission: string,
+        fuelType: string,
         fuelTypes: {
             petrol: string,
             diesel: string,

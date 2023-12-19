@@ -8,6 +8,8 @@
         "edit": "Edit",
         "add": "Add",
         "search": "Search",
+        "min": "Minimum",
+        "max": "Maximum",
         "close": "Close",
         "confirm": "Confirm",
         "yes": "Yes",
@@ -45,7 +47,7 @@
         "vin": "Vin",
         "odometer": "Odometer",
         "transmission": "Transmission",
-        "fuelType": "Fuel Type",
+        "fuelType": "Power type",
         "fuelTypes": {
             "petrol": "Petrol",
             "diesel": "Diesel",

@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 /**
  * This file defines the handler for the route / api / vehicles.
- * The URL structure is / api / vehicles ? brand = <brand>& model=<model>& page=<page>& pageSize=<pageSize>.
+ * The URL structure is / api / vehicles ? brand = <brand>& model=<model> &minYear<minYear> &maxYear<maxYear> & page=<page>& pageSize=<pageSize>.
  * 
  * Query parameters:
  * - brand: The brand of the vehicle. This is a string. Multiple brands can be included, separated by commas.
@@ -22,11 +22,26 @@ export async function GET(req: NextRequest, res: NextResponse) {
         const paramsObject = Object.fromEntries(paramsArray);
 
         for (const [key, value] of Object.entries(paramsObject)) {
-            if (value && key !== 'page' && key !== 'pageSize') {
+            if (value && key !== 'page' && key !== 'pageSize' && key !== 'minYear' && key !== 'maxYear') {
                 whereClause[key] = {
                     in: String(value).split(','),
                 };
             }
+        }
+
+        if (paramsObject.minYear && paramsObject.maxYear) {
+            whereClause.year = {
+                gte: Number(paramsObject.minYear),
+                lte: Number(paramsObject.maxYear)
+            };
+        } else if (paramsObject.minYear) {
+            whereClause.year = {
+                gte: Number(paramsObject.minYear)
+            };
+        } else if (paramsObject.maxYear) {
+            whereClause.year = {
+                lte: Number(paramsObject.maxYear)
+            };
         }
 
         const page = Number(paramsObject.page) || 1;

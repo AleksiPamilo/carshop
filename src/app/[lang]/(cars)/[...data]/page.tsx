@@ -6,7 +6,6 @@ import { useDictionary } from '@/hooks';
 import Vehicle from '../../components/cards/Vehicle';
 import Button from '../../components/Button';
 import type { Locale } from '@/../locale-config';
-import SearchCar from '../../components/SearchCar';
 import Loading from '../../components/Loading';
 
 export default function VehiclesPage({ params }: {
@@ -16,7 +15,7 @@ export default function VehiclesPage({ params }: {
     }
 }) {
     const dictionary = useDictionary();
-    const [brand, model, fuelType] = params.data;
+    const [brand, model] = params.data;
     const [vehicles, setVehicles] = useState<IVehicle[]>([]);
     const [page, setPage] = useState(1);
     const pageSize = 10;
@@ -25,7 +24,6 @@ export default function VehiclesPage({ params }: {
         const params = {
             brand,
             model,
-            fuelType,
             page,
             pageSize,
         };
@@ -56,18 +54,20 @@ export default function VehiclesPage({ params }: {
 
     return (
         <div>
-            <SearchCar dictionary={dictionary ?? require("@/dictionaries/fi.json")} />
-            <div className="flex">
+            <div className="flex flex-wrap items-center justify-center">
                 {vehicles.map(vehicle => (
                     <Vehicle key={vehicle.id} {...{ vehicle, dictionary }} />
                 ))}
             </div>
 
-            <div>
+            {/* TODO: Update UI / Maybe pagination */}
+            <div className="bg-zinc-900 text-center">
+                <span>You've reached the bottom!</span>
                 <Button onClick={() => setPage(prevPage => prevPage + 1)}>
                     Load More
                 </Button>
             </div>
+
         </div>
     );
 };

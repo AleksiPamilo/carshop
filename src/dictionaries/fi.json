@@ -8,6 +8,8 @@
         "edit": "Muokkaa",
         "add": "Lisää",
         "search": "Hae",
+        "min": "Minimi",
+        "max": "Maksimi",
         "close": "Sulje",
         "confirm": "Vahvista",
         "yes": "Kyllä",
@@ -45,7 +47,7 @@
         "vin": "Vin",
         "odometer": "Matkamittari",
         "transmission": "Vaihteisto",
-        "fuelType": "Polttoaineen tyyppi",
+        "fuelType": "Käyttövoima",
         "fuelTypes": {
             "petrol": "Bensiini",
             "diesel": "Diesel",
@@ -99,7 +101,7 @@
     },
     "navigation": [
         {
-            "label": "Koti",
+            "label": "Etusivu",
             "path": "/"
         }
     ],

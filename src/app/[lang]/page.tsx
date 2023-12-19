@@ -1,14 +1,9 @@
 "use client";
 
-import { useDictionary } from '@/hooks';
-import SearchCar from './components/SearchCar';
-
-export default async function IndexPage() {
-    const dictionary = useDictionary();
-
+export default function IndexPage() {
     return (
-        <div>
-            <SearchCar dictionary={dictionary} />
+        <div className="w-full text-center mt-12">
+            <p>TODO: Update this page</p>
         </div>
     )
 }

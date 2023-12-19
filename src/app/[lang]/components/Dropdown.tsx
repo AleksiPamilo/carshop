@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useClickOutside } from '@/hooks';
 import { useRouter } from 'next/navigation';
 import Button from './Button';
@@ -45,7 +45,7 @@ export default function Dropdown({ label, options, disabled, selected: selectedI
                     {options.map((option) => (
                         <button
                             key={option.label}
-                            className="block w-full py-2 px-3 text-sm first:rounded-t-md last:rounded-b-md text-gray-700 hover:bg-gray-700"
+                            className="block w-full py-2 px-3 text-sm first:rounded-t-md last:rounded-b-md text-gray-700 hover:bg-gray-700 first:rounded-tr-none last:rounded-br-none"
                             onClick={() => {
                                 setIsOpen(false);
                                 setSelected(option.label);

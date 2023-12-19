@@ -6,6 +6,7 @@ import { localeConfig, Locale } from '../../../locale-config';
 import './globals.css';
 import { Toaster } from 'sonner';
 import { getDictionary } from '@/../get-dictionary';
+import SearchCar from '@components/SearchCar';
 const inter = Inter({ subsets: ['latin'] });
 
 export async function generateStaticParams() {
@@ -36,6 +37,7 @@ export default async function RootLayout({
           <DictionaryProvider dictionary={dictionary}>
             <Toaster richColors theme="dark" />
             <Navigation dictionary={dictionary} />
+            <SearchCar />
             {children}
           </DictionaryProvider>
         </NextAuthProvider>

@@ -36,7 +36,7 @@ export default function SwitchLocale({ dictionary }: { dictionary: IDictionary }
     }));
 
     return (
-        <div className="relative" ref={dropdownRef}>
+        <div className="relative z-50" ref={dropdownRef}>
             <Button style="text-white font-bold shadow-[0_0_1px_1px_gray] py-2 px-4 rounded-md" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 {data.find(item => item.locale === currentLang)?.icon}
             </Button>
