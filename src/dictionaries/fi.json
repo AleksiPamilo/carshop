@@ -1,0 +1,112 @@
+{
+    "title": "Autokauppa",
+    "loading": "Ladataan...",
+    "common": {
+        "save": "Tallenna",
+        "cancel": "Peruuta",
+        "delete": "Poista",
+        "edit": "Muokkaa",
+        "add": "Lisää",
+        "search": "Hae",
+        "min": "Minimi",
+        "max": "Maksimi",
+        "close": "Sulje",
+        "confirm": "Vahvista",
+        "yes": "Kyllä",
+        "no": "Ei",
+        "ok": "Ok",
+        "clear": "Tyhjennä",
+        "loading": "Ladataan",
+        "error": "Virhe",
+        "success": "Onnistui",
+        "warning": "Varoitus",
+        "info": "Info",
+        "errors": {
+            "unknown": "Tapahtui odottamaton virhe",
+            "notFound": "Ei löytynyt",
+            "unauthorized": "Ei oikeuksia",
+            "forbidden": "Kielletty",
+            "validation": "Virheellinen syöte",
+            "server": "Palvelinvirhe",
+            "badRequest": "Bad Request",
+            "badGateway": "Bad Gateway",
+            "serviceUnavailable": "Palvelu ei ole saatavilla"
+        }
+    },
+    "vehicles": {
+        "title": "Otsikko",
+        "all": "Kaikki ajoneuvot",
+        "add": "Lisää",
+        "edit": "Muokkaa",
+        "delete": "Poista",
+        "search": "Hae ajoneuvoa",
+        "brand": "Merkki",
+        "model": "Malli",
+        "year": "Vuosi",
+        "licensePlate": "Rekisterinumero",
+        "vin": "Vin",
+        "odometer": "Matkamittari",
+        "transmission": "Vaihteisto",
+        "fuelType": "Käyttövoima",
+        "fuelTypes": {
+            "petrol": "Bensiini",
+            "diesel": "Diesel",
+            "electric": "Sähkö",
+            "hybrid": "Hybridi"
+        },
+        "fuelCapacity": "Polttoaineen tilavuus",
+        "fuelConsumption": {
+            "title": "Polttoaineen kulutus",
+            "city": "Kaupunki",
+            "highway": "Maantie",
+            "combined": "Yhdistetty"
+        },
+        "errors": {
+            "brand": "Ajoneuvon merkki on pakollinen",
+            "model": "Ajoneuvon malli on pakollinen",
+            "year": "Vuosi on pakollinen",
+            "licensePlate": "Rekisterinumero on pakollinen",
+            "vin": "Vin on pakollinen",
+            "odometer": "Matkamittari on pakollinen",
+            "fuelType": "Polttoaineen tyyppi on pakollinen",
+            "fuelCapacity": "Polttoaineen tilavuus on pakollinen",
+            "fuelConsumption": "Polttoaineen kulutus on pakollinen"
+        }
+    },
+    "auth": {
+        "signIn": "Kirjaudu sisään",
+        "signUp": "Rekisteröidy",
+        "signOut": "Kirjaudu ulos",
+        "username": "Käyttäjänimi",
+        "password": "Salasana",
+        "email": "Sähköposti",
+        "dontHaveAccount": "Ei vielä tunnusta?",
+        "alreadyHaveAccount": "Onko sinulla jo tunnus?",
+        "forgotPassword": "Unohditko salasanan?",
+        "resetPassword": "Nollaa salasana",
+        "newPassword": "Uusi salasana",
+        "confirmPassword": "Vahvista salasana",
+        "changePassword": "Vaihda salasana",
+        "errors": {
+            "username": "Käyttäjänimi on pakollinen",
+            "usernameTaken": "Käyttäjänimi on jo käytössä",
+            "password": "Salasana on pakollinen",
+            "passwordLength": "Salasanan tulee olla vähintään 6 merkkiä pitkä",
+            "passwordsDontMatch": "Salasanat eivät täsmää",
+            "email": "Sähköposti on pakollinen",
+            "emailInvalid": "Sähköposti on virheellinen",
+            "incorrectCredentials": "Väärä käyttäjänimi tai salasana",
+            "unknownError": "Tapahtui odottamaton virhe"
+        }
+    },
+    "navigation": [
+        {
+            "label": "Etusivu",
+            "path": "/"
+        }
+    ],
+    "locales": {
+        "fi": "Suomi",
+        "en": "Englanti"
+    }
+}
