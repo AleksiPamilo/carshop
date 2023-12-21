@@ -48,6 +48,10 @@
         "odometer": "Odometer",
         "mileage": "Mileage",
         "transmission": "Transmission",
+        "transmissions": {
+            "automatic": "Automatic",
+            "manual": "Manual"
+        },
         "fuelType": "Power type",
         "fuelTypes": {
             "petrol": "Petrol",

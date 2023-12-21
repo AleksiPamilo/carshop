@@ -72,10 +72,14 @@ export default function SearchCar() {
         setCurrentModel(value);
     };
 
+    // TODO: Responsive design
+    // Using https://ui.shadcn.com/docs/components/dialog
+    // When the screen is small, the search bar should be a button that opens a dialog with the search options
+
     return (
         <div className="flex sticky z-40 top-2 w-full items-center justify-center">
-            <div className="w-3/5 h-full p-4 rounded-md shadow-md flex justify-between bg-zinc-900">
-                <div className="flex gap-3">
+            <div className="w-3/5 h-full p-4 rounded-md shadow-md  flex flex-wrap md:flex-nowrap gap-3 md:gap-0 items-center justify-between bg-zinc-50 dark:bg-zinc-900">
+                <div className="flex flex-wrap gap-3">
                     <BrandDropdown
                         brands={brands}
                         currentBrand={currentBrand}
@@ -85,7 +89,7 @@ export default function SearchCar() {
                     <ModelDropdown
                         models={models}
                         currentModel={currentModel}
-                        onChange={m => handleModel(m)}
+                        onChange={handleModel}
                         disabled={!currentBrand}
                     />
 
@@ -100,23 +104,11 @@ export default function SearchCar() {
                     <YearDropdown
                         min={years.min}
                         max={years.max}
-                        onChange={(v) => setYears(v)}
+                        onChange={setYears}
                     />
-
-                    {/* <DoubleDropdown label={[dictionary.common.min, dictionary.common.max]} selected={[minYear ?? "", maxYear ?? ""]}
-                        options={[
-                            years.map((year) => ({
-                                label: year.toString(),
-                                onClick: () => setMinYear(year.toString()),
-                            })),
-                            years.map((year) => ({
-                                label: year.toString(),
-                                onClick: () => setMaxYear(year.toString()),
-                            })),
-                        ]} /> */}
                 </div>
 
-                <Button onClick={() => {
+                <Button className="text-right max-md:w-full" onClick={() => {
                     if (!currentBrand) {
                         return toast({
                             title: dictionary.common.error,

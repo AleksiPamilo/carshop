@@ -5,8 +5,10 @@ import { useSearchParams } from 'next/navigation';
 import { IVehicle } from '@/interfaces/vehicle';
 import { useDictionary } from '@/hooks';
 import VehicleCard from '@/components/cards/Vehicle';
-import { Button } from '@/components/ui/button';
 import type { Locale } from '@/../locale-config';
+
+// TODO: Handle single vehicle page
+// / [brand] / [model] / [id]
 
 export default function VehiclesPage({ params }: {
     params: {

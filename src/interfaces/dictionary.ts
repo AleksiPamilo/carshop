@@ -48,6 +48,10 @@ export interface IDictionary {
         odometer: string,
         mileage: string,
         transmission: string,
+        transmissions: {
+            automatic: string,
+            manual: string,
+        },
         fuelType: string,
         fuelTypes: {
             petrol: string,

@@ -28,6 +28,13 @@ export default function ModelDropdown({ models, currentModel, disabled, onChange
                 </SelectValue>
             </SelectTrigger>
             <SelectContent>
+                <SelectItem
+                    key="unselected"
+                    value="unselected"
+                >
+                    {dictionary.vehicles.model}
+                </SelectItem>
+
                 {models.map(model => (
                     <SelectItem
                         key={model.id}

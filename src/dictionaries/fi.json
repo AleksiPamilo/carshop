@@ -48,6 +48,10 @@
         "odometer": "Matkamittari",
         "mileage": "Kilometrimäärä",
         "transmission": "Vaihteisto",
+        "transmissions": {
+            "manual": "Manuaali",
+            "automatic": "Automaatti"
+        },
         "fuelType": "Käyttövoima",
         "fuelTypes": {
             "petrol": "Bensiini",

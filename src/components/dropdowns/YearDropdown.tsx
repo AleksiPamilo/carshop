@@ -21,8 +21,11 @@ export default function YearDropdown({ min, max, onChange, disabled }: {
 
     return (
         <div className="flex divide-x-[1px]">
-            <Select value={min ?? undefined} onValueChange={v => onChange({ min: v, max: max ?? null })} disabled={disabled}>
-                <SelectTrigger className="w-[8rem] rounded-r-none border-r-0">
+            <Select value={min ?? undefined} onValueChange={v => onChange({
+                min: v === "unselected" ? null : v,
+                max: max ?? null
+            })} disabled={disabled}>
+                <SelectTrigger className="max-w-[8rem] min-w-[5rem] rounded-r-none border-r-0">
                     <SelectValue placeholder={dictionary.common.min}>
                         {min ?? dictionary.common.min}
                     </SelectValue>
@@ -34,7 +37,6 @@ export default function YearDropdown({ min, max, onChange, disabled }: {
                     >
                         {dictionary.common.min}
                     </SelectItem>
-
                     {
                         years.map(year => (
                             <SelectItem
@@ -45,12 +47,14 @@ export default function YearDropdown({ min, max, onChange, disabled }: {
                             </SelectItem>
                         ))
                     }
-
                 </SelectContent>
             </Select>
 
-            <Select value={max ?? undefined} onValueChange={v => onChange({ min: min ?? null, max: v })} disabled={disabled}>
-                <SelectTrigger className="w-[8rem] rounded-l-none border-l-0">
+            <Select value={max ?? undefined} onValueChange={v => onChange({
+                min: min ?? null,
+                max: v === "unselected" ? null : v,
+            })} disabled={disabled}>
+                <SelectTrigger className="max-w-[8rem] min-w-[5rem] rounded-l-none border-l-0">
                     <SelectValue placeholder={dictionary.common.max}>
                         {max ?? dictionary.common.max}
                     </SelectValue>
