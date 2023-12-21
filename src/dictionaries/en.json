@@ -46,6 +46,7 @@
         "licensePlate": "License Plate",
         "vin": "Vin",
         "odometer": "Odometer",
+        "mileage": "Mileage",
         "transmission": "Transmission",
         "fuelType": "Power type",
         "fuelTypes": {

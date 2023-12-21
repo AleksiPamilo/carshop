@@ -9,22 +9,18 @@ import {
 } from "@/components/ui/select"
 import { useDictionary } from "../context/DictionaryProvider";
 
-export default function BrandDropdown({ brands, currentBrand, onChange, disabled }: {
-    brands: IBrand[],
-    currentBrand: IBrand | null,
-    onChange: (brand: IBrand | null) => void,
+export default function FuelTypeDropdown({ fuelType, onChange, disabled }: {
+    fuelType: string | null,
+    onChange: (fuelType: string | null) => void,
     disabled?: boolean,
 }) {
     const dictionary = useDictionary();
 
     return (
-        <Select value={currentBrand?.name} onValueChange={(value) => {
-            const brand = brands.find(brand => brand.name === value);
-            onChange(brand ?? null);
-        }}>
+        <Select value={fuelType ?? undefined} onValueChange={onChange}>
             <SelectTrigger className="w-[10rem]">
-                <SelectValue placeholder={dictionary.vehicles.brand}>
-                    {currentBrand?.name ?? dictionary.vehicles.brand}
+                <SelectValue placeholder={dictionary.vehicles.fuelType}>
+                    {fuelType ?? dictionary.vehicles.fuelType}
                 </SelectValue>
             </SelectTrigger>
             <SelectContent>
@@ -32,15 +28,15 @@ export default function BrandDropdown({ brands, currentBrand, onChange, disabled
                     key="unselected"
                     value="unselected"
                 >
-                    {dictionary.vehicles.brand}
+                    {dictionary.vehicles.fuelType}
                 </SelectItem>
 
-                {brands.map(brand => (
+                {Object.entries(dictionary.vehicles.fuelTypes).map(([_, value]) => (
                     <SelectItem
-                        key={brand.id}
-                        value={brand.name}
+                        key={value}
+                        value={value}
                     >
-                        {brand.name}
+                        {value}
                     </SelectItem>
                 ))}
             </SelectContent>

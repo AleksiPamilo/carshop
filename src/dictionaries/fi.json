@@ -46,6 +46,7 @@
         "licensePlate": "Rekisterinumero",
         "vin": "Vin",
         "odometer": "Matkamittari",
+        "mileage": "Kilometrimäärä",
         "transmission": "Vaihteisto",
         "fuelType": "Käyttövoima",
         "fuelTypes": {

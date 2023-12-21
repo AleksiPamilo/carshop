@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { IVehicle } from '@/interfaces/vehicle';
 import { useDictionary } from '@/hooks';
-import Vehicle from '@/components/cards/Vehicle';
+import VehicleCard from '@/components/cards/Vehicle';
 import { Button } from '@/components/ui/button';
 import type { Locale } from '@/../locale-config';
 
@@ -56,20 +56,38 @@ export default function VehiclesPage({ params }: {
     }, [page]);
 
     return (
-        <div>
-            <div className="flex flex-wrap items-center justify-center">
+        <div className="mt-12">
+            <div className="flex flex-wrap items-center gap-12 justify-center">
                 {vehicles.map(vehicle => (
-                    <Vehicle key={vehicle.id} {...{ vehicle, dictionary }} />
+                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
+                ))}{vehicles.map(vehicle => (
+                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
+                ))}{vehicles.map(vehicle => (
+                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
+                ))}{vehicles.map(vehicle => (
+                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
+                ))}{vehicles.map(vehicle => (
+                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
+                ))}{vehicles.map(vehicle => (
+                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
+                ))}{vehicles.map(vehicle => (
+                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
+                ))}{vehicles.map(vehicle => (
+                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
+                ))}{vehicles.map(vehicle => (
+                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
+                ))}{vehicles.map(vehicle => (
+                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
                 ))}
             </div>
 
             {/* TODO: Update UI / Maybe pagination */}
-            <div className="bg-zinc-900 text-center mt-20">
+            {/* <div className="bg-zinc-900 text-center mt-20">
                 <span>You've reached the bottom!</span>
                 <Button onClick={() => setPage(prevPage => prevPage + 1)}>
                     Load More
                 </Button>
-            </div>
+            </div> */}
 
         </div>
     );

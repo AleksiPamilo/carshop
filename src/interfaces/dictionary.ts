@@ -46,6 +46,7 @@ export interface IDictionary {
         licensePlate: string,
         vin: string,
         odometer: string,
+        mileage: string,
         transmission: string,
         fuelType: string,
         fuelTypes: {

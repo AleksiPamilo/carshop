@@ -1,13 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { useRouter, redirect } from "next/navigation";
+import { useToast } from "./ui/use-toast";
 import { Button } from "./ui/button";
 
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useDictionary } from "@/hooks";
 import BrandDropdown from "./dropdowns/BrandDropdown";
+import ModelDropdown from "./dropdowns/ModelDropdown";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "./ui/select";
+import FuelTypeDropdown from "./dropdowns/FuelTypeDropdown";
+import YearDropdown from "./dropdowns/YearDropdown";
 // import DoubleDropdown from "./DoubleDropdown";
 
 interface IBrand {
@@ -32,10 +36,10 @@ type QueryParams = {
 export default function SearchCar() {
     const dictionary = useDictionary();
     const router = useRouter();
+    const { toast } = useToast();
+
     const [brands, setBrands] = useState<IBrand[]>([]);
     const [models, setModels] = useState<IModel[]>([]);
-    const currentYear = new Date().getFullYear();
-    const years = Array.from({ length: currentYear - 1900 + 2 }, (_, i) => 1900 + i).reverse();
 
     useEffect(() => {
         fetch("/api/vehicles/brands")
@@ -46,8 +50,7 @@ export default function SearchCar() {
     const [currentBrand, setCurrentBrand] = useState<IBrand | null>(null);
     const [currentModel, setCurrentModel] = useState<IModel | null>(null);
     const [fuelType, setFuelType] = useState<string | null>(null);
-    const [minYear, setMinYear] = useState<string | null>(null);
-    const [maxYear, setMaxYear] = useState<string | null>(null);
+    const [years, setYears] = useState<{ min: string | null, max: string | null }>({ min: null, max: null });
 
     useEffect(() => {
         if (currentBrand) {
@@ -57,8 +60,12 @@ export default function SearchCar() {
         }
     }, [currentBrand]);
 
-    const handleMake = (value: IBrand) => {
-        setCurrentBrand(value); setCurrentModel(null);
+    const handleBrand = (value: IBrand | null) => {
+        setCurrentBrand(value);
+
+        if (value !== currentBrand) {
+            setCurrentModel(null);
+        }
     };
 
     const handleModel = (value: IModel | null) => {
@@ -67,34 +74,34 @@ export default function SearchCar() {
 
     return (
         <div className="flex sticky z-40 top-2 w-full items-center justify-center">
-            <div className="w-3/5 h-full bg-zinc-800 p-4 rounded-md shadow-md flex justify-between">
+            <div className="w-3/5 h-full p-4 rounded-md shadow-md flex justify-between bg-zinc-900">
                 <div className="flex gap-3">
                     <BrandDropdown
                         brands={brands}
                         currentBrand={currentBrand}
-                        handleMake={handleMake}
+                        onChange={handleBrand}
                     />
 
-                    {/* <Dropdown label={dictionary.vehicles.brand} selected={currentBrand?.name} options={
-                        brands.map((brand) => ({
-                            label: brand.name,
-                            onClick: () => handleMake(brand),
-                        }))
-                    } />
+                    <ModelDropdown
+                        models={models}
+                        currentModel={currentModel}
+                        onChange={m => handleModel(m)}
+                        disabled={!currentBrand}
+                    />
 
-                    <Dropdown label={dictionary.vehicles.model} disabled={!currentBrand} selected={currentModel?.name} options={
-                        models.map((brand) => ({
-                            label: brand.name,
-                            onClick: () => handleModel(brand),
-                        }))
-                    } />
+                    <FuelTypeDropdown
+                        fuelType={fuelType}
+                        onChange={(v) => {
+                            const value = v === "unselected" ? null : v;
+                            setFuelType(value);
+                        }}
+                    />
 
-                    <Dropdown label={dictionary.vehicles.fuelType} selected={fuelType} options={
-                        Object.entries(dictionary.vehicles.fuelTypes).map(([_, value]) => ({
-                            label: value,
-                            onClick: () => setFuelType(value),
-                        }))
-                    } /> */}
+                    <YearDropdown
+                        min={years.min}
+                        max={years.max}
+                        onChange={(v) => setYears(v)}
+                    />
 
                     {/* <DoubleDropdown label={[dictionary.common.min, dictionary.common.max]} selected={[minYear ?? "", maxYear ?? ""]}
                         options={[
@@ -111,13 +118,17 @@ export default function SearchCar() {
 
                 <Button onClick={() => {
                     if (!currentBrand) {
-                        return toast.warning(dictionary.vehicles.errors.brand)
+                        return toast({
+                            title: dictionary.common.error,
+                            description: dictionary.vehicles.errors.brand,
+                            duration: 5000,
+                        })
                     }
 
                     const queryParams: QueryParams = {
-                        minYear: minYear,
-                        maxYear: maxYear,
-                        fuelType: fuelType,
+                        minYear: null,
+                        maxYear: null,
+                        fuelType: null,
                     };
 
                     searchVehicles(currentBrand, currentModel, queryParams, router);
@@ -139,7 +150,6 @@ export default function SearchCar() {
  */
 function searchVehicles(currentBrand: IBrand, currentModel: IModel | null, queryParams: QueryParams, router: AppRouterInstance) {
     let path = `/${currentBrand.slug}`;
-
     if (currentModel?.name) {
         path += `/${currentModel?.slug}`;
     }
@@ -153,6 +163,5 @@ function searchVehicles(currentBrand: IBrand, currentModel: IModel | null, query
         path += `?${nonEmptyParams}`;
     }
 
-    // TODO: Fix this
-    router.push("/?testi=1")
+    router.replace(path);
 }
