@@ -126,9 +126,9 @@ export default function SearchCar() {
                     }
 
                     const queryParams: QueryParams = {
-                        minYear: null,
-                        maxYear: null,
-                        fuelType: null,
+                        minYear: years.min,
+                        maxYear: years.max,
+                        fuelType: fuelType,
                     };
 
                     searchVehicles(currentBrand, currentModel, queryParams, router);
