@@ -51,7 +51,7 @@ export default function Navigation() {
                 </Button>
             </div>
 
-            <nav className={`z-40 md:hidden max-md:w-screen h-screen fixed transition-all duration-500 ${isMenuOpen ? "translate-x-0 bg-[rgba(0,0,0,0.7)]" : "-translate-x-full md:translate-x-0 bg-transparent"}`} onClick={handleIsMenuOpen}>
+            <nav className={`z-50 md:hidden max-md:w-screen h-screen fixed transition-all duration-500 ${isMenuOpen ? "translate-x-0 bg-[rgba(0,0,0,0.7)]" : "-translate-x-full md:translate-x-0 bg-transparent"}`} onClick={handleIsMenuOpen}>
                 <div className="flex flex-col gap-5 justify-center items-center h-full" onClick={e => e.stopPropagation()}>
                     {
                         dictionary.navigation.map((item) => (

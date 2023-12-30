@@ -24,7 +24,8 @@ model Vehicle {
   brand              String
   brandSlug          String            @map("brand_slug")
   model              String
-  modelSlug          String
+  modelSpec          String?           @map("model_spec")
+  modelSlug          String            @map("model_slug")
   year               Int
   licensePlate       String            @map("license_plate")
   vin                String?           @unique

@@ -3,12 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { IVehicle } from '@/interfaces/vehicle';
-import { useDictionary } from '@/hooks';
-import VehicleCard from '@/components/cards/Vehicle';
 import type { Locale } from '@/../locale-config';
-
-// TODO: Handle single vehicle page
-// / [brand] / [model] / [id]
+import VehicleList from '@/components/VehicleList';
+import VehicleDetails from '@/components/VehicleDetails';
 
 export default function VehiclesPage({ params }: {
     params: {
@@ -16,81 +13,58 @@ export default function VehiclesPage({ params }: {
         data: string[],
     }
 }) {
-    const dictionary = useDictionary();
     const searchParams = useSearchParams();
-
-    const [brand, model] = params.data;
+    const [brand, model, id] = params.data;
+    const [vehicle, setVehicle] = useState<IVehicle | null>(null);
     const [vehicles, setVehicles] = useState<IVehicle[]>([]);
     const [page, setPage] = useState(1);
     const pageSize = 10;
-
-    const fetchVehicles = async () => {
-        let params: { [key: string]: string | number } = {
-            brand,
-            model,
-            page,
-            pageSize,
-        };
-
-        searchParams.forEach((value, key) => {
-            params[key] = value;
-        });
-
-        const queryString = Object.entries(params)
-            .filter(([_, value]) => value !== undefined && value !== null && value !== "")
-            .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-            .join('&');
-
-        const response = await fetch(`http://localhost:3000/api/vehicles?${queryString}`);
-        const data = await response.json();
-        console.log(queryString, data, searchParams.get("minYear"))
-        const newVehicles = data.data;
-
-        setVehicles(prevVehicles => {
-            const seen = new Set(prevVehicles.map(vehicle => vehicle.id));
-            const uniqueVehicles = newVehicles.filter((vehicle: IVehicle) => !seen.has(vehicle.id));
-            return [...prevVehicles, ...uniqueVehicles];
-        });
-    };
 
     useEffect(() => {
         fetchVehicles();
     }, [page]);
 
-    return (
-        <div className="mt-12">
-            <div className="flex flex-wrap items-center gap-12 justify-center">
-                {vehicles.map(vehicle => (
-                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
-                ))}{vehicles.map(vehicle => (
-                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
-                ))}{vehicles.map(vehicle => (
-                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
-                ))}{vehicles.map(vehicle => (
-                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
-                ))}{vehicles.map(vehicle => (
-                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
-                ))}{vehicles.map(vehicle => (
-                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
-                ))}{vehicles.map(vehicle => (
-                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
-                ))}{vehicles.map(vehicle => (
-                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
-                ))}{vehicles.map(vehicle => (
-                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
-                ))}{vehicles.map(vehicle => (
-                    <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
-                ))}
-            </div>
+    const fetchVehicles = async () => {
+        try {
+            if (id) {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/vehicles?id=${id}`);
+                const json = await response.json();
+                setVehicle(json.data);
+            } else {
+                let params: { [key: string]: string | number } = {
+                    brand,
+                    model,
+                    page,
+                    pageSize,
+                };
 
-            {/* TODO: Update UI / Maybe pagination */}
-            {/* <div className="bg-zinc-900 text-center mt-20">
-                <span>You've reached the bottom!</span>
-                <Button onClick={() => setPage(prevPage => prevPage + 1)}>
-                    Load More
-                </Button>
-            </div> */}
+                searchParams.forEach((value, key) => {
+                    params[key] = value;
+                });
 
-        </div>
-    );
+                const queryString = Object.entries(params)
+                    .filter(([_, value]) => value !== undefined && value !== null && value !== "")
+                    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+                    .join('&');
+
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/vehicles?${queryString}`);
+                const data = await response.json();
+                const newVehicles = data.data;
+
+                setVehicles(prevVehicles => {
+                    const seen = new Set(prevVehicles.map(vehicle => vehicle.id));
+                    const uniqueVehicles = newVehicles.filter((vehicle: IVehicle) => !seen.has(vehicle.id));
+                    return [...prevVehicles, ...uniqueVehicles];
+                });
+            }
+        } catch (e) {
+            console.error('Failed to fetch vehicles:', e);
+        }
+    };
+
+    if (id) {
+        return VehicleDetails({ vehicle });
+    }
+
+    return VehicleList({ vehicles });
 };

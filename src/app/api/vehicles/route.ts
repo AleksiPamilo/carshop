@@ -11,9 +11,10 @@ interface WhereClause {
 
 /**
  * This file defines the handler for the route / api / vehicles.
- * The URL structure is / api / vehicles ? brand = <brand>& model=<model> &minYear<minYear> &maxYear<maxYear> & page=<page>& pageSize=<pageSize>.
+ * The URL structure is / api / vehicles ? id = <id> & brand = <brand>& model=<model> &minYear<minYear> &maxYear<maxYear> & page=<page>& pageSize=<pageSize>.
  * 
  * Query parameters:
+ * - id: The ID of the vehicle. This is a number. If this is provided, all other query parameters are ignored.
  * - brand: The brand of the vehicle. This is a string. Multiple brands can be included, separated by commas.
  * - model: The model of the vehicle. This is a string. Multiple models can be included, separated by commas.
  * - page: The page number for pagination. This is a number. Default is 1.
@@ -25,10 +26,25 @@ interface WhereClause {
 **/
 export async function GET(req: NextRequest, res: NextResponse) {
     try {
-        let whereClause: Record<string, WhereClause> = {};
         const paramsArray = Array.from(req.nextUrl.searchParams.entries());
         const paramsObject = Object.fromEntries(paramsArray);
 
+        if (paramsObject.id) {
+            const vehicle = await prisma.vehicle.findUnique({
+                where: {
+                    id: Number(paramsObject.id),
+                },
+            });
+
+            return new NextResponse(
+                JSON.stringify({
+                    status: "success",
+                    data: vehicle,
+                })
+            );
+        }
+
+        let whereClause: Record<string, WhereClause> = {};
         for (const [key, value] of Object.entries(paramsObject)) {
             if (value && key !== 'page' && key !== 'pageSize' && key !== 'minYear' && key !== 'maxYear') {
                 whereClause = { ...whereClause, ...generateWhereClause(key, value) };

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useToast } from "./ui/use-toast";
 import { Button } from "./ui/button";
 
@@ -9,10 +9,8 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { useDictionary } from "@/hooks";
 import BrandDropdown from "./dropdowns/BrandDropdown";
 import ModelDropdown from "./dropdowns/ModelDropdown";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "./ui/select";
 import FuelTypeDropdown from "./dropdowns/FuelTypeDropdown";
 import YearDropdown from "./dropdowns/YearDropdown";
-// import DoubleDropdown from "./DoubleDropdown";
 
 interface IBrand {
     id: number,
@@ -77,7 +75,7 @@ export default function SearchCar() {
     // When the screen is small, the search bar should be a button that opens a dialog with the search options
 
     return (
-        <div className="flex sticky z-40 top-2 w-full items-center justify-center">
+        <div className="flex sticky z-40 top-2 w-full items-center justify-center max-sm:pt-24">
             <div className="w-3/5 h-full p-4 rounded-md shadow-md  flex flex-wrap md:flex-nowrap gap-3 md:gap-0 items-center justify-between bg-zinc-50 dark:bg-zinc-900">
                 <div className="flex flex-wrap gap-3">
                     <BrandDropdown
