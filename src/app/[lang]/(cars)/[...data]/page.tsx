@@ -35,7 +35,6 @@ export default function VehiclesPage({ params }: {
         });
     }, [page]);
 
-    console.log(vehicle)
     if (id) {
         return VehicleDetails({ vehicle });
     }
