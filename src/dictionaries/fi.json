@@ -8,6 +8,8 @@
         "edit": "Muokkaa",
         "add": "Lisää",
         "search": "Hae",
+        "searchBrand": "Hae merkkiä",
+        "searchModel": "Hae mallia",
         "min": "Minimi",
         "max": "Maksimi",
         "close": "Sulje",
@@ -24,6 +26,8 @@
         "errors": {
             "unknown": "Tapahtui odottamaton virhe",
             "notFound": "Ei löytynyt",
+            "brandNotFound": "Merkkiä ei löytynyt",
+            "modelNotFound": "Mallia ei löytynyt",
             "unauthorized": "Ei oikeuksia",
             "forbidden": "Kielletty",
             "validation": "Virheellinen syöte",
@@ -42,15 +46,24 @@
         "search": "Hae ajoneuvoa",
         "brand": "Merkki",
         "model": "Malli",
-        "year": "Vuosi",
+        "price": "Hinta",
+        "year": "Vuosimalli",
         "licensePlate": "Rekisterinumero",
         "vin": "Vin",
-        "odometer": "Matkamittari",
         "mileage": "Kilometrimäärä",
+        "powerHp": "Teho (hv)",
+        "powerKw": "Teho (kW)",
+        "torque": "Vääntö",
         "transmission": "Vaihteisto",
         "transmissions": {
             "manual": "Manuaali",
             "automatic": "Automaatti"
+        },
+        "drivetrain": "Vetotapa",
+        "drivetrains": {
+            "fwd": "Etuveto",
+            "rwd": "Takaveto",
+            "awd": "Neliveto"
         },
         "fuelType": "Käyttövoima",
         "fuelTypes": {
@@ -72,7 +85,7 @@
             "year": "Vuosi on pakollinen",
             "licensePlate": "Rekisterinumero on pakollinen",
             "vin": "Vin on pakollinen",
-            "odometer": "Matkamittari on pakollinen",
+            "mileage": "Kilometrimäärä on pakollinen",
             "fuelType": "Polttoaineen tyyppi on pakollinen",
             "fuelCapacity": "Polttoaineen tilavuus on pakollinen",
             "fuelConsumption": "Polttoaineen kulutus on pakollinen"

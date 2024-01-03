@@ -80,13 +80,11 @@ export default function SearchCar() {
                 <div className="flex flex-wrap gap-3">
                     <BrandDropdown
                         brands={brands}
-                        currentBrand={currentBrand}
                         onChange={handleBrand}
                     />
 
                     <ModelDropdown
                         models={models}
-                        currentModel={currentModel}
                         onChange={handleModel}
                         disabled={!currentBrand}
                     />

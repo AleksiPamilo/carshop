@@ -6,6 +6,7 @@ import { IVehicle } from '@/interfaces/vehicle';
 import type { Locale } from '@/../locale-config';
 import VehicleList from '@/components/VehicleList';
 import VehicleDetails from '@/components/VehicleDetails';
+import SearchCar from '@/components/SearchCar';
 
 export default function VehiclesPage({ params }: {
     params: {
@@ -66,5 +67,10 @@ export default function VehiclesPage({ params }: {
         return VehicleDetails({ vehicle });
     }
 
-    return VehicleList({ vehicles });
+    return (
+        <div>
+            <SearchCar />
+            <VehicleList {...{ vehicles }} />
+        </div>
+    )
 };

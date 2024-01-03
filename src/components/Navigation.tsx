@@ -41,7 +41,7 @@ export default function Navigation() {
                 </div>
             </nav>
 
-            <div className="md:hidden flex w-full p-3 fixed z-50 justify-between items-center">
+            <div className="md:hidden flex w-full p-3 top-2 fixed z-[60] justify-between items-center">
                 <Link href={`/${currentLocale}/`} locale={false}>
                     <Image src={Logo} alt="Logo" className="w-10" />
                 </Link>

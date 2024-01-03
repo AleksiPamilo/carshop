@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "@/assets/logo.svg";
 import {
     Card,
@@ -10,20 +10,39 @@ import {
 import { IVehicle } from "@/interfaces/vehicle";
 import { useDictionary } from "../context/DictionaryProvider";
 import Link from "next/link";
+import { IVehicleImage } from "../VehicleDetails";
+import LazyImage from "../LazyImage";
 
 export default function VehicleCard({ vehicle }: {
     vehicle: IVehicle,
 }) {
+    const [image, setImage] = React.useState<IVehicleImage>();
     const dictionary = useDictionary();
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            if (!vehicle) {
+                return;
+            }
+
+            const response = await fetch("/api/images/get?amount=1&vehicleId=" + vehicle.id);
+            const json = await response.json();
+
+            console.log(json.images)
+            setImage(json.images[0]);
+        };
+
+        fetchImage();
+    }, [vehicle]);
 
     return (
         <Link href={`/${vehicle.brandSlug}/${vehicle.modelSlug}/${vehicle.id}`}>
             <Card className="w-80 h-[30rem] relative hover:cursor-pointer">
                 <div className="w-full h-2/5 relative flex items-center mb-6">
-                    <img
-                        className="object-cover w-full h-full rounded-t-lg"
-                        src={vehicle.images?.[0] ?? logo.src}
+                    <LazyImage
+                        src={image?.imageUrl ?? logo.src}
                         alt={`${vehicle.brand} ${vehicle.model}`}
+                        blurhash={image?.blurhash}
                     />
                     <span id="tag" className="absolute bottom-0 left-4 font-bold text-white bg-blue-600 py-0.5 px-3 rounded-lg transform translate-y-1/2">
                         {vehicle.price.toLocaleString("en-US").replace(/,/g, ' ')}€
@@ -43,7 +62,7 @@ export default function VehicleCard({ vehicle }: {
                         <span>{vehicle.year}</span>
                         <span>{dictionary.vehicles.fuelTypes[vehicle.fuelType.toLowerCase() as keyof typeof dictionary.vehicles.fuelTypes]}</span>
                         <span>{dictionary.vehicles.transmissions[vehicle.transmission.toLowerCase() as keyof typeof dictionary.vehicles.transmissions]}</span>
-                        <span>{vehicle.odometer.toLocaleString("en-US").replace(/,/g, ' ')} km</span>
+                        <span>{vehicle.mileage.toLocaleString("en-US").replace(/,/g, ' ')} km</span>
                     </CardFooter>
                 </CardContent>
             </Card>

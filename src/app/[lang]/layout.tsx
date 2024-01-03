@@ -5,7 +5,6 @@ import Navigation from '@/components/Navigation'
 import { DictionaryProvider } from '@/components/context/DictionaryProvider'
 import { Locale } from '@/../locale-config'
 import { getDictionary } from '@/utils/get-dictionary';
-import SearchCar from '@/components/SearchCar'
 import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -39,7 +38,6 @@ export default async function RootLayout({
           >
             <Toaster />
             <Navigation />
-            <SearchCar />
             {children}
           </ThemeProvider>
         </DictionaryProvider>

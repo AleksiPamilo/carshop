@@ -8,6 +8,8 @@
         "edit": "Edit",
         "add": "Add",
         "search": "Search",
+        "searchBrand": "Search for a brand",
+        "searchModel": "Search for a model",
         "min": "Minimum",
         "max": "Maximum",
         "close": "Close",
@@ -24,6 +26,8 @@
         "errors": {
             "unknown": "Unknown",
             "notFound": "Not Found",
+            "brandNotFound": "Brand not found",
+            "modelNotFound": "Model not found",
             "unauthorized": "Unauthorized",
             "forbidden": "Forbidden",
             "validation": "Validation",
@@ -42,15 +46,24 @@
         "search": "Search for a car",
         "brand": "Brand",
         "model": "Model",
-        "year": "Year",
+        "price": "Price",
+        "year": "Year model",
         "licensePlate": "License Plate",
         "vin": "Vin",
-        "odometer": "Odometer",
         "mileage": "Mileage",
+        "powerHp": "Power (hp)",
+        "powerKw": "Power (kW)",
+        "torque": "Torque",
         "transmission": "Transmission",
         "transmissions": {
             "automatic": "Automatic",
             "manual": "Manual"
+        },
+        "drivetrain": "Drivetrain",
+        "drivetrains": {
+            "fwd": "Front Wheel Drive",
+            "rwd": "Rear Wheel Drive",
+            "awd": "All Wheel Drive"
         },
         "fuelType": "Power type",
         "fuelTypes": {
@@ -72,7 +85,7 @@
             "year": "Year is required",
             "licensePlate": "License Plate is required",
             "vin": "Vin is required",
-            "odometer": "Odometer is required",
+            "mileage": "Mileage is required",
             "fuelType": "Fuel Type is required",
             "fuelCapacity": "Fuel Capacity is required",
             "fuelConsumption": "Fuel Consumption is required"
