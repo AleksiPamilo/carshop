@@ -33,7 +33,7 @@ export default function VehiclesPage({ params }: {
             setVehicles,
             setVehicle,
         });
-    }, [page]);
+    }, [page, brand, id, model, searchParams]);
 
     if (id) {
         return VehicleDetails({ vehicle });

@@ -17,9 +17,8 @@ export default function SwitchTheme() {
     const theme = useTheme();
     const [emoji, setEmoji] = useState<JSX.Element>(<FaCog className="text-2xl" />);
 
-    let style = "text-2xl"
-
     useEffect(() => {
+        let style = "text-2xl"
         switch (theme.theme) {
             case "dark":
                 setEmoji(<FaMoon className={style} />)

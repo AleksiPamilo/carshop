@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 /**
  * This file defines the handler for the route / api / vehicles / brands.
@@ -8,10 +7,10 @@ import { NextResponse } from "next/server";
  * 
  * The handler supports GET requests and returns a list of brands.
  * 
- * @param {NextApiRequest} req The incoming request object
- * @param {NextApiResponse} res The response object
+ * @param {NextRequest} req The incoming request object
+ * @param {NextResponse} res The response object
  **/
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
     try {
         const brands = await prisma.brand.findMany();
 

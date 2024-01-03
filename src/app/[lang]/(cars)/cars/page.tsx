@@ -20,7 +20,7 @@ export default function CarsPage() {
             searchParams,
             setVehicles
         });
-    }, [page]);
+    }, [page, searchParams]);
 
     return (
         <div className="pb-12">

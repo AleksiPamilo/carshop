@@ -22,7 +22,7 @@ export default function ImageCarouselThumbnails({ images, imageCarouselApi, curr
     useEffect(() => {
         setCurrent(currentImage);
         api?.scrollTo(currentImage);
-    }, [currentImage]);
+    }, [currentImage, api]);
 
     useEffect(() => {
         if (!api) {
