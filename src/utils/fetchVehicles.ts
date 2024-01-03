@@ -23,7 +23,7 @@ export default async function fetchVehicles({
 }) {
     try {
         if (id) {
-            const response = await fetch(`${API_URL}/vehicles/${id}`);
+            const response = await fetch(`${API_URL}/vehicles?id=${id}`);
             const data = await response.json();
             setVehicle?.(data.data);
             return;

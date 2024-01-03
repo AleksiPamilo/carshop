@@ -13,7 +13,7 @@ export const metadata = {
   title: 'Car Shop',
   description: 'Created With Next.js, Prisma, NextAuth.js and MySQL',
   icons: {
-    favicon: '/assets/favicon.ico',
+    favicon: '/favicon.ico',
   }
 }
 
