@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from "react";
-import { decode } from "blurhash";
+import { useState, useEffect } from "react";
+import { Blurhash } from "react-blurhash";
 import { useInView } from "react-intersection-observer";
 
 export default function LazyImage({ src, blurhash, alt }: {
-    src: string,
+    src?: string,
     blurhash?: string,
     alt: string,
 }) {
@@ -12,29 +12,13 @@ export default function LazyImage({ src, blurhash, alt }: {
         triggerOnce: true,
     });
 
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const canvasSize = 32;
-
     useEffect(() => {
-        if (inView && canvasRef.current && blurhash) {
-            const pixels = decode(blurhash, canvasSize, canvasSize);
-            const ctx = canvasRef.current.getContext("2d");
+        const img = new Image();
 
-            if (ctx) {
-                const imageData = ctx.createImageData(canvasSize, canvasSize);
-                imageData.data.set(pixels);
-
-                const tempCanvas = document.createElement('canvas');
-                tempCanvas.width = canvasSize;
-                tempCanvas.height = canvasSize;
-                const tempCtx = tempCanvas.getContext('2d');
-                tempCtx?.putImageData(imageData, 0, 0);
-
-                ctx.drawImage(tempCanvas, 0, 0, canvasRef.current.width, canvasRef.current.height);
-            }
+        if (!src) {
+            return;
         }
 
-        const img = new Image();
         img.src = src;
         img.onload = () => {
             setImageSrc(src);
@@ -46,7 +30,16 @@ export default function LazyImage({ src, blurhash, alt }: {
             {imageSrc ? (
                 <img src={imageSrc} alt={alt} className="w-full h-full object-cover" />
             ) : (
-                <canvas ref={canvasRef} width={canvasSize} height={canvasSize} className="w-full h-full" />
+                blurhash && blurhash.length >= 6 && (
+                    <Blurhash
+                        hash={blurhash}
+                        width="100%"
+                        height="100%"
+                        resolutionX={32}
+                        resolutionY={32}
+                        punch={1}
+                    />
+                )
             )}
         </div>
     )

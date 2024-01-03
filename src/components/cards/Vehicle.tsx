@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import logo from "@/assets/logo.svg";
 import {
     Card,
     CardContent,
@@ -39,7 +38,7 @@ export default function VehicleCard({ vehicle }: {
             <Card className="w-80 h-[30rem] relative hover:cursor-pointer">
                 <div className="w-full h-2/5 relative flex items-center mb-6">
                     <LazyImage
-                        src={image?.imageUrl ?? logo.src}
+                        src={image?.imageUrl}
                         alt={`${vehicle.brand} ${vehicle.model}`}
                         blurhash={image?.blurhash}
                     />

@@ -106,11 +106,8 @@ export default function SearchCar() {
 
                 <Button className="text-right max-md:w-full" onClick={() => {
                     if (!currentBrand) {
-                        return toast({
-                            title: dictionary.common.error,
-                            description: dictionary.vehicles.errors.brand,
-                            duration: 5000,
-                        })
+                        router.replace("/cars");
+                        return;
                     }
 
                     const queryParams: QueryParams = {
@@ -127,7 +124,6 @@ export default function SearchCar() {
         </div>
     );
 };
-
 
 /**
  * This function sets the query parameters and navigates to the search page.

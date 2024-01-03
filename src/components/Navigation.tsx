@@ -58,7 +58,6 @@ export default function Navigation() {
                     }
                     <Login />
                 </div>
-
             </nav >
         </>
     )
