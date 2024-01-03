@@ -93,7 +93,9 @@
     },
     "auth": {
         "signIn": "Kirjaudu sisään",
+        "signInSuccess": "Kirjautuminen onnistui",
         "signUp": "Rekisteröidy",
+        "signUpSuccess": "Rekisteröityminen onnistui",
         "signOut": "Kirjaudu ulos",
         "username": "Käyttäjänimi",
         "password": "Salasana",
@@ -113,6 +115,7 @@
             "passwordsDontMatch": "Salasanat eivät täsmää",
             "email": "Sähköposti on pakollinen",
             "emailInvalid": "Sähköposti on virheellinen",
+            "emptyFields": "Täytä kaikki kentät",
             "incorrectCredentials": "Väärä käyttäjänimi tai salasana",
             "unknownError": "Tapahtui odottamaton virhe"
         }

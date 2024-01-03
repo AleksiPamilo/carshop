@@ -28,7 +28,6 @@ export default function VehicleCard({ vehicle }: {
             const response = await fetch("/api/images/get?amount=1&vehicleId=" + vehicle.id);
             const json = await response.json();
 
-            console.log(json.images)
             setImage(json.images[0]);
         };
 

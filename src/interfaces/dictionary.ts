@@ -93,7 +93,9 @@ export interface IDictionary {
     },
     auth: {
         signIn: string,
+        signInSuccess: string,
         signUp: string,
+        signUpSuccess: string,
         signOut: string,
         username: string,
         password: string,
@@ -112,6 +114,7 @@ export interface IDictionary {
             passwordsDontMatch: string,
             email: string,
             emailInvalid: string,
+            emptyFields: string,
             incorrectCredentials: string,
             unknownError: string,
         }

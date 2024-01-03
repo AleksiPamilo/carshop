@@ -33,8 +33,6 @@ export default function VehicleDetails({ vehicle }: { vehicle: IVehicle | null }
         return <div>Loading...</div>;
     }
 
-    console.log(images)
-
     return (
         <div className="flex flex-col items-center justify-center mt-12 px-4">
             <div>

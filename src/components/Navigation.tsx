@@ -10,6 +10,7 @@ import SwitchTheme from "./SwitchTheme";
 import SwitchLocale from "./SwitchLocale";
 import { Button } from "./ui/button";
 import { FaBars, FaTimes } from "react-icons/fa";
+import Login from "./auth/Login";
 
 export default function Navigation() {
     const dictionary = useDictionary();
@@ -32,12 +33,7 @@ export default function Navigation() {
                 <div className="flex items-center gap-6">
                     <SwitchLocale />
                     <SwitchTheme />
-
-                    <Link href="/login">
-                        <span className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
-                            {dictionary.auth.signIn}
-                        </span>
-                    </Link>
+                    <Login />
                 </div>
             </nav>
 
@@ -60,12 +56,7 @@ export default function Navigation() {
                             </Link>
                         ))
                     }
-
-                    <Link href="/login" className="text-3xl mt-2" onClick={handleIsMenuOpen}>
-                        <span className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
-                            {dictionary.auth.signIn}
-                        </span>
-                    </Link>
+                    <Login />
                 </div>
 
             </nav >

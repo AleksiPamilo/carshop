@@ -93,7 +93,9 @@
     },
     "auth": {
         "signIn": "Sign In",
+        "signInSuccess": "Signed in successfully",
         "signUp": "Sign Up",
+        "signUpSuccess": "Signed up successfully",
         "signOut": "Sign Out",
         "username": "Username",
         "password": "Password",
@@ -113,6 +115,7 @@
             "passwordsDontMatch": "Passwords don't match",
             "email": "Email is required",
             "emailInvalid": "Email is invalid",
+            "emptyFields": "Please fill in all the fields",
             "incorrectCredentials": "Incorrect username or password",
             "unknownError": "Unexpected error occurred"
         }

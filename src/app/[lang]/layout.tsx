@@ -5,7 +5,7 @@ import Navigation from '@/components/Navigation'
 import { DictionaryProvider } from '@/components/context/DictionaryProvider'
 import { Locale } from '@/../locale-config'
 import { getDictionary } from '@/utils/get-dictionary';
-import { Toaster } from '@/components/ui/toaster'
+import { Toaster } from '@/components/ui/sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 
