@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @unique @default(cuid())
+  name          String    @unique
+  password      String
+  email         String    @unique
+  emailVerified DateTime? @map("email_verified")
+  createdAt     DateTime  @default(now())
+  vehicles      Vehicle[]
+
+  @@map("users")
+}
+
+model Vehicle {
+  id                 Int               @id @default(autoincrement())
+  brand              String
+  brandSlug          String            @map("brand_slug")
+  model              String
+  modelSpec          String?           @map("model_spec")
+  modelSlug          String            @map("model_slug")
+  year               Int
+  licensePlate       String            @map("license_plate")
+  vin                String?           @unique
+  mileage            Int
+  transmission       String
+  doors              Int
+  seats              Int
+  driverSide         String            @map("driver_side")
+  engineSize         Float             @map("engine_size")
+  drivetrain         String
+  power              Int
+  torque             Int?
+  topSpeed           Int?              @map("top_speed")
+  acceleration       Float?
+  weight             Int?
+  totalWeight        Int?              @map("total_weight")
+  fuelType           String            @map("fuel_type")
+  fuelCapacity       Int               @map("fuel_capacity")
+  fuelConsumption    FuelConsumptions? @relation(fields: [fuelConsumption_id], references: [id])
+  fuelConsumption_id Int?              @unique @map("fuel_consumption_id")
+  price              Float
+  description        String
+  user               User              @relation(fields: [user_id], references: [id])
+  user_id            String
+  listingCreatedAt   DateTime          @default(now()) @map("listing_created_at")
+  listingUpdatedAt   DateTime?         @map("listing_updated_at")
+  soldAt             DateTime?         @map("sold_at")
+
+  @@map("vehicles")
+}
+
+model FuelConsumptions {
+  id         Int      @id @default(autoincrement())
+  vehicle    Vehicle?
+  vehicle_id Int
+  city       Float
+  highway    Float
+  combined   Float
+}
+
+model Brand {
+  id     Int     @id @default(autoincrement())
+  name   String
+  slug   String  @unique
+  models Model[]
+
+  @@map("brands")
+}
+
+model Model {
+  id       Int    @id @default(autoincrement())
+  name     String
+  slug     String
+  brand    Brand  @relation(fields: [brand_id], references: [id])
+  brand_id Int
+
+  @@map("models")
+}
