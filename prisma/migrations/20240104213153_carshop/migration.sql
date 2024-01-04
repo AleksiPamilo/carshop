@@ -53,9 +53,8 @@ CREATE TABLE `vehicles` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `FuelConsumptions` (
+CREATE TABLE `fuel_consumptions` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `vehicle_id` INTEGER NOT NULL,
     `city` DOUBLE NOT NULL,
     `highway` DOUBLE NOT NULL,
     `combined` DOUBLE NOT NULL,
@@ -84,7 +83,7 @@ CREATE TABLE `models` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `vehicles` ADD CONSTRAINT `vehicles_fuel_consumption_id_fkey` FOREIGN KEY (`fuel_consumption_id`) REFERENCES `FuelConsumptions`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `vehicles` ADD CONSTRAINT `vehicles_fuel_consumption_id_fkey` FOREIGN KEY (`fuel_consumption_id`) REFERENCES `fuel_consumptions`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `vehicles` ADD CONSTRAINT `vehicles_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

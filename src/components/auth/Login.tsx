@@ -1,7 +1,6 @@
-import { Dialog, DialogContent, DialogTrigger, DialogClose } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useDictionary } from "../context/DictionaryProvider";
-import { Button } from "../ui/button";
 import LoginContent from "./LoginContent";
 import SignUpContent from "./SignUpContent";
 import { useState } from "react";

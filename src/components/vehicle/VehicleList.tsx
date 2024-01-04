@@ -1,6 +1,6 @@
 import { IVehicle } from "@/interfaces/vehicle";
-import { useDictionary } from "./context/DictionaryProvider";
-import VehicleCard from "./cards/Vehicle";
+import { useDictionary } from "../context/DictionaryProvider";
+import VehicleCard from "../cards/Vehicle";
 
 export default function VehicleList({ vehicles }: { vehicles: IVehicle[] }) {
     const dictionary = useDictionary();

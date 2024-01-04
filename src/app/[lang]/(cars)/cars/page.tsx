@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { IVehicle } from '@/interfaces/vehicle';
-import VehicleList from '@/components/VehicleList';
+import VehicleList from '@/components/vehicle/VehicleList';
 import SearchCar from '@/components/SearchCar';
 import fetchVehicles from '@/utils/fetchVehicles';
 

@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { IVehicle } from '@/interfaces/vehicle';
 import type { Locale } from '@/../locale-config';
-import VehicleList from '@/components/VehicleList';
-import VehicleDetails from '@/components/VehicleDetails';
+import VehicleList from '@/components/vehicle/VehicleList';
+import VehicleDetails from '@/components/vehicle/VehicleDetails';
 import SearchCar from '@/components/SearchCar';
 import fetchVehicles from '@/utils/fetchVehicles';
 

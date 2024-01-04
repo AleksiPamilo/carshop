@@ -1,9 +1,9 @@
 import { IVehicle } from "@/interfaces/vehicle";
 import { useEffect, useState } from "react";
-import ImageCarousel from "./carousel/ImageCarousel";
-import { Separator } from "@/components/ui/separator"
-import { useDictionary } from "./context/DictionaryProvider";
+import ImageCarousel from "../carousel/ImageCarousel";
+import { useDictionary } from "../context/DictionaryProvider";
 import VehicleDetail from "./VehicleDetail";
+import LazyImage from "../LazyImage";
 
 export interface IVehicleImage {
     imageUrl: string,
@@ -37,11 +37,12 @@ export default function VehicleDetails({ vehicle }: { vehicle: IVehicle | null }
         <div className="flex flex-col items-center justify-center mt-12 px-4">
             <div>
                 <div className="flex flex-col sm:flex-row items-stretch gap-x-4 gap-y-8">
-                    {images && images.length > 0 && (
-                        <div className="max-w-[50rem]">
-                            <ImageCarousel {...{ images }} thumbnails loop />
-                        </div>
-                    )}
+                    <div className="max-w-[50rem] select-none">
+                        {images.length > 0 && images.length === 1
+                            ? <LazyImage src={images[0].imageUrl} blurhash={images[0].blurhash} alt="" />
+                            : <ImageCarousel {...{ images }} thumbnails loop />
+                        }
+                    </div>
                     <div className="w-full md:w-[20rem] h-full md:ml-4 flex flex-col gap-y-4 p-4">
                         <h1 className="text-xl font-bold">{vehicle.brand} {vehicle.model}</h1>
                         <h4 className="text-sm text-zinc-500">{vehicle.modelSpec}</h4>

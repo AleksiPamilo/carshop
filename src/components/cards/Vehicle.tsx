@@ -9,7 +9,7 @@ import {
 import { IVehicle } from "@/interfaces/vehicle";
 import { useDictionary } from "../context/DictionaryProvider";
 import Link from "next/link";
-import { IVehicleImage } from "../VehicleDetails";
+import { IVehicleImage } from "../vehicle/VehicleDetails";
 import LazyImage from "../LazyImage";
 
 export default function VehicleCard({ vehicle }: {

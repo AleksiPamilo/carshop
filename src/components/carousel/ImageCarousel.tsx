@@ -1,7 +1,6 @@
-import { IVehicle } from "@/interfaces/vehicle";
 import LazyImage from "../LazyImage";
 import { useEffect, useState } from "react";
-import { IVehicleImage } from "../VehicleDetails";
+import { IVehicleImage } from "../vehicle/VehicleDetails";
 
 import {
     Carousel,
