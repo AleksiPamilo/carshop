@@ -1,21 +1,18 @@
+import { ISearchData } from "@/components/search/SearchCar";
 import type { IBrand, IModel } from "@/interfaces/vehicle";
-import { useState } from "react";
 
-export default function useBrandModelSelector() {
-    const [currentBrand, setCurrentBrand] = useState<IBrand | null>(null);
-    const [currentModel, setCurrentModel] = useState<IModel | null>(null);
-
+export default function useBrandModelSelector(searchData: ISearchData, setSearchData: React.Dispatch<React.SetStateAction<ISearchData>>) {
     const handleBrand = (value: IBrand | null) => {
-        if (value !== currentBrand) {
-            setCurrentBrand(value);
+        if (value !== searchData.currentBrand) {
+            setSearchData(prevData => ({ ...prevData, currentBrand: value }));
         } else {
-            setCurrentBrand(null);
+            setSearchData(prevData => ({ ...prevData, currentBrand: null }));
         }
     };
 
     const handleModel = (value: IModel | null) => {
-        setCurrentModel(value);
+        setSearchData(prevData => ({ ...prevData, currentModel: value }));
     };
 
-    return { currentBrand, currentModel, handleBrand, handleModel };
+    return { handleBrand, handleModel };
 }

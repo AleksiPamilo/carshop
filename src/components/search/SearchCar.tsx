@@ -30,9 +30,8 @@ export default function SearchCar() {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    const { currentBrand, currentModel, handleBrand, handleModel } = useBrandModelSelector();
     const [searchData, setSearchData] = useState<ISearchData>({
-        currentBrand, currentModel,
+        currentBrand: null, currentModel: null,
         minYear: searchParams.get("minYear"),
         maxYear: searchParams.get("maxYear"),
         fuelType: searchParams.get("fuelType"),
@@ -41,10 +40,11 @@ export default function SearchCar() {
         mileageFrom: searchParams.get("mileageFrom"),
         mileageTo: searchParams.get("mileageTo"),
     });
+    const { handleBrand, handleModel } = useBrandModelSelector(searchData, setSearchData);
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
     const brands: IBrand[] = useCachedData("brands", apiUrl + "/vehicles/brands");
-    const models: IModel[] = useCachedData(`models-${currentBrand?.id}`, `/api/vehicles/models?brand_id=${currentBrand?.id}`, currentBrand?.id);
+    const models: IModel[] = useCachedData(`models-${searchData.currentBrand?.id}`, `/api/vehicles/models?brand_id=${searchData.currentBrand?.id}`, searchData.currentBrand?.id);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
@@ -90,8 +90,6 @@ export default function SearchCar() {
                 <SearchForm {...{
                     brands,
                     models,
-                    handleBrand,
-                    handleModel,
                     searchData,
                     setSearchData
                 }} />

@@ -4,17 +4,18 @@ import BrandDropdown from "../dropdowns/BrandDropdown";
 import ModelDropdown from "../dropdowns/ModelDropdown";
 import FuelTypeDropdown from "../dropdowns/FuelTypeDropdown";
 import SearchCarDialog from "./SearchCarDialog";
+import { useBrandModelSelector } from "@/hooks";
 
 type SearchFormProps = {
     brands: IBrand[],
     models: IModel[],
-    handleBrand: (brand: IBrand | null) => void,
-    handleModel: (model: IModel | null) => void,
     searchData: ISearchData,
     setSearchData: React.Dispatch<React.SetStateAction<ISearchData>>,
 }
 
-export default function SearchForm({ brands, models, handleBrand, handleModel, searchData, setSearchData }: SearchFormProps) {
+export default function SearchForm({ brands, models, searchData, setSearchData }: SearchFormProps) {
+    const { handleBrand, handleModel } = useBrandModelSelector(searchData, setSearchData);
+
     return (
         <div className="flex items-center gap-1 pr-1.5">
             <BrandDropdown
