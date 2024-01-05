@@ -41,12 +41,12 @@ export default function BrandDropdown({ brands, onChange, selected, disabled }: 
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild disabled={disabled}>
-                <Button variant='outline' role='combobox' aria-expanded={open} className='w-full md:w-[10rem] justify-between'>
+                <Button variant='outline' role='combobox' aria-expanded={open} className='w-full md:max-w-[10rem] md:min-w-[7rem] justify-between'>
                     {value ? brands.find((brand) => brand.slug === value)?.name : dictionary.vehicles.brand}
                     <ChevronDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className='w-full md:w-[10rem] p-0'>
+            <PopoverContent className='w-full md:max-w-[10rem] md:min-w-[7rem] p-0'>
                 <Command>
                     <CommandInput placeholder={dictionary.common.searchBrand} />
                     <ScrollArea className='max-h-[20rem] overflow-auto'>

@@ -20,7 +20,6 @@ export default function VehiclesPage({ params }: {
     const [vehicle, setVehicle] = useState<IVehicle | null>(null);
     const [vehicles, setVehicles] = useState<IVehicle[]>([]);
     const [page, setPage] = useState(1);
-    const pageSize = 10;
 
     useEffect(() => {
         fetchVehicles({
@@ -28,7 +27,6 @@ export default function VehiclesPage({ params }: {
             brand,
             model,
             page,
-            pageSize,
             searchParams,
             setVehicles,
             setVehicle,

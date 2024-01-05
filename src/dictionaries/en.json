@@ -10,6 +10,8 @@
         "search": "Search",
         "searchBrand": "Search for a brand",
         "searchModel": "Search for a model",
+        "changeSearchCriteria": "Change the search criteria",
+        "moreOptions": "More options",
         "min": "Minimum",
         "max": "Maximum",
         "close": "Close",

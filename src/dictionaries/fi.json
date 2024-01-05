@@ -10,6 +10,8 @@
         "search": "Hae",
         "searchBrand": "Hae merkkiä",
         "searchModel": "Hae mallia",
+        "changeSearchCriteria": "Muuta hakuehtoja",
+        "moreOptions": "Lisää vaihtoehtoja",
         "min": "Minimi",
         "max": "Maksimi",
         "close": "Sulje",

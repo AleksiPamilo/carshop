@@ -11,12 +11,10 @@ export default function CarsPage() {
     const searchParams = useSearchParams();
     const [vehicles, setVehicles] = useState<IVehicle[]>([]);
     const [page, setPage] = useState(1);
-    const pageSize = 10;
 
     useEffect(() => {
         fetchVehicles({
             page,
-            pageSize,
             searchParams,
             setVehicles
         });

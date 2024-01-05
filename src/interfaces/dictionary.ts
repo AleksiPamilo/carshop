@@ -10,6 +10,8 @@ export interface IDictionary {
         search: string,
         searchBrand: string,
         searchModel: string,
+        changeSearchCriteria: string,
+        moreOptions: string,
         min: string,
         max: string,
         close: string,

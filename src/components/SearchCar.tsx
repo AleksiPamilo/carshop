@@ -3,20 +3,23 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Button } from "./ui/button";
-
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useDictionary } from "@/hooks";
 import BrandDropdown from "./dropdowns/BrandDropdown";
 import ModelDropdown from "./dropdowns/ModelDropdown";
 import FuelTypeDropdown from "./dropdowns/FuelTypeDropdown";
-import YearDropdown from "./dropdowns/YearDropdown";
 import type { IBrand, IModel } from "@/interfaces/vehicle";
+import SearchCarMobile from "./SearchCarMobile";
 import SearchCarDialog from "./SearchCarDialog";
 
 export type QueryParams = {
     minYear: string | null,
     maxYear: string | null,
     fuelType: string | null,
+    priceFrom: string | null,
+    priceTo: string | null,
+    mileageFrom: string | null,
+    mileageTo: string | null,
 };
 
 export type ISearchData = {
@@ -37,6 +40,10 @@ export default function SearchCar() {
         minYear: useSearchParams().get("minYear"),
         maxYear: useSearchParams().get("maxYear"),
         fuelType: useSearchParams().get("fuelType"),
+        priceFrom: useSearchParams().get("priceFrom"),
+        priceTo: useSearchParams().get("priceTo"),
+        mileageFrom: useSearchParams().get("mileageFrom"),
+        mileageTo: useSearchParams().get("mileageTo"),
     });
 
     useEffect(() => {
@@ -83,11 +90,24 @@ export default function SearchCar() {
         setSearchData(prev => ({ ...prev, currentModel: value }));
     };
 
+    const fuelTypeKey = Object.entries(dictionary.vehicles.fuelTypes)
+        .find(([_, value]) => value === searchData.fuelType)?.[0];
+
+    const queryParams: QueryParams = {
+        minYear: searchData.minYear,
+        maxYear: searchData.maxYear,
+        fuelType: fuelTypeKey ?? null,
+        priceFrom: searchData.priceFrom,
+        priceTo: searchData.priceTo,
+        mileageFrom: searchData.mileageFrom,
+        mileageTo: searchData.mileageTo,
+    };
+
     return (
         <div className="flex sticky z-40 top-2 w-full items-center justify-center max-sm:pt-24">
-            <SearchCarDialog {...{ brands, models, handleBrand, handleModel, searchData, setSearchData }} />
-            <div className="w-3/5 h-full p-4 rounded-md shadow-md hidden md:flex flex-wrap md:flex-nowrap gap-3 md:gap-0 items-center justify-between bg-zinc-50 dark:bg-zinc-900">
-                <div className="flex flex-wrap gap-3">
+            <SearchCarMobile {...{ brands, models, handleBrand, handleModel, searchData, setSearchData, queryParams }} />
+            <div className="w-max md:w-[90%] lg:w-4/5 xl:w-3/5 h-full p-4 rounded-md shadow-md hidden md:flex flex-wrap md:flex-nowrap gap-3 md:gap-0 items-center justify-between bg-zinc-50 dark:bg-zinc-900">
+                <div className="flex items-center gap-1 pr-1.5">
                     <BrandDropdown
                         brands={brands}
                         onChange={handleBrand}
@@ -109,27 +129,12 @@ export default function SearchCar() {
                         }}
                     />
 
-                    <YearDropdown
-                        min={searchData.minYear}
-                        max={searchData.maxYear}
-                        onChange={(years) => setSearchData(prev => ({
-                            ...prev,
-                            minYear: years.min,
-                            maxYear: years.max
-                        }))}
+                    <SearchCarDialog
+                        {...{ searchData, setSearchData }}
                     />
                 </div>
 
                 <Button className="text-right max-md:w-full" onClick={() => {
-                    const fuelTypeKey = Object.entries(dictionary.vehicles.fuelTypes)
-                        .find(([_, value]) => value === searchData.fuelType)?.[0];
-
-                    const queryParams: QueryParams = {
-                        minYear: searchData.minYear,
-                        maxYear: searchData.maxYear,
-                        fuelType: fuelTypeKey ?? null,
-                    };
-
                     searchVehicles(
                         searchData.currentBrand,
                         searchData.currentModel,
@@ -158,7 +163,7 @@ export function searchVehicles(currentBrand: IBrand | null, currentModel: IModel
         .join('&');
 
     if (!currentBrand) {
-        return router.replace("/cars" + (nonEmptyParams ? `?${nonEmptyParams}` : ""));
+        return router.push("/cars" + (nonEmptyParams ? `?${nonEmptyParams}` : ""));
     }
 
     let path = `/${currentBrand.slug}`;

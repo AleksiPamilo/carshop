@@ -16,7 +16,7 @@ export default function FuelTypeDropdown({ fuelType, onChange, disabled }: {
 
     return (
         <Select value={fuelType ?? undefined} onValueChange={onChange}>
-            <SelectTrigger className="w-full md:w-[10rem]" disabled={disabled}>
+            <SelectTrigger className="w-full md:max-w-[10rem] md:min-w-[8rem]" disabled={disabled}>
                 <SelectValue placeholder={dictionary.vehicles.fuelType}>
                     <p className="capitalize">{fuelType ?? dictionary.vehicles.fuelType}</p>
                 </SelectValue>
