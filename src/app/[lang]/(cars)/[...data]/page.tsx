@@ -34,8 +34,6 @@ export default function VehiclesPage({ params }: {
     }, [page, brand, id, model, searchParams]);
 
     if (id) {
-        if (!vehicle) return <div>Loading...</div>;
-
         return VehicleDetails({ vehicle });
     }
 
