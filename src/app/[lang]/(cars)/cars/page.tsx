@@ -20,6 +20,8 @@ export default function CarsPage() {
             searchParams,
             setVehicles
         });
+
+        console.log("x: ", vehicles)
     }, [page, searchParams]);
 
     return (

@@ -6,7 +6,7 @@ export default function VehicleList({ vehicles }: { vehicles: IVehicle[] }) {
     const dictionary = useDictionary();
 
     return (
-        <div className="flex flex-wrap items-center gap-12 justify-center mt-12">
+        <div className="flex flex-wrap items-center gap-12 justify-center md:mt-12">
             {vehicles.map(vehicle => (
                 <VehicleCard key={vehicle.id} {...{ vehicle, dictionary }} />
             ))}

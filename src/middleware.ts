@@ -30,8 +30,10 @@ export function middleware(request: NextRequest) {
 
     if (pathnameIsMissingLocale) {
         const locale = getLocale(request);
+        const originalUrl = new URL(request.url);
+        const newUrl = new URL(`/${locale}/${pathname}${originalUrl.search}`, request.url);
 
-        return NextResponse.redirect(new URL(`/${locale}/${pathname}`, request.url));
+        return NextResponse.redirect(newUrl);
     }
 }
 

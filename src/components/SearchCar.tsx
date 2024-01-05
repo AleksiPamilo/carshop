@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useToast } from "./ui/use-toast";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
@@ -11,112 +10,132 @@ import BrandDropdown from "./dropdowns/BrandDropdown";
 import ModelDropdown from "./dropdowns/ModelDropdown";
 import FuelTypeDropdown from "./dropdowns/FuelTypeDropdown";
 import YearDropdown from "./dropdowns/YearDropdown";
+import type { IBrand, IModel } from "@/interfaces/vehicle";
+import SearchCarDialog from "./SearchCarDialog";
 
-interface IBrand {
-    id: number,
-    name: string,
-    slug: string,
-    models: IModel[],
-}
-
-interface IModel {
-    id: number,
-    slug: string,
-    name: string,
-}
-
-type QueryParams = {
+export type QueryParams = {
     minYear: string | null,
     maxYear: string | null,
-    fuelType?: string | null,
+    fuelType: string | null,
 };
+
+export type ISearchData = {
+    currentBrand: IBrand | null,
+    currentModel: IModel | null,
+} & QueryParams;
 
 export default function SearchCar() {
     const dictionary = useDictionary();
     const router = useRouter();
-    const { toast } = useToast();
+    const pathname = usePathname();
 
     const [brands, setBrands] = useState<IBrand[]>([]);
     const [models, setModels] = useState<IModel[]>([]);
+    const [searchData, setSearchData] = useState<ISearchData>({
+        currentBrand: null,
+        currentModel: null,
+        minYear: useSearchParams().get("minYear"),
+        maxYear: useSearchParams().get("maxYear"),
+        fuelType: useSearchParams().get("fuelType"),
+    });
 
     useEffect(() => {
         fetch("/api/vehicles/brands")
             .then((res) => res.json())
             .then((json) => setBrands(json.data));
-    }, [])
-
-    const [currentBrand, setCurrentBrand] = useState<IBrand | null>(null);
-    const [currentModel, setCurrentModel] = useState<IModel | null>(null);
-    const [fuelType, setFuelType] = useState<string | null>(null);
-    const [years, setYears] = useState<{ min: string | null, max: string | null }>({ min: null, max: null });
+    }, []);
 
     useEffect(() => {
-        if (currentBrand) {
-            fetch(`/api/vehicles/models?brand_id=${currentBrand.id}`)
+        if (!searchData?.currentBrand && !searchData?.currentModel) {
+            const path = pathname.split("/");
+            const brand = brands?.find((brand) => brand.slug === path[2]) ?? null;
+            const model = models?.find((model) => model.slug === path[3]) ?? null;
+
+            setSearchData(prev => ({
+                ...prev,
+                currentBrand: brand,
+                currentModel: model
+            }));
+        }
+    }, [brands, models, pathname]);
+
+    useEffect(() => {
+        if (searchData.currentBrand) {
+            fetch(`/api/vehicles/models?brand_id=${searchData.currentBrand.id}`)
                 .then((res) => res.json())
                 .then((json) => setModels(json.data));
         }
-    }, [currentBrand]);
+    }, [searchData.currentBrand]);
 
     const handleBrand = (value: IBrand | null) => {
-        setCurrentBrand(value);
-
-        if (value !== currentBrand) {
-            setCurrentModel(null);
+        if (value !== searchData.currentBrand) {
+            setSearchData(prev => ({
+                ...prev,
+                currentBrand: value,
+                currentModel: null
+            }));
+        } else {
+            setSearchData(prev => ({ ...prev, currentBrand: value }));
         }
     };
 
     const handleModel = (value: IModel | null) => {
-        setCurrentModel(value);
+        setSearchData(prev => ({ ...prev, currentModel: value }));
     };
-
-    // TODO: Responsive design
-    // Using https://ui.shadcn.com/docs/components/dialog
-    // When the screen is small, the search bar should be a button that opens a dialog with the search options
 
     return (
         <div className="flex sticky z-40 top-2 w-full items-center justify-center max-sm:pt-24">
-            <div className="w-3/5 h-full p-4 rounded-md shadow-md  flex flex-wrap md:flex-nowrap gap-3 md:gap-0 items-center justify-between bg-zinc-50 dark:bg-zinc-900">
+            <SearchCarDialog {...{ brands, models, handleBrand, handleModel, searchData, setSearchData }} />
+            <div className="w-3/5 h-full p-4 rounded-md shadow-md hidden md:flex flex-wrap md:flex-nowrap gap-3 md:gap-0 items-center justify-between bg-zinc-50 dark:bg-zinc-900">
                 <div className="flex flex-wrap gap-3">
                     <BrandDropdown
                         brands={brands}
                         onChange={handleBrand}
+                        selected={searchData.currentBrand?.slug ?? null}
                     />
 
                     <ModelDropdown
                         models={models}
                         onChange={handleModel}
-                        disabled={!currentBrand}
+                        selected={searchData.currentModel?.slug ?? null}
+                        disabled={!searchData.currentBrand}
                     />
 
                     <FuelTypeDropdown
-                        fuelType={fuelType}
+                        fuelType={searchData.fuelType}
                         onChange={(v) => {
                             const value = v === "unselected" ? null : v;
-                            setFuelType(value);
+                            setSearchData(prev => ({ ...prev, fuelType: value }));
                         }}
                     />
 
                     <YearDropdown
-                        min={years.min}
-                        max={years.max}
-                        onChange={setYears}
+                        min={searchData.minYear}
+                        max={searchData.maxYear}
+                        onChange={(years) => setSearchData(prev => ({
+                            ...prev,
+                            minYear: years.min,
+                            maxYear: years.max
+                        }))}
                     />
                 </div>
 
                 <Button className="text-right max-md:w-full" onClick={() => {
-                    if (!currentBrand) {
-                        router.replace("/cars");
-                        return;
-                    }
+                    const fuelTypeKey = Object.entries(dictionary.vehicles.fuelTypes)
+                        .find(([_, value]) => value === searchData.fuelType)?.[0];
 
                     const queryParams: QueryParams = {
-                        minYear: years.min,
-                        maxYear: years.max,
-                        fuelType: fuelType,
+                        minYear: searchData.minYear,
+                        maxYear: searchData.maxYear,
+                        fuelType: fuelTypeKey ?? null,
                     };
 
-                    searchVehicles(currentBrand, currentModel, queryParams, router);
+                    searchVehicles(
+                        searchData.currentBrand,
+                        searchData.currentModel,
+                        queryParams,
+                        router
+                    );
                 }} >
                     {dictionary.vehicles.search}
                 </Button>
@@ -132,20 +151,25 @@ export default function SearchCar() {
  * @param queryParams Query parameters
  * @param router Next.js app router
  */
-function searchVehicles(currentBrand: IBrand, currentModel: IModel | null, queryParams: QueryParams, router: AppRouterInstance) {
+export function searchVehicles(currentBrand: IBrand | null, currentModel: IModel | null, queryParams: QueryParams, router: AppRouterInstance) {
+    const nonEmptyParams = Object.entries(queryParams)
+        .filter(([_, value]) => value !== "" && value !== null)
+        .map(([key, value]) => value !== null ? `${encodeURIComponent(key)}=${encodeURIComponent(value)}` : "")
+        .join('&');
+
+    if (!currentBrand) {
+        return router.replace("/cars" + (nonEmptyParams ? `?${nonEmptyParams}` : ""));
+    }
+
     let path = `/${currentBrand.slug}`;
     if (currentModel?.name) {
         path += `/${currentModel?.slug}`;
     }
 
-    const nonEmptyParams = Object.entries(queryParams)
-        .filter(([_, value]) => value !== "" && value !== null)
-        .map(([key, value]) => value !== null ? `${key}=${encodeURIComponent(value)}` : "")
-        .join('&');
 
     if (nonEmptyParams) {
         path += `?${nonEmptyParams}`;
     }
 
-    router.replace(path);
+    router.push(path);
 }

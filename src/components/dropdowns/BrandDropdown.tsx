@@ -21,24 +21,32 @@ import { IBrand } from "@/interfaces/vehicle"
 import { useDictionary } from "../context/DictionaryProvider"
 import { ScrollArea } from "../ui/scroll-area"
 
-export default function BrandDropdown({ brands, onChange, disabled }: {
+export default function BrandDropdown({ brands, onChange, selected, disabled }: {
     brands: IBrand[],
     onChange: (brand: IBrand | null) => void,
+    selected: string | null,
     disabled?: boolean,
 }) {
-    const [open, setOpen] = React.useState(false)
-    const [value, setValue] = React.useState("")
-    const dictionary = useDictionary()
+    const [open, setOpen] = React.useState<boolean>(false);
+    const [value, setValue] = React.useState<string | null>(selected);
+
+    const dictionary = useDictionary();
+
+    React.useEffect(() => {
+        if (value === null) {
+            setValue(selected);
+        }
+    }, [selected]);
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild disabled={disabled}>
-                <Button variant='outline' role='combobox' aria-expanded={open} className='w-[10rem] justify-between'>
+                <Button variant='outline' role='combobox' aria-expanded={open} className='w-full md:w-[10rem] justify-between'>
                     {value ? brands.find((brand) => brand.slug === value)?.name : dictionary.vehicles.brand}
                     <ChevronDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className='w-[10rem] p-0'>
+            <PopoverContent className='w-full md:w-[10rem] p-0'>
                 <Command>
                     <CommandInput placeholder={dictionary.common.searchBrand} />
                     <ScrollArea className='max-h-[20rem] overflow-auto'>

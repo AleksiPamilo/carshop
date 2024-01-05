@@ -1,5 +1,3 @@
-import { IBrand } from "@/interfaces/vehicle";
-
 import {
     Select,
     SelectContent,

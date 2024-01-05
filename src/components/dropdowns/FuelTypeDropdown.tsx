@@ -1,5 +1,3 @@
-import { IBrand } from "@/interfaces/vehicle";
-
 import {
     Select,
     SelectContent,
@@ -18,9 +16,9 @@ export default function FuelTypeDropdown({ fuelType, onChange, disabled }: {
 
     return (
         <Select value={fuelType ?? undefined} onValueChange={onChange}>
-            <SelectTrigger className="w-[10rem]">
+            <SelectTrigger className="w-full md:w-[10rem]" disabled={disabled}>
                 <SelectValue placeholder={dictionary.vehicles.fuelType}>
-                    {fuelType ?? dictionary.vehicles.fuelType}
+                    <p className="capitalize">{fuelType ?? dictionary.vehicles.fuelType}</p>
                 </SelectValue>
             </SelectTrigger>
             <SelectContent>

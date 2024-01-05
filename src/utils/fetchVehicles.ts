@@ -60,11 +60,7 @@ export default async function fetchVehicles({
             return;
         }
 
-        setVehicles(prevVehicles => {
-            const seen = new Set(prevVehicles.map(vehicle => vehicle.id));
-            const uniqueVehicles = newVehicles.filter((vehicle: IVehicle) => !seen.has(vehicle.id));
-            return [...prevVehicles, ...uniqueVehicles];
-        });
+        setVehicles(newVehicles);
     } catch (e) {
         console.error('Failed to fetch vehicles:', e);
     }
