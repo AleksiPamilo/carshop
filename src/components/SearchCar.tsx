@@ -57,7 +57,7 @@ export default function SearchCar() {
                 currentModel: model
             }));
         }
-    }, [brands, models, pathname]);
+    }, [brands, models, searchData?.currentBrand, searchData?.currentModel, pathname]);
 
     useEffect(() => {
         if (searchData.currentBrand) {

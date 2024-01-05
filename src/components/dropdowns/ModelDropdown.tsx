@@ -35,7 +35,7 @@ export default function ModelDropdown({ models, onChange, selected, disabled }: 
         if (value === null) {
             setValue(selected);
         }
-    }, [selected]);
+    }, [value, selected]);
 
     return (
         <Popover open={open} onOpenChange={setOpen}>

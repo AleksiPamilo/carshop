@@ -36,7 +36,7 @@ export default function BrandDropdown({ brands, onChange, selected, disabled }: 
         if (value === null) {
             setValue(selected);
         }
-    }, [selected]);
+    }, [value, selected]);
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
