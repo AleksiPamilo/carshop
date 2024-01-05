@@ -86,8 +86,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
             }
         }
 
-        console.log(whereClause)
-
         const page = Number(filteredParams.page) || 1;
         const vehicles = await prisma.vehicle.findMany({
             where: whereClause,

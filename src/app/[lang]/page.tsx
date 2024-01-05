@@ -1,4 +1,4 @@
-import SearchCar from "@/components/SearchCar";
+import SearchCar from "@/components/search/SearchCar";
 
 export default function IndexPage() {
   return (

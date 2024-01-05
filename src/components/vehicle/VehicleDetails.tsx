@@ -10,16 +10,12 @@ export interface IVehicleImage {
     blurhash: string,
 }
 
-export default function VehicleDetails({ vehicle }: { vehicle: IVehicle | null }) {
+export default function VehicleDetails({ vehicle }: { vehicle: IVehicle }) {
     const [images, setImages] = useState<IVehicleImage[]>([]);
     const dictionary = useDictionary();
 
     useEffect(() => {
         const fetchImage = async () => {
-            if (!vehicle) {
-                return;
-            }
-
             const response = await fetch("/api/images/get?vehicleId=" + vehicle.id);
             const json = await response.json();
 
@@ -28,10 +24,6 @@ export default function VehicleDetails({ vehicle }: { vehicle: IVehicle | null }
 
         fetchImage();
     }, [vehicle]);
-
-    if (!vehicle) {
-        return <div>Loading...</div>;
-    }
 
     return (
         <div className="flex flex-col items-center justify-center mt-12 px-4">

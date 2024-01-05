@@ -1,15 +1,15 @@
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { SearchIcon } from "lucide-react";
-import { useDictionary } from "./context/DictionaryProvider";
+import { useDictionary } from "../context/DictionaryProvider";
 import { ISearchData, QueryParams, searchVehicles } from "./SearchCar";
 import { IBrand, IModel } from "@/interfaces/vehicle";
 import { useRouter } from "next/navigation";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import YearDropdown from "./dropdowns/YearDropdown";
-import FuelTypeDropdown from "./dropdowns/FuelTypeDropdown";
-import ModelDropdown from "./dropdowns/ModelDropdown";
-import BrandDropdown from "./dropdowns/BrandDropdown";
-import DoubleInput from "./DoubleInput";
+import YearDropdown from "../dropdowns/YearDropdown";
+import FuelTypeDropdown from "../dropdowns/FuelTypeDropdown";
+import ModelDropdown from "../dropdowns/ModelDropdown";
+import BrandDropdown from "../dropdowns/BrandDropdown";
+import DoubleInput from "../DoubleInput";
 
 type SearchCarMobileProps = {
     brands: IBrand[],

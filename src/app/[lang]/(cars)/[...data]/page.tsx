@@ -6,7 +6,7 @@ import { IVehicle } from '@/interfaces/vehicle';
 import type { Locale } from '@/../locale-config';
 import VehicleList from '@/components/vehicle/VehicleList';
 import VehicleDetails from '@/components/vehicle/VehicleDetails';
-import SearchCar from '@/components/SearchCar';
+import SearchCar from '@/components/search/SearchCar';
 import fetchVehicles from '@/utils/fetchVehicles';
 
 export default function VehiclesPage({ params }: {
@@ -34,9 +34,10 @@ export default function VehiclesPage({ params }: {
     }, [page, brand, id, model, searchParams]);
 
     if (id) {
+        if (!vehicle) return <div>Loading...</div>;
+
         return VehicleDetails({ vehicle });
     }
-
 
     return (
         <div>

@@ -1,10 +1,10 @@
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { SearchIcon } from "lucide-react";
-import { useDictionary } from "./context/DictionaryProvider";
+import { useDictionary } from "../context/DictionaryProvider";
 import { ISearchData } from "./SearchCar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import YearDropdown from "./dropdowns/YearDropdown";
-import DoubleInput from "./DoubleInput";
+import YearDropdown from "../dropdowns/YearDropdown";
+import DoubleInput from "../DoubleInput";
 
 type SearchCarDialogProps = {
     searchData: ISearchData,

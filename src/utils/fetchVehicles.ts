@@ -1,4 +1,5 @@
 import { IVehicle } from "@/interfaces/vehicle";
+import logger from "./logger";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -52,12 +53,12 @@ export default async function fetchVehicles({
         const newVehicles = data.data;
 
         if (data.status === 'error') {
-            console.error('Failed to fetch vehicles:', data.message);
+            logger.error('Failed to fetch vehicles:', data.message);
             return;
         }
 
         setVehicles(newVehicles);
     } catch (e) {
-        console.error('Failed to fetch vehicles:', e);
+        logger.error('Failed to fetch vehicles:', e);
     }
 };

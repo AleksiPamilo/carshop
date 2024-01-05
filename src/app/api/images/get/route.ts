@@ -1,5 +1,6 @@
 import { S3 } from "aws-sdk";
 import { NextRequest, NextResponse } from "next/server";
+import logger from "@/utils/logger";
 
 const s3 = new S3();
 const bucketName = process.env.AWS_BUCKET_NAME ?? "";
@@ -62,7 +63,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
             images: images,
         }), { status: 200 });
     } catch (e) {
-        console.error('Error listing objects in S3:', e);
+        logger.error('Error listing objects in S3:', e);
         return new NextResponse(
             JSON.stringify({
                 status: "error",
