@@ -42,9 +42,10 @@ export default function SearchCar() {
     });
     const { handleBrand, handleModel } = useBrandModelSelector(searchData, setSearchData);
 
+    // TODO: Handle errors
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
-    const brands: IBrand[] = useCachedData("brands", apiUrl + "/vehicles/brands");
-    const models: IModel[] = useCachedData(`models-${searchData.currentBrand?.id}`, `/api/vehicles/models?brand_id=${searchData.currentBrand?.id}`, searchData.currentBrand?.id);
+    const [brands, brandError] = useCachedData<IBrand>("brands", apiUrl + "/vehicles/brands");
+    const [models, modelError] = useCachedData<IModel>(`models-${searchData.currentBrand?.id}`, `/api/vehicles/models?brand_id=${searchData.currentBrand?.id}`, searchData.currentBrand?.id);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {

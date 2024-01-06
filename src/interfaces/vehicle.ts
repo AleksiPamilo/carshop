@@ -32,8 +32,8 @@ export interface IBasicInfo {
     paintType: string
     description?: string
     mileage: number,
-    price: number
-    vehicle?: IVehicle,
+    price: number,
+    features?: IFeature[],
 }
 
 export interface ITechnicalInfo {
@@ -56,7 +56,6 @@ export interface ITechnicalInfo {
     totalWeight?: number
     towWeightWithoutBrakes?: number,
     towWeightWithBrakes?: number,
-    vehicle?: IVehicle,
 }
 
 export interface IVehicle {
@@ -75,5 +74,16 @@ export interface IVehicle {
     listingCreatedAt: Date
     listingUpdatedAt?: Date
     soldAt?: Date
-
 }
+
+export interface IFeature {
+    id: number,
+    key: string,
+    category: {
+        key: IVehicleCategory
+    },
+    vehicle?: IVehicle,
+    vehicle_id: number,
+}
+
+export type IVehicleCategory = "comfort" | "safety" | "electronics" | "entertainment" | "other";

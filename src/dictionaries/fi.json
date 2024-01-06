@@ -12,6 +12,8 @@
         "searchModel": "Hae mallia",
         "changeSearchCriteria": "Muuta hakuehtoja",
         "moreOptions": "Lisää vaihtoehtoja",
+        "description": "Kuvaus",
+        "features": "Varusteet",
         "min": "Minimi",
         "max": "Maksimi",
         "close": "Sulje",
@@ -41,6 +43,7 @@
     },
     "vehicles": {
         "title": "Otsikko",
+        "contactSeller": "Ota yhteyttä myyjään",
         "all": "Kaikki ajoneuvot",
         "add": "Lisää",
         "edit": "Muokkaa",
@@ -53,6 +56,7 @@
         "licensePlate": "Rekisterinumero",
         "vin": "Vin",
         "mileage": "Kilometrimäärä",
+        "engine": "Moottori",
         "powerHp": "Teho (hv)",
         "powerKw": "Teho (kW)",
         "torque": "Vääntö",
@@ -80,6 +84,23 @@
             "city": "Kaupunki",
             "highway": "Maantie",
             "combined": "Yhdistetty"
+        },
+        "featureCategories": {
+            "comfort": "Mukavuus",
+            "safety": "Turvallisuus",
+            "entertainment": "Viihde",
+            "electronics": "Elektroniikka",
+            "other": "Muut"
+        },
+        "features": {
+            "air-conditioning": "Ilmastointi",
+            "heated-seats": "Lämmitettävät istuimet",
+            "gps-navigation": "GPS navigointi",
+            "bluetooth": "Bluetooth",
+            "sunroof": "Panoraamakatto",
+            "alloy-wheels": "Alumiinivanteet",
+            "parking-sensors": "Pysäköintitutka",
+            "cruise-control": "Vakionopeudensäädin"
         },
         "errors": {
             "brand": "Ajoneuvon merkki on pakollinen",

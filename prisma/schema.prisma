@@ -13,6 +13,8 @@ model User {
   password      String
   email         String    @unique
   emailVerified DateTime? @map("email_verified")
+  phone         String?
+  phoneVerified DateTime? @map("phone_verified")
   createdAt     DateTime  @default(now())
   vehicles      Vehicle[]
 
@@ -49,34 +51,35 @@ model BasicInfo {
   previousOwners    Int?      @map("previous_owners")
   color             String
   paintType         String    @map("paint_type")
-  description       String?
+  description       String?   @db.VarChar(1000)
   mileage           Int
   price             Float
   vehicle           Vehicle?
+  features          Feature[]
 
   @@map("basic_info")
 }
 
 model TechnicalInfo {
-  id                     Int             @id @default(autoincrement())
-  fuelType               String          @map("fuel_type")
-  engineSize             Float           @map("engine_size")
+  id                     Int              @id @default(autoincrement())
+  fuelType               String           @map("fuel_type")
+  engineSize             Float?           @map("engine_size")
   drivetrain             String
   transmission           String
-  seats                  Int?            @map("seats")
-  doors                  Int?            @map("doors")
+  seats                  Int?             @map("seats")
+  doors                  Int?             @map("doors")
   power                  Int?
   torque                 Int?
-  topSpeed               Int?            @map("top_speed")
+  topSpeed               Int?             @map("top_speed")
   acceleration           Float?
-  co2Emission            Int?            @map("co2_emission")
-  fuelCapacity           Int?            @map("fuel_capacity")
-  fuelConsumption        FuelConsumption @relation(fields: [fuelConsumptionId], references: [id])
-  fuelConsumptionId      Int             @unique
+  co2Emission            Int?             @map("co2_emission")
+  fuelCapacity           Int?             @map("fuel_capacity")
+  fuelConsumption        FuelConsumption? @relation(fields: [fuelConsumptionId], references: [id])
+  fuelConsumptionId      Int?             @unique
   weight                 Int?
-  totalWeight            Int?            @map("total_weight")
-  towWeightWithoutBrakes Int?            @map("tow_weight_without_brakes")
-  towWeightWithBrakes    Int?            @map("tow_weight_with_brakes")
+  totalWeight            Int?             @map("total_weight")
+  towWeightWithoutBrakes Int?             @map("tow_weight_without_brakes")
+  towWeightWithBrakes    Int?             @map("tow_weight_with_brakes")
   vehicle                Vehicle?
 
   @@map("technical_info")
@@ -109,4 +112,20 @@ model Model {
   brand_id Int
 
   @@map("models")
+}
+
+model Feature {
+  id         Int         @id @default(autoincrement())
+  key        String      @unique
+  category   Category    @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  basicInfos BasicInfo[]
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  key      String    @unique
+  features Feature[]
+
+  @@map("categories")
 }

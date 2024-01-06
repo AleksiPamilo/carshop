@@ -1,3 +1,5 @@
+import { IVehicleCategory } from "./vehicle"
+
 export interface IDictionary {
     title: string,
     loading: string,
@@ -12,6 +14,8 @@ export interface IDictionary {
         searchModel: string,
         changeSearchCriteria: string,
         moreOptions: string,
+        description: string,
+        features: string,
         min: string,
         max: string,
         close: string,
@@ -41,6 +45,7 @@ export interface IDictionary {
     },
     vehicles: {
         title: string,
+        contactSeller: string,
         all: string,
         add: string,
         edit: string,
@@ -52,6 +57,7 @@ export interface IDictionary {
         year: string,
         licensePlate: string,
         vin: string,
+        engine: string,
         mileage: string,
         powerHp: string,
         powerKw: string,
@@ -80,6 +86,12 @@ export interface IDictionary {
             city: string,
             highway: string,
             combined: string,
+        },
+        featureCategories: {
+            [key in IVehicleCategory]: string
+        },
+        features: {
+            [key: string]: string,
         },
         errors: {
             brand: string,

@@ -12,6 +12,8 @@
         "searchModel": "Search for a model",
         "changeSearchCriteria": "Change the search criteria",
         "moreOptions": "More options",
+        "description": "Description",
+        "features": "Features",
         "min": "Minimum",
         "max": "Maximum",
         "close": "Close",
@@ -41,6 +43,7 @@
     },
     "vehicles": {
         "title": "Title",
+        "contactSeller": "Contact Seller",
         "all": "All Vehicles",
         "add": "Add",
         "edit": "Edit",
@@ -53,6 +56,7 @@
         "licensePlate": "License Plate",
         "vin": "Vin",
         "mileage": "Mileage",
+        "engine": "Engine",
         "powerHp": "Power (hp)",
         "powerKw": "Power (kW)",
         "torque": "Torque",
@@ -80,6 +84,23 @@
             "city": "City",
             "highway": "Highway",
             "combined": "Combined"
+        },
+        "featureCategories": {
+            "comfort": "Comfort",
+            "safety": "Safety",
+            "entertainment": "Entertainment",
+            "electronics": "Electronics",
+            "other": "Other"
+        },
+        "features": {
+            "air-conditioning": "Air conditioning",
+            "heated-seats": "Heated seats",
+            "gps-navigation": "GPS navigation",
+            "bluetooth": "Bluetooth",
+            "sunroof": "Sunroof",
+            "alloy-wheels": "Alloy wheels",
+            "parking-sensors": "Parking sensors",
+            "cruise-control": "Cruise control"
         },
         "errors": {
             "brand": "Vehicle brand is required",

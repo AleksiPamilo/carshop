@@ -1,14 +1,13 @@
-import LazyImage from "../LazyImage";
-import { useEffect, useState } from "react";
-import { IVehicleImage } from "../vehicle/VehicleDetails";
-
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/components/ui/carousel";
+import LazyImage from "../LazyImage";
+import { useEffect, useState } from "react";
+import { IVehicleImage } from "../vehicle/VehicleImages";
 import { type CarouselApi } from "../ui/carousel";
 import ImageCarouselThumbnails from "./ImageCarouselThumbnails";
 import ImageCarouselDots from "./ImageCarouselDots";

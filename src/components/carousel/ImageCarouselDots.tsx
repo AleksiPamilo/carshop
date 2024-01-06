@@ -1,5 +1,5 @@
-import { IVehicleImage } from "../vehicle/VehicleDetails";
 import type { CarouselApi } from "../ui/carousel";
+import { IVehicleImage } from "../vehicle/VehicleImages";
 
 export default function ImageCarouselDots({ images, api, current }: {
     images: IVehicleImage[],

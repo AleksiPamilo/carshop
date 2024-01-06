@@ -51,7 +51,15 @@ export async function GET(req: NextRequest, res: NextResponse) {
                     id: Number(filteredParams.id),
                 },
                 include: {
-                    basicInfo: true,
+                    basicInfo: {
+                        include: {
+                            features: {
+                                include: {
+                                    category: true
+                                }
+                            }
+                        }
+                    },
                     technicalInfo: true,
                 }
             });

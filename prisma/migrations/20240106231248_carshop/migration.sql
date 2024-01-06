@@ -5,6 +5,8 @@ CREATE TABLE `users` (
     `password` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `email_verified` DATETIME(3) NULL,
+    `phone` VARCHAR(191) NULL,
+    `phone_verified` DATETIME(3) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     UNIQUE INDEX `users_id_key`(`id`),
@@ -21,8 +23,8 @@ CREATE TABLE `vehicles` (
     `model_name` VARCHAR(191) NOT NULL,
     `model_spec` VARCHAR(191) NULL,
     `model_slug` VARCHAR(191) NOT NULL,
-    `basic_info_id` INTEGER NULL,
-    `technical_info_id` INTEGER NULL,
+    `basic_info_id` INTEGER NOT NULL,
+    `technical_info_id` INTEGER NOT NULL,
     `user_id` VARCHAR(191) NOT NULL,
     `listing_created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `listing_updated_at` DATETIME(3) NULL,
@@ -44,7 +46,7 @@ CREATE TABLE `basic_info` (
     `previous_owners` INTEGER NULL,
     `color` VARCHAR(191) NOT NULL,
     `paint_type` VARCHAR(191) NOT NULL,
-    `description` VARCHAR(191) NULL,
+    `description` VARCHAR(1000) NULL,
     `mileage` INTEGER NOT NULL,
     `price` DOUBLE NOT NULL,
 
@@ -55,7 +57,7 @@ CREATE TABLE `basic_info` (
 CREATE TABLE `technical_info` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `fuel_type` VARCHAR(191) NOT NULL,
-    `engine_size` DOUBLE NOT NULL,
+    `engine_size` DOUBLE NULL,
     `drivetrain` VARCHAR(191) NOT NULL,
     `transmission` VARCHAR(191) NOT NULL,
     `seats` INTEGER NULL,
@@ -106,11 +108,39 @@ CREATE TABLE `models` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- AddForeignKey
-ALTER TABLE `vehicles` ADD CONSTRAINT `vehicles_basic_info_id_fkey` FOREIGN KEY (`basic_info_id`) REFERENCES `basic_info`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+-- CreateTable
+CREATE TABLE `Feature` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `key` VARCHAR(191) NOT NULL,
+    `categoryId` INTEGER NOT NULL,
+
+    UNIQUE INDEX `Feature_key_key`(`key`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `categories` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `key` VARCHAR(191) NOT NULL,
+
+    UNIQUE INDEX `categories_key_key`(`key`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `_BasicInfoToFeature` (
+    `A` INTEGER NOT NULL,
+    `B` INTEGER NOT NULL,
+
+    UNIQUE INDEX `_BasicInfoToFeature_AB_unique`(`A`, `B`),
+    INDEX `_BasicInfoToFeature_B_index`(`B`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `vehicles` ADD CONSTRAINT `vehicles_technical_info_id_fkey` FOREIGN KEY (`technical_info_id`) REFERENCES `technical_info`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `vehicles` ADD CONSTRAINT `vehicles_basic_info_id_fkey` FOREIGN KEY (`basic_info_id`) REFERENCES `basic_info`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `vehicles` ADD CONSTRAINT `vehicles_technical_info_id_fkey` FOREIGN KEY (`technical_info_id`) REFERENCES `technical_info`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `vehicles` ADD CONSTRAINT `vehicles_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -120,3 +150,12 @@ ALTER TABLE `technical_info` ADD CONSTRAINT `technical_info_fuelConsumptionId_fk
 
 -- AddForeignKey
 ALTER TABLE `models` ADD CONSTRAINT `models_brand_id_fkey` FOREIGN KEY (`brand_id`) REFERENCES `brands`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Feature` ADD CONSTRAINT `Feature_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `categories`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_BasicInfoToFeature` ADD CONSTRAINT `_BasicInfoToFeature_A_fkey` FOREIGN KEY (`A`) REFERENCES `basic_info`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_BasicInfoToFeature` ADD CONSTRAINT `_BasicInfoToFeature_B_fkey` FOREIGN KEY (`B`) REFERENCES `Feature`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
