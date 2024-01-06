@@ -20,49 +20,74 @@ model User {
 }
 
 model Vehicle {
-  id                 Int              @id @default(autoincrement())
-  brand              String
-  brandSlug          String           @map("brand_slug")
-  model              String
-  modelSpec          String?          @map("model_spec")
-  modelSlug          String           @map("model_slug")
-  year               Int
-  licensePlate       String           @map("license_plate")
-  vin                String?          @unique
-  mileage            Int
-  transmission       String
-  doors              Int
-  seats              Int
-  driverSide         String           @map("driver_side")
-  engineSize         Float            @map("engine_size")
-  drivetrain         String
-  power              Int
-  torque             Int?
-  topSpeed           Int?             @map("top_speed")
-  acceleration       Float?
-  weight             Int?
-  totalWeight        Int?             @map("total_weight")
-  fuelType           String           @map("fuel_type")
-  fuelCapacity       Int              @map("fuel_capacity")
-  fuelConsumption    FuelConsumption? @relation(fields: [fuelConsumption_id], references: [id])
-  fuelConsumption_id Int?             @unique @map("fuel_consumption_id")
-  price              Float
-  description        String
-  user               User             @relation(fields: [user_id], references: [id])
-  user_id            String
-  listingCreatedAt   DateTime         @default(now()) @map("listing_created_at")
-  listingUpdatedAt   DateTime?        @map("listing_updated_at")
-  soldAt             DateTime?        @map("sold_at")
+  id               Int           @id @default(autoincrement())
+  brandName        String        @map("brand_name")
+  brandSlug        String        @map("brand_slug")
+  modelName        String        @map("model_name")
+  modelSpec        String?       @map("model_spec")
+  modelSlug        String        @map("model_slug")
+  basicInfo        BasicInfo     @relation(fields: [basicInfo_id], references: [id])
+  basicInfo_id     Int           @unique @map("basic_info_id")
+  technicalInfo    TechnicalInfo @relation(fields: [technicalInfo_id], references: [id])
+  technicalInfo_id Int           @unique @map("technical_info_id")
+  user             User          @relation(fields: [user_id], references: [id])
+  user_id          String
+  listingCreatedAt DateTime      @default(now()) @map("listing_created_at")
+  listingUpdatedAt DateTime?     @map("listing_updated_at")
+  soldAt           DateTime?     @map("sold_at")
 
   @@map("vehicles")
 }
 
+model BasicInfo {
+  id                Int       @id @default(autoincrement())
+  year              Int
+  driverSide        String    @map("driver_side")
+  licensePlate      String    @map("license_plate")
+  firstRegistration DateTime? @map("first_registration")
+  inspectionDate    DateTime? @map("inspection_date")
+  previousOwners    Int?      @map("previous_owners")
+  color             String
+  paintType         String    @map("paint_type")
+  description       String?
+  mileage           Int
+  price             Float
+  vehicle           Vehicle?
+
+  @@map("basic_info")
+}
+
+model TechnicalInfo {
+  id                     Int             @id @default(autoincrement())
+  fuelType               String          @map("fuel_type")
+  engineSize             Float           @map("engine_size")
+  drivetrain             String
+  transmission           String
+  seats                  Int?            @map("seats")
+  doors                  Int?            @map("doors")
+  power                  Int?
+  torque                 Int?
+  topSpeed               Int?            @map("top_speed")
+  acceleration           Float?
+  co2Emission            Int?            @map("co2_emission")
+  fuelCapacity           Int?            @map("fuel_capacity")
+  fuelConsumption        FuelConsumption @relation(fields: [fuelConsumptionId], references: [id])
+  fuelConsumptionId      Int             @unique
+  weight                 Int?
+  totalWeight            Int?            @map("total_weight")
+  towWeightWithoutBrakes Int?            @map("tow_weight_without_brakes")
+  towWeightWithBrakes    Int?            @map("tow_weight_with_brakes")
+  vehicle                Vehicle?
+
+  @@map("technical_info")
+}
+
 model FuelConsumption {
-  id       Int      @id @default(autoincrement())
-  city     Float
-  highway  Float
-  combined Float
-  vehicle  Vehicle?
+  id            Int            @id @default(autoincrement())
+  city          Float
+  highway       Float
+  combined      Float
+  technicalInfo TechnicalInfo?
 
   @@map("fuel_consumptions")
 }

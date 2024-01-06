@@ -41,14 +41,14 @@ export default function ImageCarouselThumbnails({ images, imageCarouselApi, curr
             case 3:
                 return "basis-1/3";
             case 4:
-                return "basis-1/4";
+                return "basis-1/2 md:basis-1/4";
             default:
-                return "basis-1/5";
+                return "basis-1/2 md:basis-1/5";
         }
     }
 
     return (
-        <Carousel className="mt-2" opts={{ dragFree: true }} setApi={setApi}>
+        <Carousel className="mt-2" opts={{ dragFree: true, loop: true }} setApi={setApi}>
             <CarouselContent>
                 {
                     images.map((image, index) => {

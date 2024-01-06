@@ -16,39 +16,63 @@ CREATE TABLE `users` (
 -- CreateTable
 CREATE TABLE `vehicles` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `brand` VARCHAR(191) NOT NULL,
+    `brand_name` VARCHAR(191) NOT NULL,
     `brand_slug` VARCHAR(191) NOT NULL,
-    `model` VARCHAR(191) NOT NULL,
+    `model_name` VARCHAR(191) NOT NULL,
     `model_spec` VARCHAR(191) NULL,
     `model_slug` VARCHAR(191) NOT NULL,
-    `year` INTEGER NOT NULL,
-    `license_plate` VARCHAR(191) NOT NULL,
-    `vin` VARCHAR(191) NULL,
-    `mileage` INTEGER NOT NULL,
-    `transmission` VARCHAR(191) NOT NULL,
-    `doors` INTEGER NOT NULL,
-    `seats` INTEGER NOT NULL,
-    `driver_side` VARCHAR(191) NOT NULL,
-    `engine_size` DOUBLE NOT NULL,
-    `drivetrain` VARCHAR(191) NOT NULL,
-    `power` INTEGER NOT NULL,
-    `torque` INTEGER NULL,
-    `top_speed` INTEGER NULL,
-    `acceleration` DOUBLE NULL,
-    `weight` INTEGER NULL,
-    `total_weight` INTEGER NULL,
-    `fuel_type` VARCHAR(191) NOT NULL,
-    `fuel_capacity` INTEGER NOT NULL,
-    `fuel_consumption_id` INTEGER NULL,
-    `price` DOUBLE NOT NULL,
-    `description` VARCHAR(191) NOT NULL,
+    `basic_info_id` INTEGER NULL,
+    `technical_info_id` INTEGER NULL,
     `user_id` VARCHAR(191) NOT NULL,
     `listing_created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `listing_updated_at` DATETIME(3) NULL,
     `sold_at` DATETIME(3) NULL,
 
-    UNIQUE INDEX `vehicles_vin_key`(`vin`),
-    UNIQUE INDEX `vehicles_fuel_consumption_id_key`(`fuel_consumption_id`),
+    UNIQUE INDEX `vehicles_basic_info_id_key`(`basic_info_id`),
+    UNIQUE INDEX `vehicles_technical_info_id_key`(`technical_info_id`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `basic_info` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `year` INTEGER NOT NULL,
+    `driver_side` VARCHAR(191) NOT NULL,
+    `license_plate` VARCHAR(191) NOT NULL,
+    `first_registration` DATETIME(3) NULL,
+    `inspection_date` DATETIME(3) NULL,
+    `previous_owners` INTEGER NULL,
+    `color` VARCHAR(191) NOT NULL,
+    `paint_type` VARCHAR(191) NOT NULL,
+    `description` VARCHAR(191) NULL,
+    `mileage` INTEGER NOT NULL,
+    `price` DOUBLE NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `technical_info` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `fuel_type` VARCHAR(191) NOT NULL,
+    `engine_size` DOUBLE NOT NULL,
+    `drivetrain` VARCHAR(191) NOT NULL,
+    `transmission` VARCHAR(191) NOT NULL,
+    `seats` INTEGER NULL,
+    `doors` INTEGER NULL,
+    `power` INTEGER NULL,
+    `torque` INTEGER NULL,
+    `top_speed` INTEGER NULL,
+    `acceleration` DOUBLE NULL,
+    `co2_emission` INTEGER NULL,
+    `fuel_capacity` INTEGER NULL,
+    `fuelConsumptionId` INTEGER NOT NULL,
+    `weight` INTEGER NULL,
+    `total_weight` INTEGER NULL,
+    `tow_weight_without_brakes` INTEGER NULL,
+    `tow_weight_with_brakes` INTEGER NULL,
+
+    UNIQUE INDEX `technical_info_fuelConsumptionId_key`(`fuelConsumptionId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -83,10 +107,16 @@ CREATE TABLE `models` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `vehicles` ADD CONSTRAINT `vehicles_fuel_consumption_id_fkey` FOREIGN KEY (`fuel_consumption_id`) REFERENCES `fuel_consumptions`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `vehicles` ADD CONSTRAINT `vehicles_basic_info_id_fkey` FOREIGN KEY (`basic_info_id`) REFERENCES `basic_info`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `vehicles` ADD CONSTRAINT `vehicles_technical_info_id_fkey` FOREIGN KEY (`technical_info_id`) REFERENCES `technical_info`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `vehicles` ADD CONSTRAINT `vehicles_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `technical_info` ADD CONSTRAINT `technical_info_fuelConsumptionId_fkey` FOREIGN KEY (`fuelConsumptionId`) REFERENCES `fuel_consumptions`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `models` ADD CONSTRAINT `models_brand_id_fkey` FOREIGN KEY (`brand_id`) REFERENCES `brands`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

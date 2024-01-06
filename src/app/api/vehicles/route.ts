@@ -50,6 +50,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
                 where: {
                     id: Number(filteredParams.id),
                 },
+                include: {
+                    basicInfo: true,
+                    technicalInfo: true,
+                }
             });
 
             return new NextResponse(
@@ -91,6 +95,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
             where: whereClause,
             take: PAGE_SIZE,
             skip: (page - 1) * PAGE_SIZE,
+            include: {
+                basicInfo: true,
+                technicalInfo: true,
+            }
         });
 
         return new NextResponse(

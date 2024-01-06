@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Blurhash } from "react-blurhash";
 import { useInView } from "react-intersection-observer";
@@ -13,7 +14,7 @@ export default function LazyImage({ src, blurhash, alt }: {
     });
 
     useEffect(() => {
-        const img = new Image();
+        const img = new window.Image();
 
         if (!src) {
             return;
@@ -28,7 +29,7 @@ export default function LazyImage({ src, blurhash, alt }: {
     return (
         <div ref={imageRef} className="w-full h-full overflow-hidden relative rounded-md">
             {imageSrc ? (
-                <img src={imageSrc} alt={alt} className="w-full h-full object-cover" />
+                <Image src={imageSrc} alt={alt} className="w-full h-full" fill priority style={{ objectFit: "cover" }} />
             ) : (
                 blurhash && blurhash.length >= 6 && (
                     <Blurhash

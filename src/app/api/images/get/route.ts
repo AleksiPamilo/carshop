@@ -60,7 +60,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
         return new NextResponse(JSON.stringify({
             status: "success",
-            images: images,
+            data: images,
         }), { status: 200 });
     } catch (e) {
         logger.error('Error listing objects in S3:', e);
