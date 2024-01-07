@@ -12,13 +12,17 @@ import Link from "next/link";
 import { IVehicleImage } from "../vehicle/VehicleImages";
 import LazyImage from "../LazyImage";
 import { useCachedData } from "@/hooks";
+import logger from "@/utils/logger";
 
 export default function VehicleCard({ vehicle }: {
     vehicle: IVehicle,
 }) {
     const dictionary = useDictionary();
-    //TODO: Handle errors
-    const [images, error] = useCachedData<IVehicleImage>(`images-${vehicle.id}`, `/api/vehicles/images?vehicle_id=${vehicle.id}`, vehicle.id);
+    const [images, error] = useCachedData<IVehicleImage>(`vehicleImages-${vehicle.id}`, `/api/images/get?vehicleId=${vehicle.id}`, vehicle.id);
+
+    if (error) {
+        logger.error(error);
+    }
 
     return (
         <Link href={`/${vehicle.brandSlug}/${vehicle.modelSlug}/${vehicle.id}`}>

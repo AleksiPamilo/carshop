@@ -9,7 +9,14 @@ export interface IVehicleImage {
 }
 
 export default function VehicleImages({ vehicle }: { vehicle: IVehicle | null }) {
-    const [images, error] = useCachedData<IVehicleImage>(vehicle ? `vehicleImages-${vehicle.id}` : "", vehicle ? `/api/images/get?vehicleId=${vehicle.id}` : "");
+    const [images, error] = useCachedData<IVehicleImage>(
+        vehicle
+            ? `vehicleImages-${vehicle.id}`
+            : "",
+        vehicle
+            ? `/api/images/get?vehicleId=${vehicle.id}`
+            : ""
+    );
 
     return (
         <div className="w-full select-none">

@@ -8,6 +8,7 @@ import type { IBrand, IModel } from "@/interfaces/vehicle";
 import SearchCarMobile from "./SearchCarMobile";
 import SearchForm from "./SearchForm";
 import SearchButton from "./SearchButton";
+import logger from "@/utils/logger";
 
 export type QueryParams = {
     minYear: string | null,
@@ -42,10 +43,20 @@ export default function SearchCar() {
     });
     const { handleBrand, handleModel } = useBrandModelSelector(searchData, setSearchData);
 
-    // TODO: Handle errors
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
     const [brands, brandError] = useCachedData<IBrand>("brands", apiUrl + "/vehicles/brands");
-    const [models, modelError] = useCachedData<IModel>(`models-${searchData.currentBrand?.id}`, `/api/vehicles/models?brand_id=${searchData.currentBrand?.id}`, searchData.currentBrand?.id);
+    const [models, modelError] = useCachedData<IModel>(
+        searchData.currentBrand
+            ? `models-${searchData.currentBrand.id}`
+            : "",
+        searchData.currentBrand
+            ? `/api/vehicles/models?brand_id=${searchData.currentBrand.id}`
+            : ""
+    );
+
+    if (brandError || modelError) {
+        logger.error("Failed to load brands or models.", brandError ?? modelError);
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
