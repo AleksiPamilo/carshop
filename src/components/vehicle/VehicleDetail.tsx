@@ -7,9 +7,11 @@ export default function VehicleDetail({ label, value, separator }: {
 }) {
     return (
         <>
-            <div className="flex justify-between items-center">
-                <p>{label}</p>
-                <p>{value}</p>
+            <div className="flex-grow flex-shrink">
+                <div className="flex justify-between items-center">
+                    <p>{label}</p>
+                    <p>{value}</p>
+                </div>
             </div>
             {separator && <Separator />}
         </>

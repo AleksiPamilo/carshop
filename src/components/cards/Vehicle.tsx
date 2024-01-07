@@ -32,6 +32,7 @@ export default function VehicleCard({ vehicle }: {
                         src={images[0]?.imageUrl}
                         alt={`${vehicle.brandName} ${vehicle.modelName}`}
                         blurhash={images[0]?.blurhash}
+                        rounded="rounded-t-md"
                     />
                     <span id="tag" className="absolute bottom-0 left-4 font-bold text-white bg-blue-600 py-0.5 px-3 rounded-lg transform translate-y-1/2">
                         {vehicle.basicInfo.price.toLocaleString("en-US").replace(/,/g, ' ')}€

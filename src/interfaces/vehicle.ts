@@ -56,6 +56,7 @@ export interface ITechnicalInfo {
     totalWeight?: number
     towWeightWithoutBrakes?: number,
     towWeightWithBrakes?: number,
+    [key: string]: number | string | undefined;
 }
 
 export interface IVehicle {

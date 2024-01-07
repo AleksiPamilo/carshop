@@ -98,7 +98,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
             }
         }
 
-        const page = Number(filteredParams.page) || 1;
+        const totalCount = await prisma.vehicle.count({
+            where: whereClause,
+        });
+        const totalPages = Math.ceil(totalCount / PAGE_SIZE);
+
+        const page = paramsObject.page === undefined ? 1 : Number(paramsObject.page);
         const vehicles = await prisma.vehicle.findMany({
             where: whereClause,
             take: PAGE_SIZE,
@@ -113,6 +118,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
             JSON.stringify({
                 status: "success",
                 data: vehicles,
+                totalPages,
             })
         );
     } catch (e) {

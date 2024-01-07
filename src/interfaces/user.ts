@@ -6,6 +6,8 @@ export interface IUser {
     password: string,
     email: string,
     emailVerified: boolean,
+    phone: string | null,
+    phoneVerified: boolean,
     createdAt: Date,
     vehicles: IVehicle[]
 }

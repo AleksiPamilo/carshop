@@ -1,5 +1,5 @@
-import { IVehicle } from "@/interfaces/vehicle";
 import logger from "./logger";
+import { IVehicle } from "@/interfaces/vehicle";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -7,9 +7,7 @@ interface IFetchVehiclesParams {
     id?: string;
     page: number;
     searchParams: URLSearchParams;
-    setVehicles: React.Dispatch<React.SetStateAction<IVehicle[]>>;
-    setVehicle?: React.Dispatch<React.SetStateAction<IVehicle | null>>;
-    [key: string]: string | number | URLSearchParams | React.Dispatch<React.SetStateAction<IVehicle[]>> | React.Dispatch<React.SetStateAction<IVehicle | null>> | undefined;
+    [key: string]: string | number | URLSearchParams | undefined;
 }
 
 export default async function fetchVehicles({
@@ -19,13 +17,17 @@ export default async function fetchVehicles({
     setVehicles,
     setVehicle,
     ...restParams
-}: IFetchVehiclesParams) {
+}: IFetchVehiclesParams): Promise<{ data: IVehicle | IVehicle[]; totalPages: number }> {
     try {
         if (id) {
             const response = await fetch(`${API_URL}/vehicles?id=${id}`);
             const data = await response.json();
-            setVehicle?.(data.data);
-            return;
+            const vehicle: IVehicle = data.data;
+
+            return {
+                data: vehicle,
+                totalPages: 0,
+            }
         }
 
         let queryParams: { [key: string]: string | number } = {
@@ -50,15 +52,26 @@ export default async function fetchVehicles({
 
         const response = await fetch(`${API_URL}/vehicles?${queryString}`);
         const data = await response.json();
-        const newVehicles = data.data;
+        const newVehicles: IVehicle[] = data.data;
 
         if (data.status === 'error') {
             logger.error('Failed to fetch vehicles:', data.message);
-            return;
+            return {
+                data: [],
+                totalPages: 0,
+            };
         }
 
-        setVehicles(newVehicles);
+        return {
+            data: newVehicles,
+            totalPages: data.totalPages,
+        }
     } catch (e) {
         logger.error('Failed to fetch vehicles:', e);
+
+        return {
+            data: [],
+            totalPages: 0,
+        }
     }
 };

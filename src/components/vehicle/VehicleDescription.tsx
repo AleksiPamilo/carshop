@@ -22,7 +22,7 @@ export default function VehicleDescription({ vehicle }: { vehicle: IVehicle }) {
                             <div className="absolute inset-x-0 bottom-0 w-full h-full bg-gradient-to-t from-white dark:from-zinc-950 to-transparent pointer-events-none"></div>
                         }
                     </div>
-                    <button className="mt-2" onClick={toggleDescription}>{showFullDescription ? 'Show less' : 'Show more'}</button>
+                    <button className="mt-2" onClick={toggleDescription}>{showFullDescription ? dictionary.common.showLess : dictionary.common.showMore}</button>
                 </div>
             }
         </div>

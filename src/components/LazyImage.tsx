@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import { Blurhash } from "react-blurhash";
 import { useInView } from "react-intersection-observer";
 
-export default function LazyImage({ src, blurhash, alt }: {
+export default function LazyImage({ src, blurhash, alt, rounded = true }: {
     src?: string,
     blurhash?: string,
     alt: string,
+    rounded?: boolean | string
 }) {
     const [imageSrc, setImageSrc] = useState<string>("");
     const [imageRef, inView] = useInView({
@@ -27,7 +28,12 @@ export default function LazyImage({ src, blurhash, alt }: {
     }, [inView, src, blurhash]);
 
     return (
-        <div ref={imageRef} className="w-full h-full overflow-hidden relative rounded-md">
+        <div ref={imageRef} className={`w-full h-full overflow-hidden relative
+        ${typeof rounded === 'boolean'
+                ? (rounded ? 'rounded-md' : '')
+                : rounded
+            }`}
+        >
             {imageSrc ? (
                 <Image src={imageSrc} alt={alt} className="w-full h-full" fill priority style={{ objectFit: "cover" }} />
             ) : (
