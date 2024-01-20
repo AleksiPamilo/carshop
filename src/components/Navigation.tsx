@@ -18,7 +18,6 @@ export default function Navigation() {
     const currentLocale = pathname.split("/")[1];
     const [isMenuOpen, setIsMenuopen] = useState<boolean>(false);
 
-
     const handleIsMenuOpen = () => {
         setIsMenuopen(!isMenuOpen);
     };
@@ -56,6 +55,8 @@ export default function Navigation() {
                             </Link>
                         ))
                     }
+                    <SwitchLocale />
+                    <SwitchTheme />
                     <Login />
                 </div>
             </nav >

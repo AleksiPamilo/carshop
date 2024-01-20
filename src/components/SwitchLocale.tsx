@@ -14,7 +14,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
 export default function SwitchLocale() {
     const pathname = usePathname();
@@ -26,31 +26,31 @@ export default function SwitchLocale() {
         const segments = pathname.split("/");
         segments[1] = locale;
         return segments.join("/");
-    }
+    };
 
     const localeIcons: { [key: string]: JSX.Element } = {
-        fi: <Image src={FiIcon} alt="" width={24} height={24} />,
-        en: <Image src={GbIcon} alt="" width={24} height={24} />
-    }
+        fi: <Image className="rounded-sm" src={FiIcon} alt="fi-icon" width={34} height={30} />,
+        en: <Image className="rounded-sm" src={GbIcon} alt="gb-icon" width={34} height={30} />
+    };
 
     const data = Object.keys(dictionary.locales).map((locale) => ({
         locale,
         path: redirectedPathName(locale),
         icon: localeIcons[locale],
     }));
+
     const filteredData = data.filter(lang => lang.locale !== currentLang);
 
     return (
-
         <DropdownMenu>
             <DropdownMenuTrigger className="focus:outline-0">
                 {data.find(item => item.locale === currentLang)?.icon}
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="flex w-full items-center justify-center">
+            <DropdownMenuContent className="flex min-w-[1rem] items-center justify-center">
                 {
                     filteredData.map((item, index) => (
                         <div key={item.locale}>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem className="flex">
                                 <DropdownMenuLabel>
                                     <Link href={item.path}>
                                         <span>{item.icon}</span>
