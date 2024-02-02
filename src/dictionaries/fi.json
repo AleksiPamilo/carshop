@@ -1,4 +1,8 @@
 {
+    "beta": {
+        "title": "Tervetuloa autokaupan beta-versioon!",
+        "description": "Tämä verkkosivusto on tällä hetkellä betavaiheessa ja täysin keskeneräinen. Klikkaa 'Hae ajoneuvoa' tai puhelimella 'Muokkaa hakuehtoja' -painiketta testataksesi hakutoiminnallisuutta. Tutustu suodattimiin, kuten merkki, malli, käyttövoima, vuosimalli, hinta ja kilometrimäärä."
+    },
     "title": "Autokauppa",
     "loading": "Ladataan...",
     "common": {

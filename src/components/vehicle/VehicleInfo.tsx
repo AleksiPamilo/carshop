@@ -20,7 +20,7 @@ export default function VehicleInfo({ vehicle }: { vehicle: IVehicle }) {
             <h4 className="text-sm text-zinc-500">{vehicle.modelSpec}</h4>
             <VehicleDetailsList vehicle={vehicle} />
             <div>
-                <Button className="w-full" onClick={() => toast("Functionality coming soon, maybe :D")}>
+                <Button className="w-full text-white bg-blue-600 hover:bg-blue-700" onClick={() => toast("Functionality coming soon, maybe :D")}>
                     {dictionary.vehicles.contactSeller}
                 </Button>
             </div>

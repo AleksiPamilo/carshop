@@ -1,4 +1,8 @@
 {
+    "beta": {
+        "title": "Welcome to carshop Beta Version!",
+        "description": "This website is currently in the beta phase and completely unfinished. Click the 'Search for a vehicle' or on mobile, the 'Modify search criteria' button to test the search functionality. Explore filters such as brand, model, fuel type, year model, price, and mileage."
+    },
     "title": "Car Shop",
     "loading": "Loading...",
     "common": {
@@ -10,7 +14,7 @@
         "search": "Search",
         "searchBrand": "Search for a brand",
         "searchModel": "Search for a model",
-        "changeSearchCriteria": "Change the search criteria",
+        "changeSearchCriteria": "Modify search criteria",
         "moreOptions": "More options",
         "showLess": "Show less",
         "showMore": "Show more",
@@ -77,7 +81,7 @@
             "rwd": "Rear Wheel Drive",
             "awd": "All Wheel Drive"
         },
-        "fuelType": "Power type",
+        "fuelType": "Fuel type",
         "fuelTypes": {
             "petrol": "Petrol",
             "diesel": "Diesel",

@@ -20,39 +20,42 @@ export default function VehicleCard({ vehicle }: {
     const dictionary = useDictionary();
     const [images, error] = useCachedData<IVehicleImage>(`vehicleImages-${vehicle.id}`, `/api/images/get?vehicleId=${vehicle.id}`, vehicle.id);
 
+    const getVehicleUrl = (vehicle: IVehicle) => `/${vehicle.brandSlug}/${vehicle.modelSlug}/${vehicle.id}`;
+    const formatNumber = (num: number) => num.toLocaleString("en-US").replace(/,/g, ' ');
+
     if (error) {
         logger.error(error);
     }
 
     return (
-        <Link href={`/${vehicle.brandSlug}/${vehicle.modelSlug}/${vehicle.id}`}>
-            <Card className="w-80 h-[30rem] relative hover:cursor-pointer">
-                <div className="w-full h-2/5 relative flex items-center mb-6">
+        <Link href={getVehicleUrl(vehicle)}>
+            <Card className="w-96 h-[13rem] relative hover:cursor-pointer duration-200 hover:scale-110 hover:shadow-[0_3px_10px_#1d4ed8]">
+                <div className="absolute w-full h-full">
                     <LazyImage
                         src={images[0]?.imageUrl}
                         alt={`${vehicle.brandName} ${vehicle.modelName}`}
                         blurhash={images[0]?.blurhash}
-                        rounded="rounded-t-md"
+                        rounded
                     />
-                    <span id="tag" className="absolute bottom-0 left-4 font-bold text-white bg-blue-600 py-0.5 px-3 rounded-lg transform translate-y-1/2">
-                        {vehicle.basicInfo.price.toLocaleString("en-US").replace(/,/g, ' ')}€
-                    </span>
                 </div>
+                <CardContent className="flex flex-col p-4 absolute w-full h-full">
+                    <CardHeader className="flex flex-row items-center space-y-0 justify-between p-0 text-md font-bold">
+                        <p className="text-lg text-white">{`${vehicle.brandName} ${vehicle.modelName}`}</p>
 
-                <CardContent className="flex flex-col gap-y-2">
-                    <CardHeader className="p-0 text-md font-bold">
-                        {`${vehicle.brandName} ${vehicle.modelName}`}
+                        <span className="font-bold text-white bg-blue-600 py-0.5 px-3 rounded-lg">
+                            {vehicle.basicInfo.price.toLocaleString("en-US").replace(/,/g, ' ')}€
+                        </span>
                     </CardHeader>
 
-                    <CardDescription className="flex flex-col font-bold gap-1 mt-4 line-clamp-6">
+                    <CardDescription className="flex flex-col font-bold line-clamp-1 text-zinc-400">
                         {vehicle.modelSpec}
                     </CardDescription>
 
-                    <CardFooter className="absolute bottom-4 flex gap-2 p-0 text-sm text-zinc-500">
+                    <CardFooter className="absolute bottom-3 flex gap-2 p-0 text-sm text-white">
                         <span>{vehicle.basicInfo.year}</span>
                         <span>{dictionary.vehicles.fuelTypes[vehicle.technicalInfo.fuelType.toLowerCase() as keyof typeof dictionary.vehicles.fuelTypes]}</span>
                         <span>{dictionary.vehicles.transmissions[vehicle.technicalInfo.transmission.toLowerCase() as keyof typeof dictionary.vehicles.transmissions]}</span>
-                        <span>{vehicle.basicInfo.mileage.toLocaleString("en-US").replace(/,/g, ' ')} km</span>
+                        <span>{formatNumber(vehicle.basicInfo.mileage)} km</span>
                     </CardFooter>
                 </CardContent>
             </Card>

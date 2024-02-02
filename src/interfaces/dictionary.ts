@@ -1,6 +1,10 @@
 import { IVehicleCategory } from "./vehicle"
 
 export interface IDictionary {
+    beta: {
+        title: string,
+        description: string,
+    },
     title: string,
     loading: string,
     common: {
