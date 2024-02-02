@@ -22,6 +22,7 @@
         "previous": "Previous",
         "description": "Description",
         "features": "Features",
+        "salesAd": "Sales Ad",
         "min": "Minimum",
         "max": "Maximum",
         "close": "Close",

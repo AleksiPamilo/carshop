@@ -9,6 +9,7 @@ import VehicleDetails from '@/components/vehicle/VehicleDetails';
 import SearchCar from '@/components/search/SearchCar';
 import fetchVehicles from '@/utils/fetchVehicles';
 import logger from '@/utils/logger';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export default function VehiclesPage({ params }: {
     params: {
@@ -44,12 +45,20 @@ export default function VehiclesPage({ params }: {
     }, [page, brand, id, model, searchParams]);
 
     if (id) {
-        return VehicleDetails({ vehicle });
+        return <div>
+            <div className="mt-24 md:mt-6">
+                <Breadcrumbs />
+            </div>
+            <VehicleDetails vehicle={vehicle} />
+        </div>
     }
 
     return (
         <div>
             <SearchCar />
+            <div className="mt-6">
+                <Breadcrumbs />
+            </div>
             <VehicleList {...{ vehicles, page, setPage, pageAmount: totalPages }} />
         </div>
     )

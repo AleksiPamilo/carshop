@@ -22,6 +22,7 @@
         "previous": "Edellinen",
         "description": "Kuvaus",
         "features": "Varusteet",
+        "salesAd": "Myynti-ilmoitus",
         "min": "Minimi",
         "max": "Maksimi",
         "close": "Sulje",

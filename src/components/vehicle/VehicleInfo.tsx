@@ -11,8 +11,8 @@ export default function VehicleInfo({ vehicle }: { vehicle: IVehicle }) {
     return (
         <div className="w-full lg:w-[30rem] h-full lg:ml-4 flex flex-col gap-y-4">
             <div className="flex justify-between items-center">
-                <h1 className="text-xl font-bold">{vehicle.brandName} {vehicle.modelName}</h1>
-                <span className="text-xl font-bold text-blue-600">
+                <h1 className="text-base md:text-xl font-bold">{vehicle.brandName} {vehicle.modelName}</h1>
+                <span className="text-base md:text-xl font-bold text-blue-600">
                     {vehicle.basicInfo.price.toLocaleString("en-US").replace(/,/g, ' ')}€
                 </span>
             </div>

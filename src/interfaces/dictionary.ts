@@ -24,6 +24,7 @@ export interface IDictionary {
         previous: string,
         description: string,
         features: string,
+        salesAd: string,
         min: string,
         max: string,
         close: string,
