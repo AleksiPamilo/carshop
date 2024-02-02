@@ -29,7 +29,7 @@ export default function VehicleCard({ vehicle }: {
 
     return (
         <Link href={getVehicleUrl(vehicle)}>
-            <Card className="w-96 h-[13rem] relative hover:cursor-pointer duration-200 hover:scale-110 hover:shadow-[0_3px_10px_#1d4ed8]">
+            <Card className="w-96 h-[13rem] relative bg-zinc-300 dark:bg-zinc-900 hover:cursor-pointer duration-200 hover:scale-110 hover:shadow-[0_3px_10px_#1d4ed8]">
                 <div className="absolute w-full h-full">
                     <LazyImage
                         src={images[0]?.imageUrl}
