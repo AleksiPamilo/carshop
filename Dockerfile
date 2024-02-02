@@ -8,21 +8,22 @@ COPY prisma ./prisma/
 COPY .env.production .env
 
 RUN npm ci
-RUN npx prisma generate
 
 COPY . .
 
+RUN npx prisma generate
 RUN npm run build
 
 # Production stage
-FROM node:20.10.0-alpine
+FROM node:16.13.0-alpine
 
 WORKDIR /app
 
 COPY --from=build /app/package*.json ./
 COPY --from=build /app/.next ./.next
 COPY --from=build /app/public ./public
-COPY --from=build /app/node_modules ./node_modules
+
+RUN npm ci --only=production
 
 EXPOSE 3000
 
