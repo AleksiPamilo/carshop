@@ -12,7 +12,6 @@ COPY . .
 
 COPY .env.production .env
 
-RUN npx prisma generate
 RUN npm run build
 
 # Production stage
@@ -30,4 +29,4 @@ RUN npm install -g prisma
 
 EXPOSE 3000
 
-CMD [ "npm", "start" ]
+CMD ["sh", "-c", "npx prisma generate && npm start"]
