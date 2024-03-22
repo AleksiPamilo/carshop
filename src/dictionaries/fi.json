@@ -20,6 +20,8 @@
         "showMore": "Näytä enemmän",
         "next": "Seuraava",
         "previous": "Edellinen",
+        "returnToFrontPage": "Palaa etusivulle",
+        "emailSent": "Sähköposti lähetetty",
         "description": "Kuvaus",
         "features": "Varusteet",
         "salesAd": "Myynti-ilmoitus",
@@ -136,22 +138,45 @@
         "email": "Sähköposti",
         "dontHaveAccount": "Ei vielä tunnusta?",
         "alreadyHaveAccount": "Onko sinulla jo tunnus?",
-        "forgotPassword": "Unohditko salasanan?",
+        "forgotPassword": "Unohditko salasanasi?",
         "resetPassword": "Nollaa salasana",
+        "passwordResetInstructions": "Ole hyvä ja anna sähköpostiosoitteesi, jotta voimme lähettää sinulle ohjeet salasanan vaihtamiseksi!",
+        "passwordResetNotification": "Mikäli käyttäjä on olemassa, lähetimme sähköpostiin ohjeet salasanan palauttamista varten!",
         "newPassword": "Uusi salasana",
+        "selectNewPassword": "Valitse uusi salasana",
         "confirmPassword": "Vahvista salasana",
         "changePassword": "Vaihda salasana",
+        "passwordChanged": {
+            "title": "Salasana vaihdettu",
+            "desc": "Salasanasi vaihdettiin onnistuneesti! Voit nyt poistua tältä sivulta."
+        },
         "errors": {
             "username": "Käyttäjänimi on pakollinen",
             "usernameTaken": "Käyttäjänimi on jo käytössä",
             "password": "Salasana on pakollinen",
             "passwordLength": "Salasanan tulee olla vähintään 6 merkkiä pitkä",
             "passwordsDontMatch": "Salasanat eivät täsmää",
+            "invalidPassword": "Salasana ei ole kelvollinen. Salasanan tulee sisältää vähintään yksi iso kirjain, erikoismerkki ja olla vähintään 6 merkkiä pitkä.",
             "email": "Sähköposti on pakollinen",
             "emailInvalid": "Sähköposti on virheellinen",
             "emptyFields": "Täytä kaikki kentät",
             "incorrectCredentials": "Väärä käyttäjänimi tai salasana",
-            "unknownError": "Tapahtui odottamaton virhe"
+            "unknownError": "Tapahtui odottamaton virhe",
+            "invalidToken": {
+                "title": "Virheellinen tunnus",
+                "desc": "Antamasi tunnus on virheellinen tai vanhentunut. Tämä voi johtua väärin luodusta tunnuksesta tai sen vanhentumisesta sallitun ajan yli. Ole hyvä ja luo uusi tunnus tai ota yhteyttä tukeen lisäohjeiden saamiseksi (Virhekoodi: 401)."
+            }
+        }
+    },
+    "emails": {
+        "resetPassword": {
+            "subject": "Salasanan nollaaminen",
+            "greeting": "Hei",
+            "requestReset": "Saimme pyynnön salasanasi nollaamiseksi.",
+            "ifNotRequested": "Jos et pyytänyt salasanan nollaamista, sähköpostiosoitteesi on voitu syöttää vahingossa, ja voit turvallisesti ohittaa tämän viestin.",
+            "regards": "Ystävällisin terveisin",
+            "clickHereToReset": "Klikkaa tästä nollataksesi salasanasi!",
+            "companyName": "Autokauppa"
         }
     },
     "navigation": [

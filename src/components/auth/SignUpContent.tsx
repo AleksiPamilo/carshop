@@ -4,9 +4,10 @@ import { Input } from "../ui/input";
 import { useDictionary } from "../context/DictionaryProvider";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
+import validateEmail from "@/utils/validateEmail";
 
 export default function SignUpContent({ closeDialog }: {
-    closeDialog: (value: boolean) => void
+    closeDialog: () => void
 }) {
     const dictionary = useDictionary();
     const emailRef = useRef<HTMLInputElement>(null);
@@ -15,6 +16,16 @@ export default function SignUpContent({ closeDialog }: {
     const passwordConfirmRef = useRef<HTMLInputElement>(null);
 
     const submit = () => {
+        if (!emailRef.current?.value || !emailRef.current?.value || !passwordRef.current?.value || !passwordConfirmRef.current?.value) {
+            toast.error(dictionary.auth.errors.emptyFields);
+            return;
+        }
+
+        if (!validateEmail(emailRef.current?.value)) {
+            toast.error(dictionary.auth.errors.emailInvalid);
+            return;
+        }
+
         if (passwordRef.current?.value !== passwordConfirmRef.current?.value) {
             toast.error(dictionary.auth.errors.passwordsDontMatch);
             return;
@@ -38,7 +49,7 @@ export default function SignUpContent({ closeDialog }: {
         })
             .then(() => {
                 toast.success(dictionary.auth.signUpSuccess);
-                closeDialog(true);
+                closeDialog();
             })
             .catch(() => {
                 toast.error(dictionary.auth.errors.unknownError);

@@ -20,6 +20,8 @@
         "showMore": "Show more",
         "next": "Next",
         "previous": "Previous",
+        "returnToFrontPage": "Return to front page",
+        "emailSent": "Email sent",
         "description": "Description",
         "features": "Features",
         "salesAd": "Sales Ad",
@@ -138,20 +140,43 @@
         "alreadyHaveAccount": "Already have an account?",
         "forgotPassword": "Forgot Password?",
         "resetPassword": "Reset Password",
+        "passwordResetInstructions": "Please enter your email address so we can send you instructions for password reset!",
+        "passwordResetNotification": "If the user exists, we sent instructions to reset the password to their email!",
         "newPassword": "New Password",
+        "selectNewPassword": "Select new password",
         "confirmPassword": "Confirm Password",
         "changePassword": "Change Password",
+        "passwordChanged": {
+            "title": "Password changed",
+            "desc": "Your password was changed successfully! You can now exit this page."
+        },
         "errors": {
             "username": "Username is required",
             "usernameTaken": "Username is already taken",
             "password": "Password is required",
             "passwordLength": "Password must be at least 6 characters long",
             "passwordsDontMatch": "Passwords don't match",
+            "invalidPassword": "Invalid password. The password must contain at least one uppercase letter, special character, and be at least 6 characters long.",
             "email": "Email is required",
             "emailInvalid": "Email is invalid",
             "emptyFields": "Please fill in all the fields",
             "incorrectCredentials": "Incorrect username or password",
-            "unknownError": "Unexpected error occurred"
+            "unknownError": "Unexpected error occurred",
+            "invalidToken": {
+                "title": "Invalid token",
+                "desc": "The token you provided is invalid or has expired. This could be due to incorrect generation or expiration beyond the allowed timeframe. Please generate a new token or reach out to support for further assistance (Error Code: 401)."
+            }
+        }
+    },
+    "emails": {
+        "resetPassword": {
+            "subject": "Password Reset",
+            "greeting": "Hello",
+            "requestReset": "We received a request to reset your password.",
+            "ifNotRequested": "If you didn't request a password reset, your email address might have been entered by mistake, and you can safely ignore this message.",
+            "regards": "Best regards",
+            "clickHereToReset": "Click here to reset password!",
+            "companyName": "Car Shop"
         }
     },
     "navigation": [

@@ -8,15 +8,17 @@ datasource db {
 }
 
 model User {
-  id            String    @id @unique @default(cuid())
-  name          String    @unique
-  password      String
-  email         String    @unique
-  emailVerified DateTime? @map("email_verified")
-  phone         String?
-  phoneVerified DateTime? @map("phone_verified")
-  createdAt     DateTime  @default(now())
-  vehicles      Vehicle[]
+  id                String    @id @unique @default(cuid())
+  name              String    @unique
+  password          String
+  email             String    @unique
+  emailVerified     DateTime? @map("email_verified")
+  phone             String?
+  phoneVerified     DateTime? @map("phone_verified")
+  createdAt         DateTime  @default(now())
+  vehicles          Vehicle[]
+  resetToken        String?   @unique
+  resetTokenExpires DateTime?
 
   @@map("users")
 }

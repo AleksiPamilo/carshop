@@ -7,12 +7,12 @@ import { useState } from "react";
 
 export default function Login() {
     const dictionary = useDictionary();
-    const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
+    const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
-    const toggleDialog = (bool: boolean) => setDialogOpen(!bool);
+    const closeDialog = () => setIsDialogOpen(false);
 
     return (
-        <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger className="h-10 px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
                 {dictionary.auth.signIn}
             </DialogTrigger>
@@ -24,11 +24,11 @@ export default function Login() {
                     </TabsList>
 
                     <TabsContent value="signIn">
-                        <LoginContent closeDialog={toggleDialog} />
+                        <LoginContent {...{ closeDialog }} />
                     </TabsContent>
 
                     <TabsContent value="signUp">
-                        <SignUpContent closeDialog={toggleDialog} />
+                        <SignUpContent {...{ closeDialog }} />
                     </TabsContent>
                 </Tabs>
             </DialogContent>

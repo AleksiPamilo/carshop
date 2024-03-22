@@ -1,13 +1,16 @@
-import { useRef } from "react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useRef, useState } from "react";
 import PasswordInput from "../PasswordInput";
 import { Input } from "../ui/input";
 import { useDictionary } from "../context/DictionaryProvider";
 import { Button } from "../ui/button";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
+import Link from "next/link";
+import ResetPassword from "./ResetPassword";
 
 export default function LoginContent({ closeDialog }: {
-    closeDialog: (value: boolean) => void
+    closeDialog: () => void
 }) {
     const dictionary = useDictionary();
     const emailRef = useRef<HTMLInputElement>(null);
@@ -32,7 +35,7 @@ export default function LoginContent({ closeDialog }: {
             }
 
             toast.success(dictionary.auth.signInSuccess);
-            closeDialog(true);
+            closeDialog();
         } catch {
             toast.error(dictionary.auth.errors.unknownError);
         }
@@ -50,7 +53,9 @@ export default function LoginContent({ closeDialog }: {
                 />
                 <PasswordInput ref={passwordRef} />
             </div>
-            <Button className="mt-4 w-full" onClick={submit}>{dictionary.auth.signIn}</Button>
+
+            <ResetPassword closeDialog={closeDialog} />
+            <Button className="w-full" onClick={submit}>{dictionary.auth.signIn}</Button>
         </div>
     )
 }

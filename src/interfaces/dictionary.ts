@@ -22,6 +22,8 @@ export interface IDictionary {
         showMore: string,
         next: string,
         previous: string,
+        returnToFrontPage: string,
+        emailSent: string,
         description: string,
         features: string,
         salesAd: string,
@@ -129,7 +131,14 @@ export interface IDictionary {
         alreadyHaveAccount: string,
         forgotPassword: string,
         resetPassword: string,
+        passwordResetInstructions: string,
+        passwordResetNotification: string,
         newPassword: string,
+        selectNewPassword: string,
+        passwordChanged: {
+            title: string,
+            desc: string,
+        },
         confirmPassword: string,
         errors: {
             username: string,
@@ -137,11 +146,27 @@ export interface IDictionary {
             password: string,
             passwordLength: string,
             passwordsDontMatch: string,
+            invalidPassword: string,
             email: string,
             emailInvalid: string,
             emptyFields: string,
             incorrectCredentials: string,
             unknownError: string,
+            invalidToken: {
+                title: string,
+                desc: string,
+            }
+        }
+    },
+    emails: {
+        resetPassword: {
+            subject: string,
+            greeting: string,
+            requestReset: string,
+            ifNotRequested: string,
+            regards: string,
+            companyName: string,
+            clickHereToReset: string,
         }
     },
     navigation: {

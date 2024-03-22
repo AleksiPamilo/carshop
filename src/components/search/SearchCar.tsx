@@ -98,7 +98,7 @@ export default function SearchCar() {
                 queryParams
             }} />
 
-            <div className="w-max md:w-[90%] lg:w-4/5 xl:w-3/5 h-full p-4 rounded-md shadow-md hidden md:flex flex-wrap md:flex-nowrap gap-3 md:gap-0 items-center justify-between bg-zinc-50 dark:bg-zinc-900">
+            <div className="w-max md:w-[90%] lg:w-4/5 xl:w-3/5 h-full p-4 rounded-md shadow-md hidden md:flex flex-wrap md:flex-nowrap gap-3 md:gap-0 items-center justify-between border border-zinc-200 dark:border-zinc-900 backdrop-blur-[1px]">
                 <SearchForm {...{
                     brands,
                     models,
