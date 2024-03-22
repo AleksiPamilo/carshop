@@ -24,6 +24,7 @@ export interface IDictionary {
         previous: string,
         returnToFrontPage: string,
         emailSent: string,
+        showcase: string,
         description: string,
         features: string,
         salesAd: string,
