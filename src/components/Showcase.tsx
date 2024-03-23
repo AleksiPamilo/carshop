@@ -8,7 +8,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function Showcase() {
     const dictionary = useDictionary();
-    const [vehicles, setVehicles] = useState<IVehicle[]>();
+    const [vehicles, setVehicles] = useState<IVehicle[]>([]);
 
     useEffect(() => {
         (async () => {
@@ -19,11 +19,12 @@ export default function Showcase() {
         })();
     }, []);
 
+    if (vehicles.length === 0) return null;
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             <h1 className="md:col-span-2 xl:col-span-3 text-xl font-semibold">{dictionary.common.showcase}</h1>
             {
-                vehicles &&
                 vehicles.map(vehicle => (
                     <div>
                         <VehicleCard vehicle={vehicle} />
