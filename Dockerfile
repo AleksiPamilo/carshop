@@ -26,7 +26,7 @@ COPY --from=build /app/public ./public
 COPY --from=build /app/prisma ./prisma/
 
 RUN npm ci --only=production
-RUN npx install -g prisma
+RUN npm install -g prisma
 
 EXPOSE 3000
 
