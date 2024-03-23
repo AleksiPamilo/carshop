@@ -10,7 +10,7 @@ RUN npm ci
 
 COPY . .
 
-COPY .env.production .env
+COPY .env .env
 
 RUN npx prisma generate
 RUN npm run build
