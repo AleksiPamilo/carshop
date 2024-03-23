@@ -12,6 +12,7 @@ COPY . .
 
 COPY .env.production .env
 
+RUN npx prisma generate
 RUN npm run build
 
 # Production stage
