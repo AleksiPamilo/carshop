@@ -24,6 +24,7 @@ COPY --from=build /app/package*.json ./
 COPY --from=build /app/.next ./.next
 COPY --from=build /app/public ./public
 COPY --from=build /app/prisma ./prisma/
+COPY --from=build /app/.env ./.env.production
 
 RUN npm ci --only=production
 RUN npm install -g prisma
