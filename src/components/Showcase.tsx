@@ -8,18 +8,22 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function Showcase() {
     const dictionary = useDictionary();
-    const [vehicles, setVehicles] = useState<IVehicle[]>([]);
+    const [vehicles, setVehicles] = useState<IVehicle[] | null>(null);
 
     useEffect(() => {
         (async () => {
             const res = await fetch(`${API_URL}/vehicles/newest?amount=6`);
             const json = await res.json();
 
-            setVehicles(json.data);
+            if (Array.isArray(json.data)) {
+                setVehicles(json.data);
+            } else {
+                setVehicles(null);
+            }
         })();
     }, []);
 
-    if (vehicles.length === 0) return null;
+    if (!vehicles || vehicles?.length === 0) return null;
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
