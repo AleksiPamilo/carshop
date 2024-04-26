@@ -1,7 +1,8 @@
 {
     "beta": {
         "title": "Tervetuloa autokaupan beta-versioon!",
-        "description": "Tämä verkkosivusto on tällä hetkellä betavaiheessa ja täysin keskeneräinen. Klikkaa 'Hae ajoneuvoa' tai puhelimella 'Muokkaa hakuehtoja' -painiketta testataksesi hakutoiminnallisuutta. Tutustu suodattimiin, kuten merkki, malli, käyttövoima, vuosimalli, hinta ja kilometrimäärä."
+        "description": "Tämä verkkosivusto on tällä hetkellä betavaiheessa ja täysin keskeneräinen. Klikkaa 'Hae ajoneuvoa' tai puhelimella 'Muokkaa hakuehtoja' -painiketta testataksesi hakutoiminnallisuutta. Tutustu suodattimiin, kuten merkki, malli, käyttövoima, vuosimalli, hinta ja kilometrimäärä.",
+        "startTesting": "Aloita testailu!"
     },
     "title": "Autokauppa",
     "loading": "Ladataan...",
@@ -56,8 +57,42 @@
     "vehicles": {
         "title": "Otsikko",
         "contactSeller": "Ota yhteyttä myyjään",
-        "techInfo": "Tekniset tiedot",
-        "basicInfo": "Perustiedot",
+        "techInfo": {
+            "title": "Tekniset tiedot",
+            "fuelType": "Polttoainetyyppi",
+            "engineSize": "Moottorin tilavuus",
+            "drivetrain": "Vetotapa",
+            "transmission": "Vaihteisto",
+            "seats": "Paikkamäärä",
+            "doors": "Ovien lukumäärä",
+            "power": "Teho",
+            "torque": "Vääntömomentti",
+            "topSpeed": "Huippunopeus",
+            "acceleration": "Kiihtyvyys",
+            "co2Emission": "CO2-päästöt",
+            "fuelCapacity": "Polttoainesäiliön tilavuus",
+            "fuelConsumption": "Polttoaineen kulutus",
+            "fuelConsumptionId": "Polttoaineen kulutuksen tunniste",
+            "weight": "Paino",
+            "totalWeight": "Kokonaispaino",
+            "towWeightWithoutBrakes": "Vetopaino ilman jarruja",
+            "towWeightWithBrakes": "Vetopaino jarrujen kanssa"
+        },
+        "basicInfo": {
+            "title": "Perustiedot",
+            "year": "Vuosi",
+            "driverSide": "Kuljettajan puoli",
+            "licensePlate": "Rekisterikilpi",
+            "firstRegistration": "Ensirekisteröinti",
+            "inspectionDate": "Katsastuspäivä",
+            "previousOwners": "Edelliset omistajat",
+            "color": "Väri",
+            "paintType": "Maalityyppi",
+            "description": "Kuvaus",
+            "mileage": "Ajomäärä",
+            "price": "Hinta",
+            "features": "Ominaisuudet"
+        },
         "all": "Kaikki ajoneuvot",
         "add": "Lisää",
         "edit": "Muokkaa",

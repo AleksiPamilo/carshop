@@ -4,6 +4,7 @@ export interface IDictionary {
     beta: {
         title: string,
         description: string,
+        startTesting: string,
     },
     title: string,
     loading: string,
@@ -58,8 +59,42 @@ export interface IDictionary {
     vehicles: {
         title: string,
         contactSeller: string,
-        techInfo: string,
-        basicInfo: string,
+        techInfo: {
+            title: string;
+            fuelType: string;
+            engineSize: string;
+            drivetrain: string;
+            transmission: string;
+            seats: string;
+            doors: string;
+            power: string;
+            torque: string;
+            topSpeed: string;
+            acceleration: string;
+            co2Emission: string;
+            fuelCapacity: string;
+            fuelConsumption: string;
+            fuelConsumptionId: string;
+            weight: string;
+            totalWeight: string;
+            towWeightWithoutBrakes: string;
+            towWeightWithBrakes: string;
+        },
+        basicInfo: {
+            title: string;
+            year: string;
+            driverSide: string;
+            licensePlate: string;
+            firstRegistration: string;
+            inspectionDate: string;
+            previousOwners: string;
+            color: string;
+            paintType: string;
+            description: string;
+            mileage: string;
+            price: string;
+            features: string;
+        },
         all: string,
         add: string,
         edit: string,

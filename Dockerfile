@@ -31,4 +31,4 @@ RUN npm install -g prisma
 
 EXPOSE 3000
 
-CMD npx prisma generate && npm start
+CMD ["npm", "start"]

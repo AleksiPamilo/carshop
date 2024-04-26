@@ -1,7 +1,8 @@
 {
     "beta": {
         "title": "Welcome to carshop Beta Version!",
-        "description": "This website is currently in the beta phase and completely unfinished. Click the 'Search for a vehicle' or on mobile, the 'Modify search criteria' button to test the search functionality. Explore filters such as brand, model, fuel type, year model, price, and mileage."
+        "description": "This website is currently in the beta phase and completely unfinished. Click the 'Search for a vehicle' or on mobile, the 'Modify search criteria' button to test the search functionality. Explore filters such as brand, model, fuel type, year model, price, and mileage.",
+        "startTesting": "Start testing!"
     },
     "title": "Car Shop",
     "loading": "Loading...",
@@ -56,8 +57,42 @@
     "vehicles": {
         "title": "Title",
         "contactSeller": "Contact Seller",
-        "techInfo": "Technical Information",
-        "basicInfo": "Basic Information",
+        "techInfo": {
+            "title": "Technical Information",
+            "fuelType": "Fuel Type",
+            "engineSize": "Engine Size",
+            "drivetrain": "Drivetrain",
+            "transmission": "Transmission",
+            "seats": "Seats",
+            "doors": "Number of Doors",
+            "power": "Power",
+            "torque": "Torque",
+            "topSpeed": "Top Speed",
+            "acceleration": "Acceleration",
+            "co2Emission": "CO2 Emission",
+            "fuelCapacity": "Fuel Capacity",
+            "fuelConsumption": "Fuel Consumption",
+            "fuelConsumptionId": "Fuel Consumption ID",
+            "weight": "Weight",
+            "totalWeight": "Total Weight",
+            "towWeightWithoutBrakes": "Tow Weight Without Brakes",
+            "towWeightWithBrakes": "Tow Weight With Brakes"
+        },
+        "basicInfo": {
+            "title": "Basic Info",
+            "year": "Year",
+            "driverSide": "Driver Side",
+            "licensePlate": "License Plate",
+            "firstRegistration": "First Registration",
+            "inspectionDate": "Inspection Date",
+            "previousOwners": "Previous Owners",
+            "color": "Color",
+            "paintType": "Paint Type",
+            "description": "Description",
+            "mileage": "Mileage",
+            "price": "Price",
+            "features": "Features"
+        },
         "all": "All Vehicles",
         "add": "Add",
         "edit": "Edit",
