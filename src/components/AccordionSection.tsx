@@ -9,13 +9,14 @@ export default function AccordionSection({ title, inputs }: {
         label: string;
         name: string;
         type: string;
+        required: boolean;
     }[]
 }) {
     return (
         <AccordionContent className="flex flex-col gap-3">
             {inputs.map(input => (
                 <label key={input.name}>
-                    <Input type={input.type} placeholder={input.label} />
+                    <Input type={input.type} placeholder={input.label} required={input.required} />
                 </label>
             ))}
         </AccordionContent>

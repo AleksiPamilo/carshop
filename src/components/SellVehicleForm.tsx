@@ -1,60 +1,42 @@
+import { basicInfoInputs, techInfoInputs } from "@/data/inputs";
 import AccordionSection from "./AccordionSection";
 import { useDictionary } from "./context/DictionaryProvider";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
-
-import type { IBasicInfo, ITechnicalInfo } from "@/interfaces/vehicle";
+import { Button } from "./ui/button";
 
 export default function SellVehicleForm() {
     const dictionary = useDictionary();
 
     const sections = [
         {
-            data: generateSectionData(Object.keys(dictionary.vehicles.basicInfo), dictionary, dictionary.vehicles.basicInfo.title)
+            title: dictionary.vehicles.basicInfo.title,
+            inputs: basicInfoInputs.map(input => ({
+                ...input,
+                label: (dictionary.vehicles.basicInfo as Record<string, string>)[input.name],
+            }))
         },
         {
-            data: generateSectionData(Object.keys(dictionary.vehicles.techInfo), dictionary, dictionary.vehicles.techInfo.title)
+            title: dictionary.vehicles.techInfo.title,
+            inputs: techInfoInputs.map(input => ({
+                ...input,
+                label: (dictionary.vehicles.techInfo as Record<string, string>)[input.name],
+            }))
         }
     ];
 
     return (
-        <Accordion type="single" collapsible>
-            {sections.map((section, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                    <AccordionTrigger>{section.data.title}</AccordionTrigger>
-                    <AccordionContent>
-                        <AccordionSection title={section.data.title} inputs={section.data.inputs} />
-                    </AccordionContent>
-                </AccordionItem>
-            ))}
-        </Accordion>
+        <div className="flex flex-col gap-3">
+            <Accordion type="single" collapsible>
+                {sections.map((section, index) => (
+                    <AccordionItem key={index} value={`item-${index}`}>
+                        <AccordionTrigger>{section.title}</AccordionTrigger>
+                        <AccordionContent>
+                            <AccordionSection title={section.title} inputs={section.inputs} />
+                        </AccordionContent>
+                    </AccordionItem>
+                ))}
+            </Accordion>
+            <Button className="w-full">{dictionary.common.createAd}</Button>
+        </div>
     );
 };
-
-function generateSectionData(columns: string[], dictionary: any, title: string) {
-    return {
-        title: title,
-        inputs: generateInputs(columns, dictionary)
-    };
-}
-
-function generateInputs(columns: string[], dictionary: any): any[] {
-    const inputs: any[] = [];
-    for (const key of columns) {
-        if (key !== 'id' && key !== 'features' && key !== 'title') {
-            const isNumeric = isNumericColumn(key);
-            const localizedLabel = dictionary.vehicles.techInfo[key] ?? dictionary.vehicles.basicInfo[key];
-
-            inputs.push({
-                label: localizedLabel,
-                name: key,
-                type: isNumeric ? 'number' : 'text'
-            });
-        }
-    }
-
-    return inputs;
-}
-
-function isNumericColumn(column: string): boolean {
-    return column in ({} as IBasicInfo) || column in ({} as ITechnicalInfo);
-}

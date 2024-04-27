@@ -42,6 +42,7 @@ export interface IDictionary {
         success: string,
         warning: string,
         info: string,
+        createAd: string,
         errors: {
             unknown: string,
             notFound: string,
@@ -59,6 +60,23 @@ export interface IDictionary {
     vehicles: {
         title: string,
         contactSeller: string,
+        basicInfo: {
+            title: string;
+            brand: string;
+            model: string;
+            year: string;
+            driverSide: string;
+            licensePlate: string;
+            firstRegistration: string;
+            inspectionDate: string;
+            previousOwners: string;
+            color: string;
+            paintType: string;
+            description: string;
+            mileage: string;
+            price: string;
+            features: string;
+        },
         techInfo: {
             title: string;
             fuelType: string;
@@ -74,26 +92,10 @@ export interface IDictionary {
             co2Emission: string;
             fuelCapacity: string;
             fuelConsumption: string;
-            fuelConsumptionId: string;
             weight: string;
             totalWeight: string;
             towWeightWithoutBrakes: string;
             towWeightWithBrakes: string;
-        },
-        basicInfo: {
-            title: string;
-            year: string;
-            driverSide: string;
-            licensePlate: string;
-            firstRegistration: string;
-            inspectionDate: string;
-            previousOwners: string;
-            color: string;
-            paintType: string;
-            description: string;
-            mileage: string;
-            price: string;
-            features: string;
         },
         all: string,
         add: string,

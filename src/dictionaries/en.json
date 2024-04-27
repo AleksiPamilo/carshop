@@ -40,6 +40,7 @@
         "success": "Success",
         "warning": "Warning",
         "info": "Info",
+        "createAd": "Create Ad",
         "errors": {
             "unknown": "Unknown",
             "notFound": "Not Found",
@@ -72,7 +73,6 @@
             "co2Emission": "CO2 Emission",
             "fuelCapacity": "Fuel Capacity",
             "fuelConsumption": "Fuel Consumption",
-            "fuelConsumptionId": "Fuel Consumption ID",
             "weight": "Weight",
             "totalWeight": "Total Weight",
             "towWeightWithoutBrakes": "Tow Weight Without Brakes",
@@ -80,6 +80,8 @@
         },
         "basicInfo": {
             "title": "Basic Info",
+            "brand": "Brand",
+            "model": "Model",
             "year": "Year",
             "driverSide": "Driver Side",
             "licensePlate": "License Plate",
