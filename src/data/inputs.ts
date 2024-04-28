@@ -6,8 +6,8 @@ type InputType = {
 
 export const basicInfoInputs: InputType[] = [
 
-    { name: "brand", type: "number", required: true },
-    { name: "model", type: "number", required: true },
+    { name: "brand", type: "text", required: true },
+    { name: "model", type: "text", required: true },
     { name: "year", type: "number", required: true },
     { name: "driverSide", type: "text", required: false },
     { name: "licensePlate", type: "text", required: true },
